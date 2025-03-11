@@ -1,0 +1,40 @@
+.aside-tab {
+    position: fixed;
+    left: 0;
+    top: 50 px;
+    width: 200px;
+    height: 100vh;
+    /* background: #d3d5d8; */
+    /* Dark blue-gray */
+    color: black;
+    padding-top: 20px;
+    /* box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1); */
+    border-right: solid 1px rgb(221, 218, 218);
+}
+
+.aside-tab ul {
+    list-style: none;
+    padding: 0;
+}
+
+.aside-tab ul li {
+    padding: 15px 20px;
+}
+
+.aside-tab ul li a {
+    color: rgb(8, 6, 6);
+    text-decoration: none;
+    display: block;
+    font-size: larger;
+}
+
+.aside-tab ul li a:hover {
+    color: black;
+}
+
+
+.selectTemplate:hover{
+    box-shadow: inset 0 -3em 3em rgba(249, 250, 249, 0.3),
+    
+    0.3em 0.3em 1em rgba(145, 143, 143, 0.6);;
+}
