@@ -74,7 +74,7 @@ function Templates() {
                     </div>
                     {/* ======================================================================= */}
                     <div className='d-flex mb-3 border p-3 mt-3'>
-                        <div className='w-25'>
+                        <div className='w-25 d-flex justify-content-center'>
                             <img style={{ height: "150px", width: "200px" }} src={one} alt="No Image" />
                         </div>
                         <div className='w-75 ms-3'>
@@ -91,9 +91,7 @@ function Templates() {
                     </div>
                     {/* ------------------------------------------------------------------- */}
                     <div className='d-flex mb-3 border p-3'>
-                        <div className='w-25'>
-                            <img style={{ height: "150px", width: "200px" }} src={choose} alt="No Image" />
-                        </div>
+                        
                         <div className='w-75 ms-3'>
                             <p className='fs-4'>How To Choose The Right Account For Your Investments</p>
                             <p className='fs-4'>
@@ -105,9 +103,47 @@ function Templates() {
                                 </button>
                             </div>
                         </div>
+                        <div className='w-25 ms-5 d-flex justify-content-center'>
+                            <img style={{ height: "150px", width: "200px" }} src={choose} alt="No Image" />
+                        </div>
                     </div>
                     {/* ............................................................................. */}
-                    
+                    <div className='d-flex justify-content-between'> 
+                    <div className=' mb-3 border p-3  w-50'>
+                        
+                        <div className='w-100 ms-3'>
+                            <p className='fs-4'>How To Choose The Right Account For Your Investments</p>
+                            <p className='fs-4'>
+                                Learn how to choose the right account type and set investment goals you can achieve.
+                            </p>
+                            <div className='d-flex justify-content-between'> <a className='fs-5' target='_blank' href="https://www.questrade.com/learning/investment-concepts/accounts-101/how-to-choose-the-right-account-for-your-investments?%20s_cid=QFGBLOG_019_email_qcom_lead_pulse&eml=QFGBLOG_019_QPULSE030924_email_qcom_lead_pulse&utm_medium=email&utm_source=qcom&utm_campaign=QFGBLOG_019&utm_content=lead_pulse&mkt_tok=NDYzLUFUUy0yODIAAAGTu2DPsZ1CDKrGniPm60b-dPRv4BAzj0PS7LHXcXEDfBlY8nmLxpRx5NsCW_oZMNdVxtU0-5s1ZeNlWpkGp53fkBt3r2aDvJoRKJDkVpa6#how-to-choose-the-right-account-for-your-investments">Read More </a>
+                                <button className='btn border me-5 '>
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div className='  w-100  mt-5 d-flex justify-content-center'>
+                            <img style={{ height: "150px", width: "200px" }} src={choose} alt="No Image" />
+                        </div>
+                    </div>
+                    <div className=' mb-3 border p-3  w-50'>
+                    <div className='  w-100 d-flex mb-4 justify-content-center'>
+                            <img style={{ height: "150px", width: "200px" }} src={one} alt="No Image" />
+                        </div>
+                        <div className='w-100 ms-3'>
+                            <p className='fs-4'>How To Choose The Right Account For Your Investments</p>
+                            <p className='fs-4'>
+                                Learn how to choose the right account type and set investment goals you can achieve.
+                            </p>
+                            <div className='d-flex justify-content-between'> <a className='fs-5' target='_blank' href="https://www.questrade.com/learning/investment-concepts/accounts-101/how-to-choose-the-right-account-for-your-investments?%20s_cid=QFGBLOG_019_email_qcom_lead_pulse&eml=QFGBLOG_019_QPULSE030924_email_qcom_lead_pulse&utm_medium=email&utm_source=qcom&utm_campaign=QFGBLOG_019&utm_content=lead_pulse&mkt_tok=NDYzLUFUUy0yODIAAAGTu2DPsZ1CDKrGniPm60b-dPRv4BAzj0PS7LHXcXEDfBlY8nmLxpRx5NsCW_oZMNdVxtU0-5s1ZeNlWpkGp53fkBt3r2aDvJoRKJDkVpa6#how-to-choose-the-right-account-for-your-investments">Read More </a>
+                                <button className='btn border me-5 '>
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </button>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    </div>
                 </div>
 
             </div>

@@ -18,7 +18,7 @@
 }
 
 .aside-tab ul li {
-    padding: 15px 20px;
+    padding: 6px 20px;
 }
 
 .aside-tab ul li a {
@@ -35,6 +35,5 @@
 
 .selectTemplate:hover{
     box-shadow: inset 0 -3em 3em rgba(249, 250, 249, 0.3),
-    
     0.3em 0.3em 1em rgba(145, 143, 143, 0.6);;
 }

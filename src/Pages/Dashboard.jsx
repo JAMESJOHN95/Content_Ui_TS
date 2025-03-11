@@ -22,7 +22,7 @@ navigate('/templates')
         <>
             <div className='dashboard'>
                 <Layout />
-                <div style={{ marginLeft: "200px", marginTop: "1px" }} className=' mb-3 border p-3 flex-column  text-center fs-5 pt-5 pb-5'>
+                <div style={{ marginLeft: "200px", marginTop: "1px" }} className=' mb-3 p-3 flex-column  text-center fs-5 pt-5 pb-5'>
 
                     <h2 className="bold">Design Your Content BLock</h2>
 
