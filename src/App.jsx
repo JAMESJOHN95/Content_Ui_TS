@@ -11,12 +11,12 @@ function App() {
 
   return (
     <>
-      
+      <Layout/>
         <Routes>
-          <Route path='/' element={<Layout/>}/>
+          <Route path='/' element={<Home/>}/>
           <Route path='/dashoard' element={<Dashboard />} />
           <Route path='/templates' element={<Templates />} />
-          <Route path='/home' element={<Home/>}/>
+          {/* <Route path='/home' element={<Home/>}/> */}
         </Routes>
       </>
   )
