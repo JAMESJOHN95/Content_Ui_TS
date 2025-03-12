@@ -5,10 +5,25 @@ function Home() {
     return (
         <>
         <Layout/>
-            <div className='text-center' style={{ marginTop: "100px" }}>
-                <h1>WELCOME !</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias ipsa dicta natus cum molestiae, quasi perferendis eveniet <br />  fugiat quam harumbr repudiandae architecto optio doloremque earum, ad totam, minima reprehenderit? Quasi!</p>
-            </div>
+            <div className='main_content text-start mt-3' >
+                <div><h3 className='ms-4'>WELCOME!</h3></div>
+                <div><button className='btn  ms-4 border'>Any</button><button className='btn border  ms-4'>Any</button></div>
+                <div className='d-flex justify-content-around mt-3'>
+                    <div style={{width:"200px" , height:"100px"}} className='border rounded p-2'> <h5>Total Content Blocks</h5> </div>
+                    <div style={{width:"200px" , height:"100px"}} className='border rounded p-2'><h5>Content Block Published</h5></div>
+                    <div style={{width:"200px" , height:"100px"}} className='border rounded p-2'><h5>Content Blocks Deactivated</h5></div>
+                    <div style={{width:"200px" , height:"100px"}} className='border rounded p-2'></div>
+                </div>
+                <div className='d-flex justify-content-around mt-3'>
+                    <div style={{width:"450px", height:"250px"}} className='border rounded'></div>
+                    <div style={{width:"450px", height:"250px"}} className='border rounded'></div>
+                </div>
+                <div className='d-flex justify-content-around mt-3'>
+                    <div style={{width:"200px" , height:"100px"}} className='border rounded'> </div>
+                    <div style={{width:"200px" , height:"100px"}} className='border rounded'></div>
+                    <div style={{width:"200px" , height:"100px"}} className='border rounded'></div>
+                    <div style={{width:"200px" , height:"100px"}} className='border rounded'></div>
+                </div>            </div>
 
         </>
     )

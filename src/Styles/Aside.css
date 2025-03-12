@@ -1,15 +1,16 @@
 .aside-tab {
     position: fixed;
     left: 0;
-    top: 50 px;
+    top: 50px;
     width: 200px;
-    height: 100vh;
+    height: calc(100vh - 50px);
     /* background: #d3d5d8; */
     /* Dark blue-gray */
     color: black;
     padding-top: 20px;
     /* box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1); */
     border-right: solid 1px rgb(221, 218, 218);
+    overflow-y: auto;
 }
 
 .aside-tab ul {

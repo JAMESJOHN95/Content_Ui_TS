@@ -13,8 +13,8 @@ function Templates() {
     return (
         <>
             <Layout />
-            <div style={{ marginLeft: "200px", fixed: "top" }} >
-                <div className="row mt-3 p-4">
+            <div className='main_content'>
+                {/* <div className="row p-4">
                     <div className="col-lg-6 text-center">
                         <input type="text" className='form-control w-75 me-auto ms-auto' placeholder='Enter the required content' />
                     </div>
@@ -24,9 +24,9 @@ function Templates() {
                         <button className='btn btn-primary me-3 ms-3'>Search</button>
                         <button className='btn btn-secondary'>Clear</button>
                     </div>
-                </div>
+                </div> */}
                 <div className='p-3 border ms-2 me-2'>
-                    <div className='p-3 ms-2 d-flex align-items-center justify-content-between '>
+                    {/* <div className='p-3 ms-2 d-flex align-items-center justify-content-between '>
                         <div className='fs-5 d-flex align-items-center'>
                             <input
                                 type="radio"
@@ -62,8 +62,8 @@ function Templates() {
                             <button className='btn btn-primary ms-2 me-2'>Publish</button>
                             <button className='btn btn-primary ms-2 me-2'>Deactivate</button>
                         </div>
-                    </div>
-                    <div className='pe-4 text-end'>
+                    </div> */}
+                    {/* <div className='pe-4 text-end'>
                         <button className="me-2 btn p-2 border rounded "><i class="fa-solid fa-backward"></i></button>
                         <button className="me-2 btn p-2 border rounded">1</button>
                         <button className="me-2 btn p-2 border rounded">2</button>
@@ -71,7 +71,7 @@ function Templates() {
                         <button className="me-2 btn p-2 border rounded">4</button>
                         <button className="me-2 btn p-2 border rounded">5</button>
                         <button className="me-2 btn p-2 border rounded"><i class="fa-solid fa-forward"></i></button>
-                    </div>
+                    </div> */}
                     {/* ======================================================================= */}
                     <div className='d-flex mb-3 border p-3 mt-3'>
                         <div className='w-25 d-flex justify-content-center'>
