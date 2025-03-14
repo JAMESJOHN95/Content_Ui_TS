@@ -16,7 +16,6 @@ function Layout() {
 
     return (
         <>
-            <Header />
         {/*     <div style={{ marginLeft: "200px", marginTop: "" }} className='d-flex justify-content-center'>
                 <div className='bg-success'>
                     <aside className='aside-tab '>
@@ -33,7 +32,7 @@ function Layout() {
                     </aside>
                 </div>
             </div> */}
-            <div className="d-flex justify-content-center" style={{ marginLeft: "200px", marginTop: "" }}>
+            {/* <div className="d-flex justify-content-center" style={{ marginLeft: "200px", marginTop: "" }}>
   <div className="bg-success">
     <aside className="aside-tab">
       <ul className="list-unstyled p-0 m-0">
@@ -56,16 +55,43 @@ function Layout() {
           <a href="#section2">
             <i className="fa-solid fa-upload me-2"></i>Publish / Unpublish Content
           </a>
-        </li>
+        </li> */}
         {/* <li><a href="#section3">Pick a Template</a></li>
             <li><a href="#section4">Testimonials</a></li>
             <li><a href="#section5">Blog</a></li>
             <li><a href="#section6">Contact</a></li> */}
-      </ul>
+    {/*   </ul>
     </aside>
   </div>
 </div>
+ */}
 
+ <div className='row'>
+  <div className='col-sm-10 ms-3'style={{height:'115vh',backgroundColor:'lightgrey'}}>
+   <ul className="list-unstyled mt-4">
+        <li onClick={handleHome} className='mt-2' >
+          <a href="#section2" style={{color:'black',textDecoration:"none"}}>
+            <i className="fa-solid fa-house me-2"></i>Dashboard
+          </a>
+        </li>
+        <li onClick={HandleCreateContent} className='mt-2'>
+          <a href="#section1" style={{color:'black',textDecoration:"none"}}>
+            <i className="fa-solid fa-square-plus me-2"></i>Create New Content
+          </a>
+        </li>
+     <Link to={'/existingcontents'} className="text-decoration-none"> <li className='mt-2'>
+          <a href="#section2"  style={{color:'black',textDecoration:"none"}}>
+            <i className="fa-solid fa-right-from-bracket me-2"></i>Existing Contents
+          </a>
+        </li></Link>  
+        <li className='mt-2'>
+          <a href="#section2"  style={{color:'black',textDecoration:"none"}}>
+            <i className="fa-solid fa-upload me-2"></i>Publish / Unpublish Content
+          </a>
+        </li>
+   </ul>
+  </div>
+ </div>
         </>
     )
 }
