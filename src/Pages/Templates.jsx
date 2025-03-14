@@ -12,8 +12,12 @@ function Templates() {
 
     return (
         <>
-            <Layout />
-            <div className='main_content'>
+        <div className='row'>
+        <div className='col-sm-2'>
+        <Layout />
+        </div>
+        <div className='col-sm-10'>
+        <div className='main_content'>
                 {/* <div className="row p-4">
                     <div className="col-lg-6 text-center">
                         <input type="text" className='form-control w-75 me-auto ms-auto' placeholder='Enter the required content' />
@@ -147,6 +151,9 @@ function Templates() {
                 </div>
 
             </div>
+        </div>
+        </div>
+            
         </>
     )
 }

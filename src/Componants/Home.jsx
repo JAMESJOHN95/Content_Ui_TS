@@ -158,7 +158,7 @@ function Home() {
                             </div>
                             
                         </div>
-                        <div className='col-md-3 border rounded'>
+                        <div className='col-md-3'>
                            <div className='border rounded'>
                            <h5 className='p-2 text-center'>Total Opens</h5>
                            <h5 className='p-2 text-center'>64</h5>
