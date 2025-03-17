@@ -66,8 +66,8 @@ function Layout() {
 </div>
  */}
 
- <div className='row'>
-  <div className='col-sm-10 ms-3'style={{height:'115vh',backgroundColor:'lightgrey'}}>
+ <div className='row' style={{position:'fixed'}}>
+  <div className='col-sm-10 ms-3 mt-2'style={{height:'100vh',backgroundColor:'lightgrey'}}>
    <ul className="list-unstyled mt-4">
         <li onClick={handleHome} className='mt-2' >
           <a href="#section2" style={{color:'black',textDecoration:"none"}}>
@@ -97,3 +97,4 @@ function Layout() {
 }
 
 export default Layout
+

@@ -97,11 +97,11 @@ function Home() {
                 </div>
             </div>
             */}
-            <div className='row'>
-                <div className='col-sm-2 rounded  '>
+         <div className='container-fluid'>   <div className='row'>
+                <div className='col-md-2 p-0  '>
                     <Layout />
                 </div>
-                <div className='col-md-10 col-sm-10 mt-4'>
+                <div className='col-md-10 mt-4'>
                     <h3>Welcome !</h3>
                     <div className="row">
                         <div>
@@ -184,7 +184,7 @@ function Home() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div></div>
         </>
     )
 }

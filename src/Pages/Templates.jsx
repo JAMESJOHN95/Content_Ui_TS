@@ -144,8 +144,7 @@ function Templates() {
                                     <i class="fa-solid fa-chart-line"></i>
                                 </button>
                             </div>
-                        </div>
-                       
+                        </div>  
                     </div>
                     </div>
                 </div>

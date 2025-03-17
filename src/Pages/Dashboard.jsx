@@ -17,11 +17,11 @@ navigate('/templates')
 
     return (
         <>
-         <div className='row'>
-  <div className='col-sm-2'>
+   <div className='container-fluid'>      <div className='row'>
+  <div className='col-md-2 p-0'>
     <Layout/>
   </div>
-  <div className='col-sm-10'>
+  <div className='col-md-10'>
   <div className='dashboard'>
                    
                    <div className=' mb-3 p-3 flex-column  text-center fs-5 pt-5 pb-5'>
@@ -48,7 +48,7 @@ navigate('/templates')
                    </div>
                </div>
   </div>
-  </div>
+  </div></div>
                
 
           

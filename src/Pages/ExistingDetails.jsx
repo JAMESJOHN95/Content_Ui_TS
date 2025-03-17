@@ -5,11 +5,11 @@ import Layout from './Layout'
 function ExistingDetails() {
   return (
     <>
-    <div className='row'>
-  <div className='col-sm-2'>
+   <div className='container-fluid'> <div className='row'>
+  <div className='col-md-2 p-0'>
     <Layout/>
   </div>
-  <div className='col-sm-10'>
+  <div className='col-md-10'>
   <div className="row p-4">
                     <div className="col-lg-6 text-center">
                         <input type="text" className='form-control w-75 me-auto' placeholder='Enter the required content' />
@@ -68,7 +68,7 @@ function ExistingDetails() {
                         <button className="me-2 btn p-2 border rounded"><i class="fa-solid fa-forward"></i></button>
                     </div>
   </div>
-    </div>
+    </div></div>
     
      
     
