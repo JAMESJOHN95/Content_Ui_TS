@@ -17,7 +17,8 @@ navigate('/templates')
 
     return (
         <>
-   <div className='container-fluid'>      <div className='row'>
+   <div className='container-fluid'>
+ <div className='row'>
   <div className='col-md-2 p-0'>
     <Layout/>
   </div>

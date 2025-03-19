@@ -97,7 +97,8 @@ function Home() {
                 </div>
             </div>
             */}
-         <div className='container-fluid'>   <div className='row'>
+         <div className='container-fluid'>  
+             <div className='row'>
                 <div className='col-md-2 p-0  '>
                     <Layout />
                 </div>
@@ -162,29 +163,29 @@ function Home() {
                            <div className='border rounded'>
                            <h5 className='p-2 text-center'>Total Opens</h5>
                            <h5 className='p-2 text-center'>64</h5>
-                            </div>
+                         </div>
                         </div>
                         <div className='col-md-3 '>
                            <div className='border rounded'>
                             <h5 className='p-2 text-center'>
                                 Dummy</h5>
-                                <h5 className='p-2 text-center'>10</h5></div> 
+                           <h5 className='p-2 text-center'>10</h5></div> 
                         </div>
                     </div>
                     <div className='row mt-1'>
                         <div className='col-md-6 p-4'>
                             <div className=' border rounded'>
-                                
+   
                             </div>
                         </div>
                         <div className='col-md-6 p-4'>
-                            <div className=' border rounded'>
-                              
+                            <div className=' border rounded'>   
                             </div>
                         </div>
                     </div>
                 </div>
-            </div></div>
+            </div>
+            </div>
         </>
     )
 }

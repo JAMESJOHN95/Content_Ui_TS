@@ -11,6 +11,7 @@ import Strike from '@tiptap/extension-strike';
 import ListItem from '@tiptap/extension-list-item';
 import BulletList from '@tiptap/extension-bullet-list';
 import OrderedList from '@tiptap/extension-ordered-list';
+import { Dropdown } from 'react-bootstrap';
 
 
 function NewTemplate() {
@@ -56,13 +57,15 @@ function NewTemplate() {
                 <label className="form-label fw-semibold">
                   Category <span className="text-danger">*</span>
                 </label>
-                <select className="form-select">
-                  <option value="">Category...</option>
+                  <select className="form-select">
+                  <option value="" disabled>Category...</option>
+                  <option value="">SD</option>
+                  <option value="">QWP</option>
                 </select>
               </div>
 
               {/* Subject */}
-              <div className="mb-4">
+             {/*  <div className="mb-4">
                 <label className="form-label fw-semibold">
                   Subject <span className="text-danger">*</span>
                 </label>
@@ -71,7 +74,7 @@ function NewTemplate() {
                   className="form-control"
                   placeholder="Enter Subject..."
                 />
-              </div>
+              </div> */}
             </div>
 
             {/* Right Side (Template Name, Visibility) */}
@@ -92,14 +95,14 @@ function NewTemplate() {
               </div>
 
               {/* Visible for Everyone */}
-              <div className="mb-4">
+            {/*   <div className="mb-4">
                 <label className="form-label fw-semibold">
                   Visible for everyone?
                 </label>
                 <select className="form-select">
                   <option value="">Select</option>
                 </select>
-              </div>
+              </div> */}
             </div>
           </div>
           <label className=" fw-semibold">Template Body</label>
@@ -180,8 +183,6 @@ function NewTemplate() {
                         </label>
                         </div>
                         <div className='col-md-2 text-end'><button className="btn px-5 py-3 mt-2" style={{backgroundColor:"black",color:'white'}}>Upload Image</button></div>
- 
-
           </div>      
         </div>
       </div>

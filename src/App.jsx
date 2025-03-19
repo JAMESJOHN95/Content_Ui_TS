@@ -16,7 +16,7 @@ function App() {
       <Header/>
         <Routes>
           <Route path='/' element={<Home/>}/>
-          <Route path='/dashoard' element={<Dashboard />} />
+          <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/templates' element={<Templates />}/>
           <Route path='/existingcontents' element={<ExistingDetails />} />
           <Route path='/newtemplate' element={<NewTemplate />} />
