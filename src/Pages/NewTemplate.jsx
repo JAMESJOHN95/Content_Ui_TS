@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import Layout from './Layout';
-import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import Link from '@tiptap/extension-link';
-import Heading from '@tiptap/extension-heading';
-import Bold from '@tiptap/extension-bold';
-import Italic from '@tiptap/extension-italic';
-import Underline from '@tiptap/extension-underline';
-import Strike from '@tiptap/extension-strike';
-import ListItem from '@tiptap/extension-list-item';
-import BulletList from '@tiptap/extension-bullet-list';
-import OrderedList from '@tiptap/extension-ordered-list';
-import { Dropdown } from 'react-bootstrap';
-
-=======
 import React, { useState } from "react";
 import Layout from "./Layout";
 import { useEditor, EditorContent } from "@tiptap/react";
@@ -33,7 +16,6 @@ import { FaImage } from "react-icons/fa6";
 import { IoLinkOutline } from "react-icons/io5";
 import { RxText } from "react-icons/rx";
 import { IoInformationCircleOutline } from "react-icons/io5";
->>>>>>> ccdaf20 ( Implimentation of Drag and Drop Functionality)
 
 function NewTemplate() {
   const [templateBody, setTemplateBody] = useState("");
@@ -132,37 +114,7 @@ function NewTemplate() {
               <IoInformationCircleOutline />
             </a>
           </div>
-
-          {/* Columns Section */}
-          {/* <div className="d-flex flex-column align-items-center justify-content-center"> 
-            <div className="border rounded p-2 bg-white">
-              <p className="mb-0">1:1 column</p>
-            </div>
-            <div className="border rounded p-2 bg-white">
-              <p className="mb-0">1:2 column Left</p>
-            </div>
-            <div className="border rounded p-2 bg-white">
-              <p className="mb-0">1:3 column Left</p>
-            </div>
-            <div className="border rounded p-2 bg-white">
-              <p className="mb-0">2:1 column Right</p>
-            </div>
-            <div className="border rounded p-2 bg-white">
-              <p className="mb-0">2:2 column</p>
-            </div>
-            <div className="border rounded p-2 bg-white">
-              <p className="mb-0">3:1 column Right</p>
-            </div>
-            <div className="border rounded p-2 bg-white">
-              <p className="mb-0">3:3 column</p>
-            </div>
-            <div className="border rounded p-2 bg-white">
-              <p className="mb-0">4:4 column</p>
-            </div>
-            <div className="border rounded p-2 bg-white">
-              <p className="mb-0">n:n column</p>
-            </div>
-          </div> */}
+        
           {/* Columns Section */}
           <div className="d-flex flex-column align-items-center justify-content-center p-2 w-100">
             {[
@@ -394,16 +346,7 @@ function NewTemplate() {
               attributes.
             </small>
           </div>
-<<<<<<< HEAD
-          <div className='row p-2 d-flex justify-content-center align-items-center'>
-         <div className='col-md-10 p-2'> <label htmlFor="uploadImage"className='form-control w-100 p-3 '>
-                        <input type="file" id='uploadImage' /* style={{display:'none'}} */ />
-                        {/* <img src="https://appflowy.com/_next/static/media/upload-cloud.8e4f70a0.png" alt="no image"/> */}
-                        </label>
-                        </div>
-                        <div className='col-md-2 text-end'><button className="btn px-5 py-3 mt-2" style={{backgroundColor:"black",color:'white'}}>Upload Image</button></div>
-          </div>      
-=======
+
           <div className="row p-2 d-flex justify-content-center align-items-center">
             <div className="col-md-10 p-2">
               {" "}
@@ -424,7 +367,6 @@ function NewTemplate() {
               </button>
             </div>
           </div>
->>>>>>> ccdaf20 ( Implimentation of Drag and Drop Functionality)
         </div>
       </div>
     </div>
