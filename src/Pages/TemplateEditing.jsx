@@ -50,7 +50,7 @@ function TemplateEditing() {
                     <Layout />
                 </div>
                 <div className='col-md-10 mt-5'>
-                    <div className='row border mx-5 p-4'>
+                    <div className='row border shadow mx-5 p-4'>
                         <div className='row'>
                         <input type="text" className='form-control text-center p-4 fw-bold border-0' style={{fontSize:'30px'}}value={templateDetails?.heading1} onChange={(e)=>{setTemplateDetails({...templateDetails,heading1:e.target.value})}}/>
                         <input type="text" style={{fontSize:'20px',fontStyle:'italic'}} className='form-control border-0 p-4'value={templateDetails?.heading2} onChange={(e)=>{setTemplateDetails({...templateDetails,heading2:e.target.value})}}/>
