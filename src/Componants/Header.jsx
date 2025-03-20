@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import logo from '../Images/logo.png'
 import '../App.css'
 import { Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
@@ -34,7 +35,7 @@ function Header() {
         </Row>
         <Navbar.Collapse id="navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link href="#home" className="me-3 bold">Content</Nav.Link>
+           <Link  to={'/dashboard'} style={{textDecoration:'none'}}> <Nav.Link href="#home" className="me-3 bold">Content</Nav.Link></Link>
             <Nav.Link href="#features">Users</Nav.Link>
           </Nav>
         </Navbar.Collapse>

@@ -1,8 +1,21 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import Layout from './Layout'
-
+import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { Link } from 'react-router-dom';
+import logo from '../Images/logo.png'
 function ExistingDetails() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [selectedFilter, setSelectedFilter] = useState('showAll');
+
+const handleFilterChange = (event) => {
+  setSelectedFilter(event.target.value);
+};
   return (
     <>
    <div className='container-fluid'> 
@@ -19,6 +32,8 @@ function ExistingDetails() {
     value="showAll"
     name="contentFilter" 
     id='showall'
+    checked={selectedFilter === 'showAll'}
+    onChange={handleFilterChange}
   />
   <label htmlFor="showall" className='me-3'>Show All</label>
 
@@ -28,24 +43,28 @@ function ExistingDetails() {
     value='activeContent'
     name="contentFilter" 
     id='activecontent'
+    checked={selectedFilter === 'activeContent'}
+    onChange={handleFilterChange}
   />
   <label htmlFor="activecontent" className='me-3'>Active Content</label>
 
   <input
-
     type="radio"
     className='me-2'
     value='expiredContent'
     name="contentFilter" 
     id='expiredcontent'
+    checked={selectedFilter === 'expiredContent'}
+    onChange={handleFilterChange}
   />
   <label htmlFor="expiredcontent" className='me-2'>Expired Content</label>
 </div>
 
+
   </div>
   <div className='col-md-2'></div>
   <div className='col-md-4 mt-5 pe-4 text-end'>
-                       <div>
+                     {/*   <div>
                             <button className='btn btn-primary ms-2 me-2'>Save</button>
                             <button className='btn btn-primary ms-2 me-2'>Edit</button>
                             <button className='btn btn-primary ms-2 me-2'>Publish</button>
@@ -59,7 +78,7 @@ function ExistingDetails() {
                         <button className="me-2 btn p-2 border rounded">4</button>
                         <button className="me-2 btn p-2 border rounded">5</button>
                         <button className="me-2 btn p-2 border rounded"><i class="fa-solid fa-forward"></i></button>
-                    </div>
+                    </div> */}
   </div>
   </div>
  
@@ -73,28 +92,84 @@ function ExistingDetails() {
                     <th>Template name</th>
                     <th>Category</th>   
                     <th>Completion status</th>
-                    <th>Actions</th>
+                    <th className='text-center'>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 <tr>
-                    <td>Sample</td>
+                    <td>Imge on Top</td>
                     <td>Dummy</td>
                     <td>Dummy</td>
-                    <td><i class="fa-solid fa-pen-to-square"></i></td>
+                   {/*  <td><i class="fa-solid fa-pen-to-square"></i></td> */}
+                   <td className='text-center'><button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button></td>
                 </tr>
                 <tr>
-                    <td>Checking</td>
+                    <td>Image on bottom</td>
                     <td>Dummy</td>
                     <td>Dummy</td>
-                    <td><i class="fa-solid fa-pen-to-square"></i></td>
+                    <td className='text-center'><button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button></td>
+                </tr>
+                <tr>
+                    <td>Image on Center</td>
+                    <td>Dummy</td>
+                    <td>Dummy</td>
+                    <td className='text-center'><button className='btn' style={{color:'white',backgroundColor:'black'}}>Preview</button></td>
+                </tr>
+                <tr>
+                    <td>Image on Right</td>
+                    <td>Dummy</td>
+                    <td>Dummy</td>
+                    <td className='text-center'><button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button></td>
+                </tr>
+                <tr>
+                    <td>Image on Left</td>
+                    <td>Dummy</td>
+                    <td>Dummy</td>
+                    <td className='text-center'><button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button></td>
+                </tr>
+                <tr>
+                    <td>Image on Top Right</td>
+                    <td>Dummy</td>
+                    <td>Dummy</td>
+                    <td className='text-center'><button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button></td>
                 </tr>
             </tbody>
         </table></div></div>
     </div>
 
 
-
+    <Modal show={show} onHide={handleClose}size='lg'>
+        <Modal.Header closeButton>
+          <Modal.Title><img style={{ width: "40px", height: "30px" }} src={logo} alt="MartechBees Logo" />
+                        MartechBees</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className='row'>
+            <div className='row'>
+              <h3 className='text-center'><b>Image on left - Template</b></h3>
+              <h4 className='text-left'><i>Design your new Ideas</i></h4>
+            </div>
+           <div className='row mt-4'> 
+            <div className='col-md-1'></div>
+            <div className='col-md-4'>
+              <img src="https://media.istockphoto.com/id/1444291518/photo/black-woman-working-from-home-office.jpg?s=612x612&w=0&k=20&c=ruHb87Ryd6uOr7sRnqfOussQihY89gnGDLeisJnVi-M=" alt="no image" className='w-100' style={{height:'200px'}}/>
+              
+            </div>
+            <div className='col-md-6'>
+              <p className='text-justify'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto eligendi autem laboriosam quo hic consectetur. Quidem blanditiis voluptatibus quibusdam non quis, earum cupiditate, maxime dignissimos distinctio vitae nobis sed alias!</p>
+              <Link><p className='text-end'>Readmore</p></Link>
+            </div>
+            <div className='col-md-1'></div></div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+                           <Link to={'/templateEditing'}> <button className='btn btn-primary ms-2 me-2'>Create a new Draft</button></Link>
+                            <button className='btn btn-primary ms-2 me-2'>Publish</button>
+                            <button className='btn btn-primary ms-2 me-2'>Deactivate</button>
+                            <button className='btn btn-primary ms-2 me-2' onClick={handleClose}>Close</button>
+                      
+        </Modal.Footer>
+      </Modal>
 
 
     

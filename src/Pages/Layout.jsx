@@ -7,8 +7,8 @@ export default function Sidebar() {
   return (
     <>
       {/* Toggler Button */}
-      <button 
-        className="d-lg-none btn btn-outline-secondary m-2" 
+      <button
+        className="sidebar-toggle btn btn-outline-secondary m-2 mt-4" 
         onClick={() => setIsOpen(!isOpen)}
       >
         <i className={`fa-solid ${isOpen ? 'fa-xmark' : 'fa-bars'}`}></i>

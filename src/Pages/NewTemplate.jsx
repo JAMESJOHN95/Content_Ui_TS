@@ -106,35 +106,31 @@ function NewTemplate() {
 
         {/* Structure for columns */}
         <div className="col-md-2 p-2 text-center">
-          <div className="d-flex justify-content-between align-items-center p-2 mb-4">
+          <div className="d-flex flex-column justify-content-between align-items-center p-2 mb-2">
             {/* heading part for columns section */}
             <h5 className="mt-2">Structres</h5>
-            {/* more info on columns section */}
-            <a href="#">
-              <IoInformationCircleOutline />
-            </a>
-          </div>
-        
-          {/* Columns Section */}
-          <div className="d-flex flex-column align-items-center justify-content-center p-2 w-100">
-            {[
-              "1:1 column",
-              "1:2 column Left",
-              "1:3 column Left",
-              "2:1 column Right",
-              "2:2 column",
-              "3:1 column Right",
-              "3:3 column",
-              "4:4 column",
-              "n:n column",
-            ].map((text, index) => (
-              <div
-                key={index}
-                className="border border-dark rounded p-3 w-100 text-center bg-white mb-2"
-              >
-                <p className="mb-0 fw-bold">{text}</p>
-              </div>
-            ))}
+            <ul className="list-unstyled w-100">
+              {[
+                "1:1 column",
+                "1:2 column Left",
+                "1:3 column Left",
+                "2:1 column Right",
+                "2:2 column",
+                "3:1 column Right",
+                "3:3 column",
+                "4:4 column",
+                "n:n column",
+              ].map((text, index) => (
+                <li
+                  key={index}
+                  className="p-2 border border-dark rounded mb-2 bg-white text-center fw-bold"
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, text)}
+                >
+                  {text}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
@@ -150,15 +146,17 @@ function NewTemplate() {
                 <label className="form-label fw-semibold">
                   Category <span className="text-danger">*</span>
                 </label>
-                  <select className="form-select">
-                  <option value="" disabled>Category...</option>
+                <select className="form-select">
+                  <option value="" disabled>
+                    Category...
+                  </option>
                   <option value="">SD</option>
                   <option value="">QWP</option>
                 </select>
               </div>
 
               {/* Subject */}
-             {/*  <div className="mb-4">
+              {/*  <div className="mb-4">
                 <label className="form-label fw-semibold">
                   Subject <span className="text-danger">*</span>
                 </label>
@@ -189,7 +187,7 @@ function NewTemplate() {
               </div>
 
               {/* Visible for Everyone */}
-            {/*   <div className="mb-4">
+              {/*   <div className="mb-4">
                 <label className="form-label fw-semibold">
                   Visible for everyone?
                 </label>
@@ -374,3 +372,4 @@ function NewTemplate() {
 }
 
 export default NewTemplate;
+

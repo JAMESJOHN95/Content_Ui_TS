@@ -7,6 +7,7 @@ import Layout from './Pages/Layout'
 import Home from './Componants/Home'
 import ExistingDetails from './Pages/ExistingDetails'
 import NewTemplate from './Pages/NewTemplate'
+import TemplateEditing from './Pages/TemplateEditing'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path='/templates' element={<Templates />}/>
           <Route path='/existingcontents' element={<ExistingDetails />} />
           <Route path='/newtemplate' element={<NewTemplate />} />
+          <Route path='/templateEditing' element={<TemplateEditing/>} />
           {/* <Route path='/home' element={<Home/>}/> */}
         </Routes>
       </>
