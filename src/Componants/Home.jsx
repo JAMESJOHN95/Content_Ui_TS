@@ -103,7 +103,7 @@ function Home() {
                     <Layout />
                 </div>
                 <div className='col-md-10 mt-4'>
-                    <h3>Welcome !</h3>
+                    <h3 className='ms-5 '>Welcome !</h3>
                     <div className="row">
                         <div>
                             <button className='btn btn-light ms-1'>Any</button>

@@ -21,10 +21,10 @@ export default function Sidebar() {
           position: 'fixed',
           height: '100vh',
           backgroundColor: 'lightgrey',
-          left: isOpen ? '0' : '-250px', // Hide when closed on small screens
+          left: isOpen ? '0' : '-250px', 
           transition: 'left 0.3s ease',
-          zIndex: 999,
-          width: '250px'
+         /*  zIndex: 999, */
+         /*  width: '250px' */
         }}
       >
         <ul className="list-unstyled mt-4">

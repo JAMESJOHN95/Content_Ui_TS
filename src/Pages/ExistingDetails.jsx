@@ -6,11 +6,14 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
 import logo from '../Images/logo.png'
+import { color } from 'chart.js/helpers';
 function ExistingDetails() {
   const [show, setShow] = useState(false);
-
+  const [showAnalytics, setShowAnalytics] = useState(false);
   const handleClose = () => setShow(false);
+  const handleCloseAnalytics = () => setShowAnalytics(false);
   const handleShow = () => setShow(true);
+  const handleShowAnalytics = () => setShowAnalytics(true);
   const [selectedFilter, setSelectedFilter] = useState('showAll');
 
 const handleFilterChange = (event) => {
@@ -25,7 +28,7 @@ const handleFilterChange = (event) => {
   </div>
   <div className='col-md-4 mt-5'>
   <input type="text" className='form-control w-75 me-auto' placeholder='Enter the required content' />
-  <div className='fs-5 d-flex align-items-center mt-3 '>
+  <div className='fs-5 d-flex align-items-center mt-3'>
   <input
     type="radio"
     className='me-2'
@@ -97,41 +100,59 @@ const handleFilterChange = (event) => {
             </thead>
             <tbody >
                 <tr>
-                    <td>Imge on Top</td>
+                    <td>Image on Top</td>
                     <td>Dummy</td>
                     <td>Dummy</td>
                    {/*  <td><i class="fa-solid fa-pen-to-square"></i></td> */}
-                   <td className='text-center'><button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button></td>
+                   <td className='text-center'>
+                      <button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button>
+                      <button onClick={handleShowAnalytics} className='btn border ms-2' style={{color:'white',backgroundColor:'black'}}><i class="fa-solid fa-chart-line"></i>
+                      </button></td>
                 </tr>
                 <tr>
                     <td>Image on bottom</td>
                     <td>Dummy</td>
                     <td>Dummy</td>
-                    <td className='text-center'><button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button></td>
+                    <td className='text-center'>
+                      <button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button>
+                      <button onClick={handleShowAnalytics} className='btn border ms-2' style={{color:'white',backgroundColor:'black'}}><i class="fa-solid fa-chart-line"></i>
+                      </button></td>
                 </tr>
                 <tr>
                     <td>Image on Center</td>
                     <td>Dummy</td>
                     <td>Dummy</td>
-                    <td className='text-center'><button className='btn' style={{color:'white',backgroundColor:'black'}}>Preview</button></td>
+                    <td className='text-center'>
+                      <button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button>
+                      <button onClick={handleShowAnalytics} className='btn border ms-2' style={{color:'white',backgroundColor:'black'}}><i class="fa-solid fa-chart-line"></i>
+                      </button></td>
                 </tr>
                 <tr>
                     <td>Image on Right</td>
                     <td>Dummy</td>
                     <td>Dummy</td>
-                    <td className='text-center'><button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button></td>
+                    <td className='text-center'>
+                      <button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button>
+                      <button onClick={handleShowAnalytics} className='btn border ms-2' style={{color:'white',backgroundColor:'black'}}><i class="fa-solid fa-chart-line"></i>
+                      </button></td>
                 </tr>
                 <tr>
                     <td>Image on Left</td>
                     <td>Dummy</td>
                     <td>Dummy</td>
-                    <td className='text-center'><button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button></td>
+                    <td className='text-center'>
+                      <button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button>
+                      <button onClick={handleShowAnalytics} className='btn border ms-2' style={{color:'white',backgroundColor:'black'}}><i class="fa-solid fa-chart-line"></i>
+                      </button></td>
                 </tr>
                 <tr>
                     <td>Image on Top Right</td>
                     <td>Dummy</td>
                     <td>Dummy</td>
-                    <td className='text-center'><button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button></td>
+                    <td className='text-center'>
+                      <button className='btn' style={{color:'white',backgroundColor:'black'}} onClick={handleShow}>Preview</button>
+                      <button onClick={handleShowAnalytics} className='btn border ms-2' style={{color:'white',backgroundColor:'black'}}><i class="fa-solid fa-chart-line"></i>
+                      </button></td>
                 </tr>
             </tbody>
         </table></div></div>
@@ -172,7 +193,28 @@ const handleFilterChange = (event) => {
       </Modal>
 
 
-    
+      <Modal show={showAnalytics} onHide={handleCloseAnalytics}size='lg'>
+        <Modal.Header closeButton>
+          <Modal.Title><span style={{color:"darkviolet",fontSize:"30px"}} className='fw-Bold'>Analytics</span></Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className='row'>
+            <div className='row'>
+              <div className='col-md-4'></div>
+              <div className='col-md-4 text-center'><h3>Edited:48</h3></div>
+              <div className='col-md-4'></div>
+            </div>
+           <div className='col-md-4'>
+           <h3 className='text-center'>Open:42</h3>
+           </div>
+           <div className='col-md-4 text-center'><h3>Impressions:9</h3></div>
+           <div className='col-md-4 text-center'><h3>Saved:33</h3></div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+                            <button className='btn btn-primary ms-2 me-2 p-3' onClick={handleCloseAnalytics}>Close</button>  
+        </Modal.Footer>
+      </Modal>
      
     
       
