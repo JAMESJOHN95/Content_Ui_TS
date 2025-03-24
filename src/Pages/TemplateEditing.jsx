@@ -61,7 +61,7 @@ function TemplateEditing() {
         <>
             <div className='row'>
                 <div className='col-md-2'>
-                    <Layout />
+                    <Layout/>
                 </div>
                 <div className='col-md-10 mt-5'>
                     <div className='row border shadow mx-5 p-4'>

@@ -23,7 +23,7 @@ export default function Sidebar() {
           backgroundColor: 'lightgrey',
           left: isOpen ? '0' : '-250px', 
           transition: 'left 0.3s ease',
-         /*  zIndex: 999, */
+          /* zIndex: 999, */
          /*  width: '250px' */
         }}
       >

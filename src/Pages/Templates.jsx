@@ -143,17 +143,15 @@ function Templates() {
                                 <button className='btn border me-5 '>
                                     <i class="fa-solid fa-chart-line"></i>
                                 </button>
-                            </div>
-                        </div>  
-                    </div>
+                              </div>
+                          </div>  
+                      </div>
                     </div>
                 </div>
-
             </div>
         </div>
-        </div>
-            
-        </>
+     </div>     
+</>
     )
 }
 
