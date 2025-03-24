@@ -20,7 +20,7 @@ function Header() {
             </Container>
           </Navbar>
  */}
- <Navbar style={{ backgroundColor: "#f2ebeb" }} fixed="top" expand="lg">
+ <Navbar style={{ backgroundColor: "#f2ebeb" }} fixed="top" expand="lg" className='mb-0'>
       <Container>
         <Row className="w-100">
           <Col xs={6} md={3}>

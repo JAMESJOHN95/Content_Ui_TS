@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Layout from './Layout';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import logo from '../Images/logo.png'
 function TemplateEditing() {    
+    const [show, setShow] = useState(false);
+    const handleClose = () => {
+        handleCancel
+        setShow(false);}
+    const handleShow = () => 
+        setShow(true);
+const navigate=useNavigate()
     const [templateDetails, setTemplateDetails] = useState({
         heading1: "Image on left - Template",
         heading2: "Design your new Ideas",
@@ -26,7 +35,9 @@ function TemplateEditing() {
     const handleFile = (e) => {
         setTemplateDetails({ ...templateDetails, templateImage: e.target.files[0] });
     };
-
+const handleproceed=()=>{
+  navigate('/existingcontents')
+}
     const handleCancel = () => {
         setTemplateDetails({
             heading1: "Image on left - Template",
@@ -121,7 +132,7 @@ function TemplateEditing() {
                                             />
                                         </Link>
                                         <button className='btn btn-primary ms-2 me-2'>Create</button>
-                                        <button className='btn btn-primary ms-2 me-2' onClick={handleCancel}>Cancel</button>
+                                        <button className='btn btn-primary ms-2 me-2' onClick={handleShow}>Cancel</button>
                                         <button 
                                             className='btn btn-primary ms-2 me-2' 
                                             onClick={() => setShowHtml(!showHtml)}
@@ -141,10 +152,27 @@ function TemplateEditing() {
                                 <button className='btn btn-primary' onClick={() => setShowHtml(false)}>Back to Edit</button>
                             </div>
                         )}
-
                     </div>
                 </div>
             </div>
+            <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title><img style={{ width: "40px", height: "30px" }} src={logo} alt="MartechBees Logo" />
+                      MartechBees</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are You sure! That you want to Cancel the changes has been made</Modal.Body>
+        <Modal.Footer>
+         
+          <Button variant="primary" onClick={
+            handleproceed
+          }>
+            Ok
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
         </>
     );
 }
