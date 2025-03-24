@@ -7,5 +7,9 @@ export default defineConfig({
     server: {
     sourcemapIgnoreList: (source) => source.includes("bootstrap.min.css.map"),
   },
+  build:{
+    rollupOptions:{
+      external:[/^node:.*/,]
+    }
+  }
 })
-

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "./Layout";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -18,6 +19,7 @@ import { FaCode } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { v4 as uuidv4 } from "uuid";
+import { replace } from "react-router-dom";
 
 function NewTemplate() {
   const [templateBody, setTemplateBody] = useState("");
@@ -32,6 +34,9 @@ function NewTemplate() {
   const [containerContent, setContainerContent] = useState([]);
   //state to track active image upload
   const [activeImageUpload, setActiveImageUpload] = useState(null);
+
+  //initialize the navigate
+  const navigate = useNavigate();
 
   const editor = useEditor({
     extensions: [
@@ -833,114 +838,121 @@ function NewTemplate() {
                 style={{ backgroundColor: "lightgrey" }}
               >
                 <div>
-                <button
-                  className="btn"
-                  onClick={() => editor.chain().focus().toggleBold().run()}
-                >
-                  <b>
-                    <i className="fa-solid fa-b "></i>
-                  </b>
-                </button>
-                <button
-                  className="btn"
-                  onClick={() => editor.chain().focus().toggleItalic().run()}
-                >
-                  <i className="fa-solid fa-i fa-italic"></i>
-                </button>
-                <button
-                  className="btn"
-                  onClick={() => editor.chain().focus().toggleUnderline().run()}
-                >
-                  <i className="fa-solid fa-underline"></i>
-                </button>
-                <button
-                  className="btn"
-                  onClick={() => editor.chain().focus().toggleStrike().run()}
-                >
-                  <i className="fa-solid fa-strikethrough"></i>
-                </button>
-                <button
-                  className="btn"
-                  onClick={() =>
-                    editor.chain().focus().toggleBulletList().run()
-                  }
-                >
-                  <i className="fa-solid fa-list-ul"></i>
-                </button>
-                <button
-                  className="btn"
-                  onClick={() =>
-                    editor.chain().focus().toggleOrderedList().run()
-                  }
-                >
-                  <i className="fa-solid fa-list-ol"></i>
-                </button>
-                {/* Undo */}
-                <button
-                  className="btn"
-                  onClick={() => editor.chain().focus().undo().run()}
-                  disabled={!editor.can().undo()}
-                >
-                  <i className="fa-solid fa-rotate-left"></i>
-                </button>
-
-                {/* Redo */}
-                <button
-                  className="btn"
-                  onClick={() => editor.chain().focus().redo().run()}
-                  disabled={!editor.can().redo()}
-                >
-                  <i className="fa-solid fa-rotate-right"></i>
-                </button>
-
-                {/* Justify Left */}
-                <button
-                  className="btn"
-                  onClick={() =>
-                    editor.chain().focus().setTextAlign("left").run()
-                  }
-                >
-                  <i className="fa-solid fa-align-left"></i>
-                </button>
-
-                {/* Justify Center */}
-                <button
-                  className="btn"
-                  onClick={() =>
-                    editor.chain().focus().setTextAlign("center").run()
-                  }
-                >
-                  <i className="fa-solid fa-align-center"></i>
-                </button>
-
-                {/* Justify Right */}
-                <button
-                  className="btn"
-                  onClick={() =>
-                    editor.chain().focus().setTextAlign("right").run()
-                  }
-                >
-                  <i className="fa-solid fa-align-right"></i>
-                </button>
-
-                <button
-                  className="btn"
-                  onClick={() => {
-                    const url = prompt("Enter URL");
-                    if (url) {
-                      editor.chain().focus().setLink({ href: url }).run();
+                  <button
+                    className="btn"
+                    onClick={() => editor.chain().focus().toggleBold().run()}
+                  >
+                    <b>
+                      <i className="fa-solid fa-b "></i>
+                    </b>
+                  </button>
+                  <button
+                    className="btn"
+                    onClick={() => editor.chain().focus().toggleItalic().run()}
+                  >
+                    <i className="fa-solid fa-i fa-italic"></i>
+                  </button>
+                  <button
+                    className="btn"
+                    onClick={() =>
+                      editor.chain().focus().toggleUnderline().run()
                     }
-                  }}
-                >
-                  <i className="fa-solid fa-link"></i>
-                </button>
-                <button className="btn" onClick={clearAllContent}>
-                  <i className="fa-solid fa-trash"></i>
-                </button>
+                  >
+                    <i className="fa-solid fa-underline"></i>
+                  </button>
+                  <button
+                    className="btn"
+                    onClick={() => editor.chain().focus().toggleStrike().run()}
+                  >
+                    <i className="fa-solid fa-strikethrough"></i>
+                  </button>
+                  <button
+                    className="btn"
+                    onClick={() =>
+                      editor.chain().focus().toggleBulletList().run()
+                    }
+                  >
+                    <i className="fa-solid fa-list-ul"></i>
+                  </button>
+                  <button
+                    className="btn"
+                    onClick={() =>
+                      editor.chain().focus().toggleOrderedList().run()
+                    }
+                  >
+                    <i className="fa-solid fa-list-ol"></i>
+                  </button>
+                  {/* Undo */}
+                  <button
+                    className="btn"
+                    onClick={() => editor.chain().focus().undo().run()}
+                    disabled={!editor.can().undo()}
+                  >
+                    <i className="fa-solid fa-rotate-left"></i>
+                  </button>
+
+                  {/* Redo */}
+                  <button
+                    className="btn"
+                    onClick={() => editor.chain().focus().redo().run()}
+                    disabled={!editor.can().redo()}
+                  >
+                    <i className="fa-solid fa-rotate-right"></i>
+                  </button>
+
+                  {/* Justify Left */}
+                  <button
+                    className="btn"
+                    onClick={() =>
+                      editor.chain().focus().setTextAlign("left").run()
+                    }
+                  >
+                    <i className="fa-solid fa-align-left"></i>
+                  </button>
+
+                  {/* Justify Center */}
+                  <button
+                    className="btn"
+                    onClick={() =>
+                      editor.chain().focus().setTextAlign("center").run()
+                    }
+                  >
+                    <i className="fa-solid fa-align-center"></i>
+                  </button>
+
+                  {/* Justify Right */}
+                  <button
+                    className="btn"
+                    onClick={() =>
+                      editor.chain().focus().setTextAlign("right").run()
+                    }
+                  >
+                    <i className="fa-solid fa-align-right"></i>
+                  </button>
+
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      const url = prompt("Enter URL");
+                      if (url) {
+                        editor.chain().focus().setLink({ href: url }).run();
+                      }
+                    }}
+                  >
+                    <i className="fa-solid fa-link"></i>
+                  </button>
+                  <button className="btn" onClick={clearAllContent}>
+                    <i className="fa-solid fa-trash"></i>
+                  </button>
                 </div>
                 <div>
-                  <button className="btn border border-radius-50 bg-black text-white">
-                  Save
+                  <button
+                    onClick={() =>
+                      navigate("/existingcontents", { replace: true })
+                    }
+                    className="btn border border-radius-50 bg-black text-white"
+                  >
+                    Save
                   </button>
                 </div>
               </div>
@@ -953,8 +965,9 @@ function NewTemplate() {
                 onDrop={handleDrop}
                 onDragOver={(e) => e.preventDefault()}
               >
-                <div className="border" style={{border:"1px solid black"}}><EditorContent className=""  editor={editor}/></div>
-                
+                <div className="border" style={{ border: "1px solid black" }}>
+                  <EditorContent className="" editor={editor} />
+                </div>
 
                 {/* Render direct container content */}
                 {containerContent.map((item) => (
@@ -1031,7 +1044,7 @@ function NewTemplate() {
                     // className="mb-3 border p-2 position-relative"
                   >
                     {/* Column header with remove button */}
-                   {/*  <div className="d-flex justify-content-between align-items-center mb-2 p-1 bg-light">
+                    {/*  <div className="d-flex justify-content-between align-items-center mb-2 p-1 bg-light">
                       <span className="text-muted small">{column.type}</span>
                       <button
                         className="btn btn-sm btn-outline-danger"
