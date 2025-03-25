@@ -74,10 +74,6 @@ function NewTemplate() {
           id: uuidv4(),
           content: "",
         },
-        {
-          id: uuidv4(),
-          content: "",
-        },
       ];
     } else if (type === "2:1 column") {
       structure = [
@@ -578,7 +574,7 @@ function NewTemplate() {
             <div
               key={block.id}
               className="border p-2 bg-white flex-grow-1 position-relative"
-              style={{ width: "50%" }}
+              style={{ width: "100%" }}
             >
               {renderInputField(block)}
             </div>
