@@ -2,18 +2,39 @@ import React from "react";
 import Layout from "./Layout";
 import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../Images/logo.png";
+
 function ExistingDetails() {
-  const [show, setShow] = useState(false);
+  const navigate = useNavigate();
   const [showAnalytics, setShowAnalytics] = useState(false);
-  const handleClose = () => setShow(false);
   const handleCloseAnalytics = () => setShowAnalytics(false);
-  const handleShow = () => setShow(true);
   const handleShowAnalytics = () => setShowAnalytics(true);
   const [selectedFilter, setSelectedFilter] = useState("showAll");
   // State to store the templates
   const [templates, setTemplates] = useState([]);
+
+  //add state for selected template
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
+  //state to show the edit modal
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  const handleShow = (template) => {
+    setSelectedTemplate(template);
+    setShowEditModal(true);
+  };
+
+  const handleClose = () => {
+    setSelectedTemplate(null);
+    setShowEditModal(false);
+  };
+
+  // When sending a template to edit mode
+  const handleEditTemplate = (template) => {
+    // Make sure the template object includes the ID
+    sessionStorage.setItem("editTemplate", JSON.stringify(template));
+    navigate("/newtemplate");
+  };
 
   useEffect(() => {
     // Retrieve stored templates from localStorage
@@ -88,21 +109,7 @@ function ExistingDetails() {
           </div>
           <div className="col-md-2"></div>
           <div className="col-md-4 mt-5 pe-4 text-end">
-            {/*   <div>
-                            <button className='btn btn-primary ms-2 me-2'>Save</button>
-                            <button className='btn btn-primary ms-2 me-2'>Edit</button>
-                            <button className='btn btn-primary ms-2 me-2'>Publish</button>
-                            <button className='btn btn-primary ms-2 me-2'>Deactivate</button>
-                        </div>
-                        <div className='pe-1 text-end mt-4'>
-                        <button className="me-2 btn p-2 border rounded "><i class="fa-solid fa-backward"></i></button>
-                        <button className="me-2 btn p-2 border rounded">1</button>
-                        <button className="me-2 btn p-2 border rounded">2</button>
-                        <button className="me-2 btn p-2 border rounded">3</button>
-                        <button className="me-2 btn p-2 border rounded">4</button>
-                        <button className="me-2 btn p-2 border rounded">5</button>
-                        <button className="me-2 btn p-2 border rounded"><i class="fa-solid fa-forward"></i></button>
-                    </div> */}
+            {/* Other UI Elements */}
           </div>
         </div>
 
@@ -121,13 +128,23 @@ function ExistingDetails() {
               <tbody>
                 {templates.length > 0 ? (
                   templates.map((item, index) => (
-                    <tr key={index}>
+                    <tr key={item.id || index}>
                       <td>{item.templateName}</td>
                       <td>{item.categoryName}</td>
                       <td>{item.status}</td>
                       <td className="text-center">
-                        <button className="btn btn-dark" onClick={handleShow} style={{color:"white", backgroundColor:"black"}}>Preview</button>
-                        <button className="btn btn-dark ms-2" onClick={handleShowAnalytics} style={{color:"white", backgroundColor:"black"}}>
+                        <button
+                          className="btn btn-dark"
+                          onClick={() => handleShow(item)}
+                          style={{ color: "white", backgroundColor: "black" }}
+                        >
+                          Preview
+                        </button>
+                        <button
+                          className="btn btn-dark ms-2"
+                          onClick={handleShowAnalytics}
+                          style={{ color: "white", backgroundColor: "black" }}
+                        >
                           <i className="fa-solid fa-chart-line"></i>
                         </button>
                         <button
@@ -150,7 +167,7 @@ function ExistingDetails() {
         </div>
       </div>
 
-      <Modal show={show} onHide={handleClose} size="lg">
+      <Modal show={showEditModal} onHide={handleClose} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>
             <img
@@ -163,50 +180,24 @@ function ExistingDetails() {
         </Modal.Header>
         <Modal.Body>
           <div className="row">
-            <div className="row">
-              <h3 className="text-center">
-                <b>Image on left - Template</b>
-              </h3>
-              <h4 className="text-left">
-                <i>Design your new Ideas</i>
-              </h4>
-            </div>
-            <div className="row mt-4">
-              <div className="col-md-1"></div>
-              <div className="col-md-4">
-                <img
-                  src="https://media.istockphoto.com/id/1444291518/photo/black-woman-working-from-home-office.jpg?s=612x612&w=0&k=20&c=ruHb87Ryd6uOr7sRnqfOussQihY89gnGDLeisJnVi-M="
-                  alt="no image"
-                  className="w-100"
-                  style={{ height: "200px" }}
-                />
-              </div>
-              <div className="col-md-6">
-                <p className="text-justify">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Architecto eligendi autem laboriosam quo hic consectetur.
-                  Quidem blanditiis voluptatibus quibusdam non quis, earum
-                  cupiditate, maxime dignissimos distinctio vitae nobis sed
-                  alias!
-                </p>
-                <Link>
-                  <p className="text-end">Readmore</p>
-                </Link>
-              </div>
-              <div className="col-md-1"></div>
-            </div>
+            <h3 className="text-center">
+              <b>{selectedTemplate?.templateName}</b>
+            </h3>
+            <h4 className="text-left">
+              Category - <i>{selectedTemplate?.categoryName}</i>
+            </h4>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Link to={"/templateEditing"}>
-            {" "}
-            <button className="btn btn-primary ms-2 me-2">
-              Create a new Draft
-            </button>
-          </Link>
-          <button className="btn btn-primary ms-2 me-2">Publish</button>
-          <button className="btn btn-primary ms-2 me-2">Deactivate</button>
-          <button className="btn btn-primary ms-2 me-2" onClick={handleClose}>
+          <button
+            className="btn btn-primary"
+            onClick={() => handleEditTemplate(selectedTemplate)}
+          >
+            Edit a Draft
+          </button>
+          <button className="btn btn-primary">Publish</button>
+          <button className="btn btn-primary">Deactivate</button>
+          <button className="btn btn-primary" onClick={handleClose}>
             Close
           </button>
         </Modal.Footer>
