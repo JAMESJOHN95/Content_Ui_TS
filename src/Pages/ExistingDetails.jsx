@@ -1,12 +1,9 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 import Layout from "./Layout";
 import { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { data, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../Images/logo.png";
-import { color } from "chart.js/helpers";
 function ExistingDetails() {
   const [show, setShow] = useState(false);
   const [showAnalytics, setShowAnalytics] = useState(false);
@@ -30,7 +27,6 @@ function ExistingDetails() {
     setTemplates(updatedTemplates);
     localStorage.setItem("templates", JSON.stringify(updatedTemplates));
   };
-  
 
   const handleFilterChange = (event) => {
     setSelectedFilter(event.target.value);
@@ -130,8 +126,8 @@ function ExistingDetails() {
                       <td>{item.categoryName}</td>
                       <td>{item.status}</td>
                       <td className="text-center">
-                        <button className="btn btn-dark">Preview</button>
-                        <button className="btn btn-dark ms-2">
+                        <button className="btn btn-dark" onClick={handleShow} style={{color:"white", backgroundColor:"black"}}>Preview</button>
+                        <button className="btn btn-dark ms-2" onClick={handleShowAnalytics} style={{color:"white", backgroundColor:"black"}}>
                           <i className="fa-solid fa-chart-line"></i>
                         </button>
                         <button
