@@ -74,10 +74,6 @@ function NewTemplate() {
           id: uuidv4(),
           content: "",
         },
-        {
-          id: uuidv4(),
-          content: "",
-        },
       ];
     } else if (type === "2:1 column") {
       structure = [
@@ -464,6 +460,34 @@ function NewTemplate() {
     setDroppedContent("");
   };
 
+  //alert functionality for save button
+  const handleSaveButtonClick = () => {
+    alert("Template Saved Successfully!!!");
+  
+    const newTemplate = {
+      templateName: document.getElementById("templateNameInput").value,
+      categoryName: document.getElementById("optionInput").value,
+      status: "Yes",
+    };
+  
+    // Store in sessionStorage (temporary storage)
+    sessionStorage.setItem("templateName", newTemplate.templateName);
+    sessionStorage.setItem("categoryName", newTemplate.categoryName);
+    sessionStorage.setItem("status", newTemplate.status);
+  
+    // Retrieve existing data from localStorage
+    const existingData = JSON.parse(localStorage.getItem("templates")) || [];
+  
+    // Add new template to the list
+    existingData.push(newTemplate);
+  
+    // Save updated list back to localStorage
+    localStorage.setItem("templates", JSON.stringify(existingData));
+  
+    navigate("/existingContents", { replace: true });
+  };
+  
+
   // Helper function to render input field
   const renderInputField = (block) => {
     const isImagePlaceholder =
@@ -550,7 +574,7 @@ function NewTemplate() {
             <div
               key={block.id}
               className="border p-2 bg-white flex-grow-1 position-relative"
-              style={{ width: "50%" }}
+              style={{ width: "100%" }}
             >
               {renderInputField(block)}
             </div>
@@ -656,7 +680,7 @@ function NewTemplate() {
           <div
             key={block.id}
             className="border p-2 bg-white flex-grow-1 position-relative"
-            style={{ width: `${100 / blocks.length}%` }}
+            style={{ width:` ${100 / blocks.length}% `}}
           >
             {renderInputField(block)}
           </div>
@@ -799,12 +823,12 @@ function NewTemplate() {
                 <label className="form-label fw-semibold">
                   Category <span className="text-danger">*</span>
                 </label>
-                <select className="form-select">
+                <select id="optionInput" className="form-select">
                   <option value="" disabled>
                     Category...
                   </option>
-                  <option value="">SD</option>
-                  <option value="">QWP</option>
+                  <option value="SD">SD</option>
+                  <option value="QWP">QWP</option>
                 </select>
               </div>
             </div>
@@ -818,6 +842,7 @@ function NewTemplate() {
                 </label>
                 <input
                   type="text"
+                  id="templateNameInput"
                   className="form-control"
                   placeholder="Enter Template Name..."
                 />
@@ -947,9 +972,7 @@ function NewTemplate() {
                 </div>
                 <div>
                   <button
-                    onClick={() =>
-                      navigate("/existingcontents", { replace: true })
-                    }
+                    onClick={() => handleSaveButtonClick()}
                     className="btn border border-radius-50 bg-black text-white"
                   >
                     Save
