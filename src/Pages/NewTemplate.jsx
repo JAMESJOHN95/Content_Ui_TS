@@ -238,8 +238,13 @@ function NewTemplate() {
           "+ upload an image"
         );
         // To keep track of this target when the user clicks the + button
-        const target = { ...currentDropTarget, isImage: true };
-        setCurrentDropTarget(target);
+        // const target = { ...currentDropTarget, isImage: true };
+        // setCurrentDropTarget(target);
+        setCurrentDropTarget({
+          columnId: currentDropTarget.columnId,
+          blockId: currentDropTarget.blockId,
+          isImage: true,
+        });
       }
     } else if (type === "code") {
       setShowCodeModal(true);
@@ -294,10 +299,9 @@ function NewTemplate() {
     if (!type) return;
 
     if (type === "image") {
-      // Save target info before clicking to upload
+      // Just update the placeholder text, don't trigger file upload
       updateColumnContent(columnId, blockId, "+ upload an image");
       setCurrentDropTarget({ columnId, blockId, isImage: true });
-      document.getElementById("imageUpload").click();
     } else if (type === "code") {
       // Save target info before opening modal
       setCurrentDropTarget({ columnId, blockId });
@@ -459,33 +463,6 @@ function NewTemplate() {
     setDroppedContent("");
   };
 
-  //alert functionality for save button
-  // const handleSaveButtonClick = () => {
-  //   alert("Template Saved Successfully!!!");
-
-  //   const newTemplate = {
-  //     templateName: document.getElementById("templateNameInput").value,
-  //     categoryName: document.getElementById("optionInput").value,
-  //     status: "Yes",
-  //   };
-
-  //   // Store in sessionStorage (temporary storage)
-  //   sessionStorage.setItem("templateName", newTemplate.templateName);
-  //   sessionStorage.setItem("categoryName", newTemplate.categoryName);
-  //   sessionStorage.setItem("status", newTemplate.status);
-
-  //   // Retrieve existing data from localStorage
-  //   const existingData = JSON.parse(localStorage.getItem("templates")) || [];
-
-  //   // Add new template to the list
-  //   existingData.push(newTemplate);
-
-  //   // Save updated list back to localStorage
-  //   localStorage.setItem("templates", JSON.stringify(existingData));
-
-  //   navigate("/existingContents", { replace: true });
-  // };
-
   const handleSaveButtonClick = () => {
     // Get values from state or DOM elements as needed
     const templateNameValue =
@@ -515,33 +492,38 @@ function NewTemplate() {
     if (isEditMode && originalTemplateId) {
       // Find and update the existing template by ID
       const updatedTemplates = existingData.map((template) =>
-        String(template.id) === String(originalTemplateId) ? newTemplate : template
+        String(template.id) === String(originalTemplateId)
+          ? newTemplate
+          : template
       );
-      
+
       // Check if any template was actually updated
-      const wasUpdated = updatedTemplates.some(template => 
-        String(template.id) === String(originalTemplateId) && 
-        template.templateName === newTemplate.templateName
+      const wasUpdated = updatedTemplates.some(
+        (template) =>
+          String(template.id) === String(originalTemplateId) &&
+          template.templateName === newTemplate.templateName
       );
-      
+
       if (!wasUpdated) {
-        console.error("Failed to update template - ID not found:", originalTemplateId);
+        console.error(
+          "Failed to update template - ID not found:",
+          originalTemplateId
+        );
       }
-      
+
       localStorage.setItem("templates", JSON.stringify(updatedTemplates));
     } else {
       // Add new template to the list
       existingData.push(newTemplate);
       localStorage.setItem("templates", JSON.stringify(existingData));
     }
-    
 
     alert("Template Saved Successfully!!!");
     navigate("/existingContents", { replace: true });
   };
 
   // Helper function to render input field
-  const renderInputField = (block) => {
+  const renderInputField = (block, columnId) => {
     const isImagePlaceholder =
       block.content && block.content.includes("+ upload an image");
 
@@ -580,8 +562,7 @@ function NewTemplate() {
         />
         {isImagePlaceholder ? (
           <button
-            className="btn btn-outline-primary"
-            type="button"
+            className="btn btn-sm btn-outline-primary ms-2"
             onClick={() => {
               const column = columns.find((col) =>
                 col.structure.some((b) => b.id === block.id)
@@ -594,7 +575,7 @@ function NewTemplate() {
               }
             }}
           >
-            <FaPlus />
+            <FaPlus size={12} />
           </button>
         ) : (
           <button
