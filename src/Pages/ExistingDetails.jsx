@@ -28,6 +28,9 @@ function ExistingDetails() {
     setSelectedTemplate(null);
     setShowEditModal(false);
   };
+  const publish=()=>{
+    navigate("/publish")
+  }
 
   // When sending a template to edit mode
   const handleEditTemplate = (template) => {
@@ -296,7 +299,7 @@ function ExistingDetails() {
           >
             Edit a Draft
           </button>
-          <button className="btn btn-primary">Publish</button>
+          <button className="btn btn-primary" onClick={publish}>Publish</button>
           <button className="btn btn-primary">Deactivate</button>
           <button className="btn btn-primary" onClick={handleClose}>
             Close

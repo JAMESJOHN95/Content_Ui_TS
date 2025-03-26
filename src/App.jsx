@@ -9,6 +9,7 @@ import ExistingDetails from './Pages/ExistingDetails'
 import NewTemplate from './Pages/NewTemplate'
 import TemplateEditing from './Pages/TemplateEditing'
 import { TokenProvider } from './Componants/TokenContext'
+import Publish from './Pages/Publish'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
             <Route path='/existingcontents' element={<ExistingDetails />} />
             <Route path='/newtemplate' element={<NewTemplate />} />
             <Route path='/templateEditing' element={<TemplateEditing/>} />
+            <Route path='/Publish' element={<Publish/>} />
             {/* <Route path='/home' element={<Home/>}/> */}
           </Routes>
         </TokenProvider>
