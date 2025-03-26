@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "./Layout";
 import { useEditor, EditorContent } from "@tiptap/react";
@@ -35,9 +35,29 @@ function NewTemplate() {
   //state to track active image upload
   const [activeImageUpload, setActiveImageUpload] = useState(null);
 
+  //function for edit mode
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  //state to track the original template data
+  const [originalTemplateId, setOriginalTemplateId] = useState(null);
+
   //initialize the navigate
   const navigate = useNavigate();
 
+  //getting the data from the edit draft to new template
+  const [templateData, setTemplateData] = useState(null);
+
+  const [templateName, setTemplateName] = useState("");
+  const [categoryName, setCategoryName] = useState("");
+
+  // useEffect(() => {
+  //   // Get the template from sessionStorage if it exists
+  //   const storedTemplate = sessionStorage.getItem("editTemplate");
+  //   if (storedTemplate) {
+  //     setTemplateData(JSON.parse(storedTemplate));
+  //     sessionStorage.removeItem("editTemplate"); // Clear after loading
+  //   }
+  // }, []);
   const editor = useEditor({
     extensions: [
       StarterKit, // Already includes History
@@ -56,6 +76,47 @@ function NewTemplate() {
       setTemplateBody(editor.getHTML());
     },
   });
+
+  useEffect(() => {
+    const storedTemplate = sessionStorage.getItem("editTemplate");
+    if (storedTemplate) {
+      const parsedTemplate = JSON.parse(storedTemplate);
+
+      setIsEditMode(true);
+      setTemplateData(parsedTemplate);
+
+      //store the original template id
+      if (parsedTemplate.id) {
+        setOriginalTemplateId(parsedTemplate.id);
+      }
+
+      // Use state setters instead of DOM manipulation
+      if (parsedTemplate.templateName) {
+        setTemplateName(parsedTemplate.templateName);
+      }
+
+      if (parsedTemplate.categoryName) {
+        setCategoryName(parsedTemplate.categoryName);
+      }
+
+      // Handle complex data structures
+      // When setting columns or container content
+      if (parsedTemplate.columns) {
+        setColumns(JSON.parse(JSON.stringify(parsedTemplate.columns)));
+      }
+
+      if (parsedTemplate.containerContent) {
+        setContainerContent(parsedTemplate.containerContent);
+      }
+
+      if (parsedTemplate.templateBody && editor) {
+        setTemplateBody(parsedTemplate.templateBody);
+        editor.commands.setContent(parsedTemplate.templateBody);
+      }
+
+      sessionStorage.removeItem("editTemplate");
+    }
+  }, [editor]);
 
   const handleDragStart = (event, type) => {
     event.dataTransfer.setData("text/plain", type);
@@ -163,68 +224,6 @@ function NewTemplate() {
       handleContentDrop(type);
     }
   };
-
-  //   const handleContentDrop = (type) => {
-  //     if (!currentDropTarget) return;
-
-  //     if (type === "image") {
-  //       //for column inputs , we'll also use placeholder approach
-  //       if (
-  //         currentDropTarget &&
-  //         currentDropTarget.columnId &&
-  //         currentDropTarget.blockId
-  //       ) {
-  //         //update the column content
-  //         updateColumnContent(
-  //           currentDropTarget.columnId,
-  //           currentDropTarget.blockId,
-  //           "+ upload an image"
-  //         );
-  //         // to keep track of this target when the user clicks the + button
-  //         const target = { ...currentDropTarget, isImage: true };
-  //         setCurrentDropTarget(target);
-  //       }
-  //     } else if (type === "code") {
-  //       setShowCodeModal(true);
-  //     } else {
-  //       let content = "";
-  //       if (type === "text") {
-  //         content = prompt("Enter your text:", "Sample Text") || "Sample Text";
-  //       } else if (type === "link") {
-  //         content =
-  //           prompt("Enter URL:", "https://example.com") || "https://example.com";
-  //       } else {
-  //         content = type;
-  //       }
-
-  //       // Check if we have a current drop target
-  //       if (
-  //         currentDropTarget &&
-  //         currentDropTarget.columnId &&
-  //         currentDropTarget.blockId
-  //       ) {
-  //         // Update the specific column's input
-  //         updateColumnContent(
-  //           currentDropTarget.columnId,
-  //           currentDropTarget.blockId,
-  //           content
-  //         );
-  //         setCurrentDropTarget(null); // Reset the drop target after updating
-  //       } else if (!currentDropTarget) {
-  //         // Only insert into editor if content is NOT an image or code
-  //         if (editor && type !== "image" && type !== "code" && type !== "link") {
-  //           editor.commands.insertContent(content);
-  //         } else {
-  //         // Add content directly to editor if no specific target
-  //         if (editor) {
-  //           editor.commands.insertContent(content);
-  //         }
-  //         // Also update droppedContent state for tracking
-  //         setDroppedContent((prev) => prev + "\n" + content);
-  //       }
-  //     }
-  //   }
-  // };
 
   const handleContentDrop = (type) => {
     if (!currentDropTarget) return;
@@ -461,32 +460,85 @@ function NewTemplate() {
   };
 
   //alert functionality for save button
+  // const handleSaveButtonClick = () => {
+  //   alert("Template Saved Successfully!!!");
+
+  //   const newTemplate = {
+  //     templateName: document.getElementById("templateNameInput").value,
+  //     categoryName: document.getElementById("optionInput").value,
+  //     status: "Yes",
+  //   };
+
+  //   // Store in sessionStorage (temporary storage)
+  //   sessionStorage.setItem("templateName", newTemplate.templateName);
+  //   sessionStorage.setItem("categoryName", newTemplate.categoryName);
+  //   sessionStorage.setItem("status", newTemplate.status);
+
+  //   // Retrieve existing data from localStorage
+  //   const existingData = JSON.parse(localStorage.getItem("templates")) || [];
+
+  //   // Add new template to the list
+  //   existingData.push(newTemplate);
+
+  //   // Save updated list back to localStorage
+  //   localStorage.setItem("templates", JSON.stringify(existingData));
+
+  //   navigate("/existingContents", { replace: true });
+  // };
+
   const handleSaveButtonClick = () => {
-    alert("Template Saved Successfully!!!");
-  
+    // Get values from state or DOM elements as needed
+    const templateNameValue =
+      templateName || document.getElementById("templateNameInput").value;
+    const categoryNameValue =
+      categoryName || document.getElementById("optionInput").value;
+
     const newTemplate = {
-      templateName: document.getElementById("templateNameInput").value,
-      categoryName: document.getElementById("optionInput").value,
+      // If in edit mode, keep the original ID; otherwise, create a new one
+      id: isEditMode ? originalTemplateId : uuidv4(),
+      templateName: templateNameValue,
+      categoryName: categoryNameValue,
       status: "Yes",
+      templateBody,
+      columns,
+      containerContent,
     };
-  
-    // Store in sessionStorage (temporary storage)
-    sessionStorage.setItem("templateName", newTemplate.templateName);
-    sessionStorage.setItem("categoryName", newTemplate.categoryName);
-    sessionStorage.setItem("status", newTemplate.status);
-  
+
     // Retrieve existing data from localStorage
     const existingData = JSON.parse(localStorage.getItem("templates")) || [];
-  
-    // Add new template to the list
-    existingData.push(newTemplate);
-  
-    // Save updated list back to localStorage
-    localStorage.setItem("templates", JSON.stringify(existingData));
-  
+
+    // debugging
+    console.log("Is Edit Mode:", isEditMode);
+    console.log("Original Template ID:", originalTemplateId);
+    console.log("Templates in storage:", existingData);
+
+    if (isEditMode && originalTemplateId) {
+      // Find and update the existing template by ID
+      const updatedTemplates = existingData.map((template) =>
+        String(template.id) === String(originalTemplateId) ? newTemplate : template
+      );
+      
+      // Check if any template was actually updated
+      const wasUpdated = updatedTemplates.some(template => 
+        String(template.id) === String(originalTemplateId) && 
+        template.templateName === newTemplate.templateName
+      );
+      
+      if (!wasUpdated) {
+        console.error("Failed to update template - ID not found:", originalTemplateId);
+      }
+      
+      localStorage.setItem("templates", JSON.stringify(updatedTemplates));
+    } else {
+      // Add new template to the list
+      existingData.push(newTemplate);
+      localStorage.setItem("templates", JSON.stringify(existingData));
+    }
+    
+
+    alert("Template Saved Successfully!!!");
     navigate("/existingContents", { replace: true });
   };
-  
 
   // Helper function to render input field
   const renderInputField = (block) => {
@@ -692,6 +744,14 @@ function NewTemplate() {
   return (
     <div className="container-fluid">
       <div className="row">
+        {isEditMode && (
+          <div className="col-md-12 mb-3">
+            <div className="alert alert-info">
+              Editing Existing Template: {templateName || "Untitled Template"}
+            </div>
+          </div>
+        )}
+
         {/* Structure for columns */}
         <div className="col-md-2 p-2 text-center border-end">
           <div className="d-flex flex-column justify-content-between align-items-center p-2 ">
@@ -823,7 +883,12 @@ function NewTemplate() {
                 <label className="form-label fw-semibold">
                   Category <span className="text-danger">*</span>
                 </label>
-                <select id="optionInput" className="form-select">
+                <select
+                  id="optionInput"
+                  className="form-select"
+                  value={categoryName}
+                  onChange={(e) => setCategoryName(e.target.value)}
+                >
                   <option value="" disabled>
                     Category...
                   </option>
@@ -845,6 +910,8 @@ function NewTemplate() {
                   id="templateNameInput"
                   className="form-control"
                   placeholder="Enter Template Name..."
+                  value={templateName}
+                  onChange={(e) => setTemplateName(e.target.value)}
                 />
                 <small className="text-secondary">
                   It has to be unique. Accepts only Alphanumeric, Underscores,
