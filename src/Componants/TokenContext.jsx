@@ -8,7 +8,6 @@ export const TokenProvider  = ({ children }) => {
         try {
             console.log("Inside fetchToken Function");
             const response = await axios.post(`${ServerUrl}/generate-token`);
-            console.log(response);
             if (response.data && response.data.token) {
                 const Token = response.data.token;
                 setToken(Token)
@@ -24,9 +23,7 @@ export const TokenProvider  = ({ children }) => {
 useEffect(() => {
     fetchToken();  // Fetch the token initially
   }, []);
-  console.log(token);
-  
-
+  console.log(token)
   return(
 <TokenContext.Provider value = {{token,setToken}}>
     {children}

@@ -13,6 +13,7 @@ import ListItem from "@tiptap/extension-list-item";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 import { FaImage } from "react-icons/fa6";
+
 import { IoLinkOutline } from "react-icons/io5";
 import { RxText } from "react-icons/rx";
 import { FaCode } from "react-icons/fa6";
