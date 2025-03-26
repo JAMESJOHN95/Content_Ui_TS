@@ -16,7 +16,7 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <div 
-        className={`side-bar p-2 d-flex flex-column ${isOpen ? 'active' : ''}`}
+        className={`side-bar p-2 d-flex flex-column ${isOpen ? 'active' : ''} mt-0`}
         style={{
           position: 'fixed',
           height: '100vh',

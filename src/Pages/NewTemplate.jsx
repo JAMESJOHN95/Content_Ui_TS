@@ -713,7 +713,7 @@ function NewTemplate() {
           <div
             key={block.id}
             className="border p-2 bg-white flex-grow-1 position-relative"
-            style={{ width: `${100 / blocks.length}%` }}
+            style={{ width:` ${100 / blocks.length}% `}}
           >
             {renderInputField(block)}
           </div>

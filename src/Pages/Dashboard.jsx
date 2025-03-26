@@ -1,13 +1,11 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import '../Styles/Aside.css'
-import one from '../Images/1on1.png'
-import choose from '../Images/choose.webp'
 import { Link, useNavigate } from 'react-router-dom'
-import Templates from './Templates'
 import Layout from './Layout'
-
+import { TokenContext } from '../Componants/TokenContext'
 function Dashboard() {
     const navigate = useNavigate()
+    const {token} = useContext(TokenContext)
     const handlePrebuildTemplate = ()=>{
 navigate('/templates')
     }
