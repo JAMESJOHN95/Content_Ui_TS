@@ -179,13 +179,114 @@ function ExistingDetails() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="row">
-            <h3 className="text-center">
-              <b>{selectedTemplate?.templateName}</b>
-            </h3>
-            <h4 className="text-left">
-              Category - <i>{selectedTemplate?.categoryName}</i>
-            </h4>
+          <div className="container">
+            {/* Template Header */}
+            <div className="row mb-4">
+              <div className="col-12">
+                <h3 className="text-center mb-3">
+                  <b>{selectedTemplate?.templateName}</b>
+                </h3>
+                <h4 className="text-left">
+                  Category - <i>{selectedTemplate?.categoryName}</i>
+                </h4>
+              </div>
+            </div>
+
+            {/* Template Body */}
+            {selectedTemplate?.templateBody && (
+              <div className="row mb-4">
+                <div className="col-12">
+                  {/* <h5 className="mb-3">Template Body</h5> */}
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: selectedTemplate.templateBody,
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Container Content */}
+            {selectedTemplate?.containerContent?.length > 0 && (
+              <div className="row mb-4">
+                <div className="col-12">
+                  <div className="border p-3">
+                    {selectedTemplate.containerContent.map((item, index) => (
+                      <div key={item.id || index} className="mb-2">
+                        {item.type === "image" ? (
+                          <>
+                            {item.content?.fileName && (
+                              <div>{item.content.fileName}</div>
+                            )}
+                            {item.content?.imageData && (
+                              <img
+                                src={item.content.imageData}
+                                alt={item.content.fileName || "Image"}
+                                style={{ maxWidth: "100px", height: "auto" }}
+                              />
+                            )}
+                          </>
+                        ) : (
+                          <div>
+                            {typeof item.content === "string"
+                              ? item.content
+                              : ""}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Columns */}
+            {selectedTemplate?.columns?.length > 0 && (
+              <div className="row mb-4">
+                <div className="col-12">
+                  {selectedTemplate.columns
+                    .filter((column) =>
+                      [
+                        "1:1 column",
+                        "2:1 column",
+                        "2:2 column",
+                        "3:3 column",
+                        "4:4 column",
+                      ].includes(column.type)
+                    )
+                    .map((column, index) => (
+                      <div key={column.id || index} className="border p-3 mb-3">
+                        <h6 className="mb-2">{column.type}</h6>
+                        <div className="d-flex gap-2">
+                          {column.structure.map((block, blockIndex) => (
+                            <div
+                              key={block.id || blockIndex}
+                              className="flex-grow-1 border p-2"
+                              style={{
+                                width: `${100 / column.structure.length}%`,
+                              }}
+                            >
+                              {typeof block.content === "object" ? (
+                                block.content?.imageData ? (
+                                  <img
+                                    src={block.content.imageData}
+                                    alt={block.content.fileName || "Image"}
+                                    style={{ maxWidth: "100%", height: "auto" }}
+                                  />
+                                ) : (
+                                  block.content?.fileName || "Empty"
+                                )
+                              ) : (
+                                block.content || "Empty"
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
           </div>
         </Modal.Body>
         <Modal.Footer>

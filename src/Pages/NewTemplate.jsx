@@ -356,14 +356,16 @@ function NewTemplate() {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        const imageContent = `Image: ${file.name}`;
+        const imageContent = {
+          fileName: file.name,
+          imageData: e.target.result,
+        };
+
         if (activeImageUpload) {
           if (activeImageUpload.isContainer) {
-            // For container
             removeContainerItem(activeImageUpload.itemId);
             addContentToContainer("image", imageContent);
           } else if (activeImageUpload.columnId && activeImageUpload.blockId) {
-            // For column input
             updateColumnContent(
               activeImageUpload.columnId,
               activeImageUpload.blockId,
@@ -374,10 +376,8 @@ function NewTemplate() {
           setCurrentDropTarget(null);
         } else if (currentDropTarget) {
           if (currentDropTarget.isContainer) {
-            // For container
             addContentToContainer("image", imageContent);
           } else if (currentDropTarget.columnId && currentDropTarget.blockId) {
-            // For column input
             updateColumnContent(
               currentDropTarget.columnId,
               currentDropTarget.blockId,
@@ -522,58 +522,130 @@ function NewTemplate() {
     navigate("/existingContents", { replace: true });
   };
 
-  // Helper function to render input field
+  // const renderInputField = (block, columnId) => {
+  //   const isImagePlaceholder =
+  //     typeof block.content === "string" &&
+  //     block.content.includes("+ upload an image");
+
+  //   const displayContent = () => {
+  //     // For image objects
+  //     if (typeof block.content === "object" && block.content?.imageData) {
+  //       return (
+  //         <div className="d-flex align-items-center">
+  //           <img
+  //             src={block.content.imageData}
+  //             alt={block.content.fileName || "Image"}
+  //             style={{ maxHeight: "30px", width: "auto", marginRight: "8px" }}
+  //           />
+  //           <span>{block.content.fileName}</span>
+  //         </div>
+  //       );
+  //     }
+
+  //     // For string content
+  //     if (typeof block.content === "string") {
+  //       return block.content;
+  //     }
+
+  //     // Default empty state
+  //     return "";
+  //   };
+
+  //   return (
+  //     <div className="input-group">
+  //       <div
+  //         className="form-control d-flex align-items-center"
+  //         style={{ minHeight: "38px" }}
+  //         onDragOver={(e) => handleInputDragOver(e, columnId, block.id)}
+  //         onDragLeave={handleInputDragLeave}
+  //         onDrop={(e) => handleInputDrop(e, columnId, block.id)}
+  //       >
+  //         {displayContent()}
+  //       </div>
+
+  //       {isImagePlaceholder ? (
+  //         <button
+  //           className="btn btn-sm btn-outline-primary ms-2"
+  //           onClick={() =>
+  //             handleImagePlaceholderClick({
+  //               columnId,
+  //               blockId: block.id,
+  //             })
+  //           }
+  //         >
+  //           <FaPlus size={12} />
+  //         </button>
+  //       ) : (
+  //         <button
+  //           className="btn btn-outline-secondary"
+  //           type="button"
+  //           onClick={() => clearInputContent(columnId, block.id)}
+  //         >
+  //           <i className="fa-solid fa-times"></i>
+  //         </button>
+  //       )}
+  //     </div>
+  //   );
+  // };
+
   const renderInputField = (block, columnId) => {
     const isImagePlaceholder =
-      block.content && block.content.includes("+ upload an image");
+      typeof block.content === "string" &&
+      block.content.includes("+ upload an image");
+
+    const displayContent = () => {
+      // For image objects
+      if (typeof block.content === "object" && block.content?.imageData) {
+        return (
+          <div className="d-flex align-items-center">
+            <img
+              src={block.content.imageData}
+              alt={block.content.fileName || "Image"}
+              style={{ maxHeight: "30px", width: "auto", marginRight: "8px" }}
+            />
+            <span>{block.content.fileName}</span>
+          </div>
+        );
+      }
+
+      // For string content
+      if (typeof block.content === "string") {
+        return block.content;
+      }
+
+      // Default empty state
+      return "Drop content here";
+    };
 
     return (
       <div className="input-group">
-        <input
-          type="text"
-          className="form-control"
-          value={block.content}
-          onChange={(e) => {
-            const column = columns.find((col) =>
-              col.structure.some((b) => b.id === block.id)
-            );
-            if (column) {
-              updateColumnContent(column.id, block.id, e.target.value);
-            }
-          }}
-          placeholder="Drop content here"
+        <div
+          className="form-control d-flex align-items-center"
+          style={{ minHeight: "38px", cursor: "pointer" }}
           onDragOver={(e) => {
-            const column = columns.find((col) =>
-              col.structure.some((b) => b.id === block.id)
-            );
-            if (column) {
-              handleInputDragOver(e, column.id, block.id);
-            }
+            e.preventDefault();
+            e.stopPropagation();
+            handleInputDragOver(e, columnId, block.id);
           }}
           onDragLeave={handleInputDragLeave}
           onDrop={(e) => {
-            const column = columns.find((col) =>
-              col.structure.some((b) => b.id === block.id)
-            );
-            if (column) {
-              handleInputDrop(e, column.id, block.id);
-            }
+            e.preventDefault();
+            e.stopPropagation();
+            handleInputDrop(e, columnId, block.id);
           }}
-        />
+        >
+          {displayContent()}
+        </div>
+
         {isImagePlaceholder ? (
           <button
             className="btn btn-sm btn-outline-primary ms-2"
-            onClick={() => {
-              const column = columns.find((col) =>
-                col.structure.some((b) => b.id === block.id)
-              );
-              if (column) {
-                handleImagePlaceholderClick({
-                  columnId: column.id,
-                  blockId: block.id,
-                });
-              }
-            }}
+            onClick={() =>
+              handleImagePlaceholderClick({
+                columnId,
+                blockId: block.id,
+              })
+            }
           >
             <FaPlus size={12} />
           </button>
@@ -581,14 +653,7 @@ function NewTemplate() {
           <button
             className="btn btn-outline-secondary"
             type="button"
-            onClick={() => {
-              const column = columns.find((col) =>
-                col.structure.some((b) => b.id === block.id)
-              );
-              if (column) {
-                clearInputContent(column.id, block.id);
-              }
-            }}
+            onClick={() => clearInputContent(columnId, block.id)}
           >
             <i className="fa-solid fa-times"></i>
           </button>
@@ -597,125 +662,106 @@ function NewTemplate() {
     );
   };
 
-  // Helper function to get column layout based on type
-  const getColumnLayout = (type, blocks) => {
+  const getColumnLayout = (column) => {
+    const { type, structure } = column;
+
     if (type === "1:1 column") {
-      // Two equal columns
       return (
         <div className="d-flex gap-2">
-          {blocks.map((block) => (
+          {structure.map((block) => (
             <div
               key={block.id}
               className="border p-2 bg-white flex-grow-1 position-relative"
               style={{ width: "100%" }}
             >
-              {renderInputField(block)}
+              {renderInputField(block, column.id)}
             </div>
           ))}
         </div>
       );
     } else if (type === "2:1 column") {
-      // First column takes 2/3, second takes 1/3
       return (
         <div className="d-flex gap-2">
           <div
             className="border p-2 bg-white flex-grow-1 position-relative"
             style={{ width: "66.67%" }}
           >
-            {renderInputField(blocks[0])}
+            {renderInputField(structure[0], column.id)}
           </div>
           <div
             className="border p-2 bg-white flex-grow-1 position-relative"
             style={{ width: "33.33%" }}
           >
-            {renderInputField(blocks[1])}
+            {renderInputField(structure[1], column.id)}
           </div>
         </div>
       );
     } else if (type === "2:2 column") {
-      // Two equal columns in one row
       return (
         <div className="d-flex gap-2">
           <div
             className="border p-2 bg-white flex-grow-1 position-relative"
             style={{ width: "50%" }}
           >
-            {renderInputField(blocks[0])}
+            {renderInputField(structure[0], column.id)}
           </div>
           <div
             className="border p-2 bg-white flex-grow-1 position-relative"
             style={{ width: "50%" }}
           >
-            {renderInputField(blocks[1])}
+            {renderInputField(structure[1], column.id)}
           </div>
         </div>
       );
     } else if (type === "3:3 column") {
-      // Three equal columns in one row
       return (
         <div className="d-flex gap-2">
           <div
             className="border p-2 bg-white flex-grow-1 position-relative"
             style={{ width: "33.33%" }}
           >
-            {renderInputField(blocks[0])}
+            {renderInputField(structure[0], column.id)}
           </div>
           <div
             className="border p-2 bg-white flex-grow-1 position-relative"
             style={{ width: "33.33%" }}
           >
-            {renderInputField(blocks[1])}
+            {renderInputField(structure[1], column.id)}
           </div>
           <div
             className="border p-2 bg-white flex-grow-1 position-relative"
             style={{ width: "33.33%" }}
           >
-            {renderInputField(blocks[2])}
+            {renderInputField(structure[2], column.id)}
           </div>
         </div>
       );
     } else if (type === "4:4 column") {
-      // Four equal columns in one row
       return (
         <div className="d-flex gap-2">
-          <div
-            className="border p-2 bg-white flex-grow-1 position-relative"
-            style={{ width: "25%" }}
-          >
-            {renderInputField(blocks[0])}
-          </div>
-          <div
-            className="border p-2 bg-white flex-grow-1 position-relative"
-            style={{ width: "25%" }}
-          >
-            {renderInputField(blocks[1])}
-          </div>
-          <div
-            className="border p-2 bg-white flex-grow-1 position-relative"
-            style={{ width: "25%" }}
-          >
-            {renderInputField(blocks[2])}
-          </div>
-          <div
-            className="border p-2 bg-white flex-grow-1 position-relative"
-            style={{ width: "25%" }}
-          >
-            {renderInputField(blocks[3])}
-          </div>
+          {structure.map((block, index) => (
+            <div
+              key={block.id}
+              className="border p-2 bg-white flex-grow-1 position-relative"
+              style={{ width: "25%" }}
+            >
+              {renderInputField(block, column.id)}
+            </div>
+          ))}
         </div>
       );
     }
 
-    //default fallback
+    // Default fallback
     return (
       <div className="d-flex gap-2">
-        {blocks.map((block) => (
+        {structure.map((block) => (
           <div
             key={block.id}
             className="border p-2 bg-white flex-grow-1 position-relative"
-            style={{ width:` ${100 / blocks.length}% `}}
+            style={{ width: `${100 / structure.length}%` }}
           >
-            {renderInputField(block)}
+            {renderInputField(block, column.id)}
           </div>
         ))}
       </div>
@@ -1063,7 +1109,23 @@ function NewTemplate() {
                       <div className="flex-grow-1">
                         {item.type === "image" && (
                           <div className="d-flex align-items-center">
-                            <FaImage className="me-2" /> {item.content}
+                            <FaImage className="me-2" />
+                            {item.content?.imageData ? (
+                              <div className="d-flex align-items-center">
+                                <img
+                                  src={item.content.imageData}
+                                  alt={item.content.fileName || "Image"}
+                                  style={{
+                                    maxHeight: "30px",
+                                    width: "auto",
+                                    marginRight: "8px",
+                                  }}
+                                />
+                                <span>{item.content.fileName}</span>
+                              </div>
+                            ) : (
+                              "No image data"
+                            )}
                           </div>
                         )}
                         {item.type === "image-placeholder" && (
@@ -1126,7 +1188,7 @@ function NewTemplate() {
                     </div> */}
 
                     {/* Column content */}
-                    {getColumnLayout(column.type, column.structure)}
+                    {getColumnLayout(column)}
                   </div>
                 ))}
               </div>
