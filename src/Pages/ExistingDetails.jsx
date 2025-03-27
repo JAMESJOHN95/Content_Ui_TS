@@ -69,7 +69,7 @@ function ExistingDetails() {
               className="form-control w-75 me-auto"
               placeholder="Enter the required content"
             />
-            <div className="fs-5 d-flex align-items-center mt-3">
+            <div className="fs-5 d-flex align-items-center mt-4">
               <input
                 type="radio"
                 className="me-2"
@@ -79,7 +79,11 @@ function ExistingDetails() {
                 checked={selectedFilter === "showAll"}
                 onChange={handleFilterChange}
               />
-              <label htmlFor="showall" className="me-2" style={{fontSize:"15px"}}>
+              <label
+                htmlFor="showall"
+                className="me-2"
+                style={{ fontSize: "15px" }}
+              >
                 Show All
               </label>
 
@@ -92,7 +96,11 @@ function ExistingDetails() {
                 checked={selectedFilter === "activeContent"}
                 onChange={handleFilterChange}
               />
-              <label htmlFor="activecontent" className="me-3" style={{fontSize:"15px"}}>
+              <label
+                htmlFor="activecontent"
+                className="me-3"
+                style={{ fontSize: "15px" }}
+              >
                 Active Content
               </label>
 
@@ -105,18 +113,20 @@ function ExistingDetails() {
                 checked={selectedFilter === "expiredContent"}
                 onChange={handleFilterChange}
               />
-              <label htmlFor="expiredcontent" className="me-2" style={{fontSize:"15px"}}>
+              <label
+                htmlFor="expiredcontent"
+                className="me-2"
+                style={{ fontSize: "15px" }}
+              >
                 Expired Content
               </label>
             </div>
           </div>
           <div className="col"></div>
-          <div className="col mt-5 pe-4 text-end">
-            {/* Other UI Elements */}
-          </div>
+          <div className="col pe-4 text-end">{/* Other UI Elements */}</div>
         </div>
 
-        <div className="row mt-5">
+        <div className="row mt-4">
           {/* Spacing for SideBar */}
           <div className="col-md-1"></div>
           {/* Existing Templates */}
@@ -225,18 +235,21 @@ function ExistingDetails() {
                 Analytics Overview
               </h6>
               <hr />
-              <ul style={{ fontSize: "10px", textAlign:"center" }} className="list-unstyled small">
+              <ul
+                style={{ fontSize: "10px", textAlign: "justify" }}
+                className="list-unstyled small"
+              >
                 <li>
-                  <strong>Total Templates:</strong> 5
+                  <strong>Edited:</strong> 48
                 </li>
                 <li>
-                  <strong>Completed:</strong> 2
+                  <strong>Open:</strong> 42
                 </li>
                 <li>
-                  <strong>Pending:</strong> 3
+                  <strong>Impressions:</strong> 9
                 </li>
                 <li>
-                  <strong>Last Updated:</strong> 2
+                  <strong>Saved:</strong> 33
                 </li>
               </ul>
             </div>
@@ -244,22 +257,19 @@ function ExistingDetails() {
           {/* Client Email List */}
           <div className="col-md-2">
             {/* Third Rectangle Showing Client Email List */}
-            <div className="border rounded shadow-sm p-2 ">
+            <div className="border rounded shadow-sm p-2 email-container">
               <h6
                 className="text-center"
                 style={{ fontWeight: "bold", fontSize: "11px" }}
               >
                 List of Emails where Content Block is Used
               </h6>
-              <hr/>
-              <ul
-                style={{ fontSize: "10px", textAlign: "center" }}
-                className="list-unstyled small"
-              >
-                <li>nikhil@gmail.com</li>
-                <li>saleeq@gmail.com</li>
-                <li>alex@gmail.com</li>
-                <li>james@gmail.com</li>
+              <hr />
+              <ul className="list-unstyled small email-list">
+                <li>SDI_OAA_FHSA_Submitted_Day4</li>
+                <li>SDI_OAA_FHSA_Submitted_Day11</li>
+                <li>SDI_OAA_FHSA_PartialDocsRecvd_Day4</li>
+                <li>SDI_OAA_FHSA_PartialDocsRecvd_Day11</li>
               </ul>
             </div>
           </div>
