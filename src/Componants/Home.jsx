@@ -99,10 +99,10 @@ function Home() {
             */}
          <div className='container-fluid'>  
              <div className='row'>
-                <div className='col-md-2 p-0  '>
+                <div className='col-md-1 p-0  '>
                     <Layout />
                 </div>
-                <div className='col-md-10 mt-4'>
+                <div className='col-md-11 mt-4'>
                     <h3 className='ms-5 '>Welcome !</h3>
                     <div className="row">
                         <div>

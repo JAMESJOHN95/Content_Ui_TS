@@ -28,9 +28,9 @@ function ExistingDetails() {
     setSelectedTemplate(null);
     setShowEditModal(false);
   };
-  const publish=()=>{
-    navigate("/publish")
-  }
+  const publish = () => {
+    navigate("/publish");
+  };
 
   // When sending a template to edit mode
   const handleEditTemplate = (template) => {
@@ -60,10 +60,10 @@ function ExistingDetails() {
     <>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-2 p-0">
+          <div className="col-md-1 p-0">
             <Layout />
           </div>
-          <div className="col-md-4 mt-5">
+          <div className="col-md-11 mt-5">
             <input
               type="text"
               className="form-control w-75 me-auto"
@@ -79,7 +79,7 @@ function ExistingDetails() {
                 checked={selectedFilter === "showAll"}
                 onChange={handleFilterChange}
               />
-              <label htmlFor="showall" className="me-3">
+              <label htmlFor="showall" className="me-2" style={{fontSize:"15px"}}>
                 Show All
               </label>
 
@@ -92,7 +92,7 @@ function ExistingDetails() {
                 checked={selectedFilter === "activeContent"}
                 onChange={handleFilterChange}
               />
-              <label htmlFor="activecontent" className="me-3">
+              <label htmlFor="activecontent" className="me-3" style={{fontSize:"15px"}}>
                 Active Content
               </label>
 
@@ -105,67 +105,163 @@ function ExistingDetails() {
                 checked={selectedFilter === "expiredContent"}
                 onChange={handleFilterChange}
               />
-              <label htmlFor="expiredcontent" className="me-2">
+              <label htmlFor="expiredcontent" className="me-2" style={{fontSize:"15px"}}>
                 Expired Content
               </label>
             </div>
           </div>
-          <div className="col-md-2"></div>
-          <div className="col-md-4 mt-5 pe-4 text-end">
+          <div className="col"></div>
+          <div className="col mt-5 pe-4 text-end">
             {/* Other UI Elements */}
           </div>
         </div>
 
-        <div className="row table table-responsive mt-5">
-          <div className="col-md-2"></div>
-          <div className="col-md-10">
-            <table className="table border rounded">
-              <thead>
-                <tr>
-                  <th>Template name</th>
-                  <th>Category</th>
-                  <th>Completion status</th>
-                  <th className="text-center">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {templates.length > 0 ? (
-                  templates.map((item, index) => (
-                    <tr key={item.id || index}>
-                      <td>{item.templateName}</td>
-                      <td>{item.categoryName}</td>
-                      <td>{item.status}</td>
-                      <td className="text-center">
-                        <button
-                          className="btn btn-dark"
-                          onClick={() => handleShow(item)}
-                          style={{ color: "white", backgroundColor: "black" }}
-                        >
-                          Preview
-                        </button>
-                        <button
+        <div className="row mt-5">
+          {/* Spacing for SideBar */}
+          <div className="col-md-1"></div>
+          {/* Existing Templates */}
+          <div className="col-md-7">
+            {/* First Reactangle Showing Table View */}
+            <div className="border rounded shadow-sm p-2 ">
+              <div className="table-responsive">
+                <table className="table table-sm table-bordered rounded">
+                  <thead className="thead-light">
+                    <tr>
+                      <th style={{ fontSize: "12px", padding: "5px" }}>
+                        Template name
+                      </th>
+                      <th style={{ fontSize: "12px", padding: "5px" }}>
+                        Category
+                      </th>
+                      <th style={{ fontSize: "12px", padding: "5px" }}>
+                        Completion status
+                      </th>
+                      <th
+                        style={{ fontSize: "12px", padding: "5px" }}
+                        className="text-center"
+                      >
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {templates.length > 0 ? (
+                      templates.map((item, index) => (
+                        <tr key={item.id || index}>
+                          <td style={{ fontSize: "12px", padding: "5px" }}>
+                            {item.templateName}
+                          </td>
+                          <td style={{ fontSize: "12px", padding: "5px" }}>
+                            {item.categoryName}
+                          </td>
+                          <td style={{ fontSize: "12px", padding: "5px" }}>
+                            {item.status}
+                          </td>
+                          <td
+                            style={{ fontSize: "12px", padding: "5px" }}
+                            className="text-center"
+                          >
+                            <div className="d-flex justify-content-center align-items-center">
+                              <button
+                                className="btn btn-dark btn-sm ms-2"
+                                onClick={() => handleShow(item)}
+                                style={{
+                                  color: "white",
+                                  backgroundColor: "black",
+                                  fontSize: "10px",
+                                  padding: "5px 10px",
+                                  height: "30px",
+                                }}
+                              >
+                                Preview
+                              </button>
+                              {/* <button
                           className="btn btn-dark ms-2"
                           onClick={handleShowAnalytics}
                           style={{ color: "white", backgroundColor: "black" }}
                         >
                           <i className="fa-solid fa-chart-line"></i>
-                        </button>
-                        <button
-                          className="btn btn-danger ms-2"
-                          onClick={() => handleDelete(index)}
+                        </button> */}
+                              <button
+                                className="btn btn-danger btn-sm ms-2"
+                                onClick={() => handleDelete(index)}
+                              >
+                                <i
+                                  className="fa-solid fa-trash"
+                                  style={{
+                                    fontSize: "10px",
+                                    padding: "5px 10px",
+                                    height: "10px",
+                                  }}
+                                ></i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td
+                          style={{ fontSize: "12px", padding: "10px" }}
+                          colSpan="4"
                         >
-                          <i className="fa-solid fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="4">No templates available</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                          No templates available
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          {/* Analytics View */}
+          <div className="col-md-2">
+            {/* Second Rectangle Showing Analytics View */}
+            <div className="border rounded shadow-sm p-2 ">
+              <h6
+                className="text-center"
+                style={{ fontWeight: "bold", fontSize: "11px" }}
+              >
+                Analytics Overview
+              </h6>
+              <hr />
+              <ul style={{ fontSize: "10px", textAlign:"center" }} className="list-unstyled small">
+                <li>
+                  <strong>Total Templates:</strong> 5
+                </li>
+                <li>
+                  <strong>Completed:</strong> 2
+                </li>
+                <li>
+                  <strong>Pending:</strong> 3
+                </li>
+                <li>
+                  <strong>Last Updated:</strong> 2
+                </li>
+              </ul>
+            </div>
+          </div>
+          {/* Client Email List */}
+          <div className="col-md-2">
+            {/* Third Rectangle Showing Client Email List */}
+            <div className="border rounded shadow-sm p-2 ">
+              <h6
+                className="text-center"
+                style={{ fontWeight: "bold", fontSize: "11px" }}
+              >
+                List of Emails where Content Block is Used
+              </h6>
+              <hr/>
+              <ul
+                style={{ fontSize: "10px", textAlign: "center" }}
+                className="list-unstyled small"
+              >
+                <li>nikhil@gmail.com</li>
+                <li>saleeq@gmail.com</li>
+                <li>alex@gmail.com</li>
+                <li>james@gmail.com</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -299,7 +395,9 @@ function ExistingDetails() {
           >
             Edit a Draft
           </button>
-          <button className="btn btn-primary" onClick={publish}>Publish</button>
+          <button className="btn btn-primary" onClick={publish}>
+            Publish
+          </button>
           <button className="btn btn-primary">Deactivate</button>
           <button className="btn btn-primary" onClick={handleClose}>
             Close
@@ -307,7 +405,7 @@ function ExistingDetails() {
         </Modal.Footer>
       </Modal>
 
-      <Modal show={showAnalytics} onHide={handleCloseAnalytics} size="lg">
+      {/* <Modal show={showAnalytics} onHide={handleCloseAnalytics} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>
             <span
@@ -346,7 +444,7 @@ function ExistingDetails() {
             Close
           </button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </>
   );
 }

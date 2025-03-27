@@ -28,26 +28,26 @@ export default function Sidebar() {
           backgroundColor: "rgba(174, 164, 164, 0.58)",
           left: isOpen ? "0" : "-250px",
           transition: "left 0.3s ease",
-          width: "100px",
+          width: "80px",
         }}
       >
-        <ul className="list-unstyled mt-4">
+        <ul className="list-unstyled mt-2">
           <div className="d-flex flex-column align-items-center justify-content-center">
             <Link
               to="/"
               style={{
                 textDecoration: "none",
                 color: "black",
-                marginBottom: "10px",
+                marginBottom: "2px",
               }}
             >
               <li className="mt-2 fw-bolder">
                 <MdDashboard
-                  style={{ width: "100%", height: "100%", fontSize: "25px" }}
+                  style={{ width: "100%", height: "100%", fontSize: "24px" }}
                 />
               </li>
             </Link>
-            <p style={{ fontSize: "12px", fontWeight: "bold" }}>Dashboard</p>
+            <p style={{ fontSize: "11px", fontWeight: "bold" }}>Dashboard</p>
           </div>
           <div className="d-flex flex-column align-items-center justify-content-center">
             <Link
@@ -55,7 +55,7 @@ export default function Sidebar() {
               style={{
                 textDecoration: "none",
                 color: "black",
-                marginBottom: "10px",
+                marginBottom: "2px",
               }}
             >
               <li className="mt-2 fw-bolder">
@@ -67,7 +67,7 @@ export default function Sidebar() {
             <p
               style={{
                 textAlign: "center",
-                fontSize: "12px",
+                fontSize: "11px",
                 fontWeight: "bold",
               }}
             >
@@ -81,19 +81,19 @@ export default function Sidebar() {
               style={{
                 textDecoration: "none",
                 color: "black",
-                marginBottom: "10px",
+                marginBottom: "2px",
               }}
             >
               <li className="mt-2 fw-bolder">
                 <FaFileAlt
-                  style={{ width: "100%", height: "100%", fontSize: "25px" }}
+                  style={{ width: "100%", height: "100%", fontSize: "24px" }}
                 />
               </li>
             </Link>
             <p
               style={{
                 textAlign: "center",
-                fontSize: "12px",
+                fontSize: "11px",
                 fontWeight: "bold",
               }}
             >
@@ -107,19 +107,19 @@ export default function Sidebar() {
               style={{
                 textDecoration: "none",
                 color: "black",
-                marginBottom: "10px",
+                marginBottom: "2px",
               }}
             >
               <li className="mt-2 fw-bolder">
                 <FaFileUpload
-                  style={{ width: "100%", height: "100%", fontSize: "25px" }}
+                  style={{ width: "100%", height: "100%", fontSize: "24px" }}
                 />
               </li>
             </Link>
             <p
               style={{
                 textAlign: "center",
-                fontSize: "12px",
+                fontSize: "11px",
                 fontWeight: "bold",
               }}
             >
