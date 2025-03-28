@@ -128,15 +128,15 @@ function Home() {
                         </div>
                     </div>
                     <div className='row mt-1'>
-                        <div className='col-md-6'>
-                            <div className=' border solid rounded'>
-                            <div className='w-50 p-2'>
-                                <Pie data={data} options={options} />
-                            </div>
-                            </div>
-                        </div>
+                    <div className='col-md-6'>
+    <div className='border solid rounded d-flex justify-content-center align-items-center p-1'/*  style={{ height: "335px" }} */>
+        <div style={{ width: "60%" }}>
+            <Pie data={data} options={options} className='p-3'/>
+        </div>
+    </div>
+</div>
                         <div className='col-md-6 '>
-                          <div className='border solid rounded p-1'>
+                          <div className='border solid rounded p-2'>
                           <Bar data={databar} options={optionsbar} /></div> 
                         </div>
                     </div>
