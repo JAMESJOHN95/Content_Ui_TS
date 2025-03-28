@@ -47,7 +47,15 @@ export default function Sidebar() {
                 />
               </li>
             </Link>
-            <p style={{ fontSize: "11px", fontWeight: "bold" }}>Dashboard</p>
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                color: "black",
+              }}
+            >
+              <p style={{ fontSize: "11px", fontWeight: "bold" }}>Dashboard</p>
+            </Link>
           </div>
           <div className="d-flex flex-column align-items-center justify-content-center">
             <Link
@@ -64,15 +72,23 @@ export default function Sidebar() {
                 />
               </li>
             </Link>
-            <p
+            <Link
+              to="/dashboard"
               style={{
-                textAlign: "center",
-                fontSize: "11px",
-                fontWeight: "bold",
+                textDecoration: "none",
+                color: "black",
               }}
             >
-              New Content
-            </p>
+              <p
+                style={{
+                  textAlign: "center",
+                  fontSize: "11px",
+                  fontWeight: "bold",
+                }}
+              >
+                New Content
+              </p>
+            </Link>
           </div>
 
           <div className="d-flex flex-column align-items-center justify-content-center">
@@ -90,15 +106,23 @@ export default function Sidebar() {
                 />
               </li>
             </Link>
-            <p
+            <Link
+              to="/existingcontents"
               style={{
-                textAlign: "center",
-                fontSize: "11px",
-                fontWeight: "bold",
+                textDecoration: "none",
+                color: "black",
               }}
             >
-              Existing Contents
-            </p>
+              <p
+                style={{
+                  textAlign: "center",
+                  fontSize: "11px",
+                  fontWeight: "bold",
+                }}
+              >
+                Existing Contents
+              </p>
+            </Link>
           </div>
 
           <div className="d-flex flex-column align-items-center justify-content-center">
@@ -116,15 +140,23 @@ export default function Sidebar() {
                 />
               </li>
             </Link>
-            <p
+            <Link
+              to="/"
               style={{
-                textAlign: "center",
-                fontSize: "11px",
-                fontWeight: "bold",
+                textDecoration: "none",
+                color: "black",
               }}
             >
-              Publish Content
-            </p>
+              <p
+                style={{
+                  textAlign: "center",
+                  fontSize: "11px",
+                  fontWeight: "bold",
+                }}
+              >
+                Publish Content
+              </p>
+            </Link>
           </div>
         </ul>
       </div>

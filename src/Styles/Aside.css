@@ -63,6 +63,24 @@
 }
 
 /* Email Styling */
+.email-list {
+    scrollbar-width: thin;
+  }
+  
+  .email-list::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .email-list::-webkit-scrollbar-thumb {
+    background-color: #dee2e6;
+    border-radius: 4px;
+  }
+  
+  .template-body {
+    background-color: #f8f9fa;
+    border-radius: 4px;
+  }
+
 .email-container{
     max-width: 100%;
     overflow: hidden;
@@ -75,8 +93,24 @@
     overflow-wrap: break-word;
 }
 
+
+
 @media (min-width: 768px) and (max-width:1400px){
     .email-list{
         font-size: 7px;
+    }
+}
+
+/* Template actions responsive styling */
+@media (min-width: 768px) and (max-width: 1000px){
+    .template-actions{
+        flex-direction: column;
+        gap: 2px;
+    }
+}
+
+@media (min-width: 768px) and (max-width:1400px){
+    .email-analytics-container{
+        height: 100vh;
     }
 }

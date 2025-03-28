@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../Images/logo.png";
+// dummy image as given in Templates
+import one from "../Images/1on1.png";
 
 function ExistingDetails() {
   const navigate = useNavigate();
@@ -25,9 +27,8 @@ function ExistingDetails() {
     setSelectedTemplate(null);
     setShowEditModal(false);
   };
-  const publish = (template) => {
-    sessionStorage.setItem("selectedTemplate", JSON.stringify(template)); // Store selected template
-    navigate("/publish"); // Redirect to Publish page
+  const publish = () => {
+    navigate("/publish");
   };
 
   // When sending a template to edit mode
@@ -41,7 +42,6 @@ function ExistingDetails() {
     // Retrieve stored templates from localStorage
     const storedTemplates = JSON.parse(localStorage.getItem("templates")) || [];
     setTemplates(storedTemplates);
-    console.log(storedTemplates)
   }, []);
 
   const handleDelete = (index) => {
@@ -55,14 +55,33 @@ function ExistingDetails() {
     setSelectedFilter(event.target.value);
   };
 
+  const getFilteredTemplates = () => {
+    switch (selectedFilter) {
+      case "activeContent":
+        return templates.filter((template) => template.status === "Yes");
+      case "expiredContent":
+        return templates.filter((template) => template.status === "No");
+      default:
+        return templates;
+    }
+  };
+
+  const defaultEmailList = [
+    "SDI_OAA_FHSA_Submitted_Day4",
+    "SDI_OAA_FHSA_Submitted_Day11",
+    "SDI_OAA_FHSA_PartialDocsRecvd_Day4",
+    "SDI_OAA_FHSA_PartialDocsRecvd_Day11",
+  ];
+
   return (
     <>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-md-1 p-0">
-            <Layout />
-          </div>
-          <div className="col-md-11 mt-5">
+      {/* <div className="container-fluid"> */}
+      <div className="row">
+        <div className="col-md-1 p-0">
+          <Layout />
+        </div>
+        <div className="col-md-11 mt-5">
+          <div className="row">
             <input
               type="text"
               className="form-control w-75 me-auto"
@@ -121,149 +140,163 @@ function ExistingDetails() {
               </label>
             </div>
           </div>
-          <div className="col"></div>
-          <div className="col pe-4 text-end">{/* Other UI Elements */}</div>
-        </div>
 
-        <div className="row mt-4">
-          {/* Spacing for SideBar */}
-          <div className="col-md-1"></div>
-          {/* Existing Templates */}
-          <div className="col-md-7">
-            {/* First Reactangle Showing Table View */}
-            <div className="border rounded shadow-sm p-2 ">
-              <div className="table-responsive">
-                <table className="table table-sm table-bordered rounded">
-                  <thead className="thead-light">
-                    <tr>
-                      <th style={{ fontSize: "12px", padding: "5px" }}>
-                        Template name
-                      </th>
-                      <th style={{ fontSize: "12px", padding: "5px" }}>
-                        Category
-                      </th>
-                      <th style={{ fontSize: "12px", padding: "5px" }}>
-                        Completion status
-                      </th>
-                      <th
-                        style={{ fontSize: "12px", padding: "5px" }}
-                        className="text-center"
-                      >
-                        Actions
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {templates.length > 0 ? (
-                      templates.map((item, index) => (
-                        <tr key={item.id || index}>
-                          <td style={{ fontSize: "12px", padding: "5px" }}>
-                            {item.templateName}
-                          </td>
-                          <td style={{ fontSize: "12px", padding: "5px" }}>
-                            {item.categoryName}
-                          </td>
-                          <td style={{ fontSize: "12px", padding: "5px" }}>
-                            {item.status}
-                          </td>
-                          <td
-                            style={{ fontSize: "12px", padding: "5px" }}
-                            className="text-center"
-                          >
-                            <div className="d-flex justify-content-center align-items-center">
-                              <button
-                                className="btn btn-dark btn-sm ms-2"
-                                onClick={() => handleShow(item)}
-                                style={{
-                                  color: "white",
-                                  backgroundColor: "black",
-                                  fontSize: "10px",
-                                  padding: "5px 10px",
-                                  height: "30px",
-                                }}
-                              >
-                                Preview
-                              </button>
-                              <button
-                                className="btn btn-danger btn-sm ms-2"
-                                onClick={() => handleDelete(index)}
-                              >
-                                <i
-                                  className="fa-solid fa-trash"
-                                  style={{
-                                    fontSize: "10px",
-                                    padding: "5px 10px",
-                                    height: "10px",
-                                  }}
-                                ></i>
-                              </button>
+          {/*  <div className="col"></div> */}
+          {/*  <div className="col pe-4 text-end"> */}
+          {/* Other UI Elements */}
+          {/* </div> */}
+
+          <div className="container">
+            {getFilteredTemplates().map((template, index) => (
+              <div key={template.id || index} className="row mt-4">
+                <div className="d-flex align-items-center justify-content-center mb-4 border p-3 row">
+                  {/* Template Info */}
+                  <div className="rounded p-2 col-md-6 mb-3 mb-md-0">
+                    <div className="row">
+                      <div className="col-md-6">
+                        {template.containerContent?.length > 0 && (
+                          <div className="template-images">
+                            <div className="d-flex flex-wrap gap-2">
+                              {template.containerContent
+                                .filter(
+                                  (item) =>
+                                    item.type === "image" &&
+                                    item.content?.imageData
+                                )
+                                .slice(0, 1) // Show only 1 image
+                                .map((item, idx) => (
+                                  <div
+                                    key={idx}
+                                    className="position-relative"
+                                    style={{ width: "100%" }}
+                                  >
+                                    <img
+                                      src={item.content.imageData}
+                                      alt={
+                                        item.content.fileName || "Content Image"
+                                      }
+                                      className="img-fluid rounded border"
+                                      style={{
+                                        maxHeight: "150px",
+                                        objectFit: "cover",
+                                        width: "100%",
+                                      }}
+                                    />
+                                    {item.content.fileName && (
+                                      <small
+                                        className="text-muted d-block text-truncate"
+                                        style={{ fontSize: "8px" }}
+                                      >
+                                        {item.content.fileName}
+                                      </small>
+                                    )}
+                                  </div>
+                                ))}
                             </div>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td
-                          style={{ fontSize: "12px", padding: "10px" }}
-                          colSpan="4"
-                        >
-                          No templates available
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
+                          </div>
+                        )}
+                      </div>
+                      <div className="col-md-6">
+                        <div className="border rounded shadow-sm p-2">
+                          <p style={{ fontSize: "15px", fontWeight: "bold" }}>
+                            {template.templateName}
+                          </p>
+                          <p style={{ fontSize: "12px" }}>
+                            Category: {template.categoryName}
+                          </p>
+
+                          {/* Template Actions */}
+                          <div className="d-flex justify-content-between align-items-center mt-3">
+                            <button
+                              className="btn btn-sm btn-outline-primary"
+                              onClick={() => handleShow(template)}
+                              style={{ fontSize: "10px" }}
+                            >
+                              Preview
+                            </button>
+                            <button
+                              className="btn btn-sm btn-outline-danger"
+                              onClick={() => handleDelete(index)}
+                            >
+                              <i
+                                className="fa-solid fa-trash"
+                                style={{ fontSize: "11px" }}
+                              ></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Analytics */}
+                  <div className="col-md-3">
+                    <div className="border rounded shadow-sm p-2 ">
+                      <h6
+                        className="text-center"
+                        style={{ fontWeight: "bold", fontSize: "11px" }}
+                      >
+                        Analytics Overview
+                      </h6>
+                      <hr />
+                      <ul
+                        className="list-unstyled mb-0 email-list"
+                        style={{
+                          fontSize: "10px",
+                          maxHeight: "100px",
+                          overflowY: "auto",
+                        }}
+                      >
+                        <li>
+                          <strong>Edited:</strong> 48
+                        </li>
+                        <li>
+                          <strong>Open:</strong> 42
+                        </li>
+                        <li>
+                          <strong>Impressions:</strong> 9
+                        </li>
+                        <li>
+                          <strong>Saved:</strong> 33
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Email List */}
+                  <div className="col-md-3">
+                    <div className="border rounded shadow-sm p-2 email-container">
+                      <h6
+                        className="text-center fw-bold"
+                        style={{ fontSize: "11px" }}
+                      >
+                        Email Usage
+                      </h6>
+                      <hr className="my-2" />
+                      <ul
+                        className="list-unstyled mb-0 email-list"
+                        style={{
+                          fontSize: "10px",
+                          maxHeight: "100px",
+                          overflowY: "auto",
+                        }}
+                      >
+                        {template.emailList?.map((email, idx) => (
+                          <li key={idx} className="mb-1 text-truncate">
+                            {email}
+                          </li>
+                        )) ||
+                          defaultEmailList.map((email, idx) => (
+                            <li key={idx} className="mb-1 text-truncate">
+                              {email}
+                            </li>
+                          ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          {/* Analytics View */}
-          <div className="col-md-2">
-            {/* Second Rectangle Showing Analytics View */}
-            <div className="border rounded shadow-sm p-2 ">
-              <h6
-                className="text-center"
-                style={{ fontWeight: "bold", fontSize: "11px" }}
-              >
-                Analytics Overview
-              </h6>
-              <hr />
-              <ul
-                style={{ fontSize: "10px", textAlign: "justify" }}
-                className="list-unstyled small"
-              >
-                <li>
-                  <strong>Edited:</strong> 48
-                </li>
-                <li>
-                  <strong>Open:</strong> 42
-                </li>
-                <li>
-                  <strong>Impressions:</strong> 9
-                </li>
-                <li>
-                  <strong>Saved:</strong> 33
-                </li>
-              </ul>
-            </div>
-          </div>
-          {/* Client Email List */}
-          <div className="col-md-2">
-            {/* Third Rectangle Showing Client Email List */}
-            <div className="border rounded shadow-sm p-2 email-container">
-              <h6
-                className="text-center"
-                style={{ fontWeight: "bold", fontSize: "11px" }}
-              >
-                List of Emails where Content Block is Used
-              </h6>
-              <hr />
-              <ul className="list-unstyled small email-list">
-                <li>SDI_OAA_FHSA_Submitted_Day4</li>
-                <li>SDI_OAA_FHSA_Submitted_Day11</li>
-                <li>SDI_OAA_FHSA_PartialDocsRecvd_Day4</li>
-                <li>SDI_OAA_FHSA_PartialDocsRecvd_Day11</li>
-              </ul>
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -282,7 +315,6 @@ function ExistingDetails() {
         <Modal.Body>
           <div className="container">
             {/* Template Header */}
-
             <div className="row mb-4">
               <div className="col-12">
                 <h3 className="text-center mb-3">
@@ -398,8 +430,9 @@ function ExistingDetails() {
           >
             Edit a Draft
           </button>
-
-          <button className="btn btn-primary" onClick={() => publish(selectedTemplate)}>Publish</button>
+          <button className="btn btn-primary" onClick={publish}>
+            Publish
+          </button>
           <button className="btn btn-primary">Deactivate</button>
           <button className="btn btn-primary" onClick={handleClose}>
             Close
