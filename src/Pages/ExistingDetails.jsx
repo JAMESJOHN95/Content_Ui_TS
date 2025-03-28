@@ -7,9 +7,6 @@ import logo from "../Images/logo.png";
 
 function ExistingDetails() {
   const navigate = useNavigate();
-  const [showAnalytics, setShowAnalytics] = useState(false);
-  const handleCloseAnalytics = () => setShowAnalytics(false);
-  const handleShowAnalytics = () => setShowAnalytics(true);
   const [selectedFilter, setSelectedFilter] = useState("showAll");
   // State to store the templates
   const [templates, setTemplates] = useState([]);
@@ -28,8 +25,9 @@ function ExistingDetails() {
     setSelectedTemplate(null);
     setShowEditModal(false);
   };
-  const publish = () => {
-    navigate("/publish");
+  const publish = (template) => {
+    sessionStorage.setItem("selectedTemplate", JSON.stringify(template)); // Store selected template
+    navigate("/publish"); // Redirect to Publish page
   };
 
   // When sending a template to edit mode
@@ -43,6 +41,7 @@ function ExistingDetails() {
     // Retrieve stored templates from localStorage
     const storedTemplates = JSON.parse(localStorage.getItem("templates")) || [];
     setTemplates(storedTemplates);
+    console.log(storedTemplates)
   }, []);
 
   const handleDelete = (index) => {
@@ -283,6 +282,7 @@ function ExistingDetails() {
         <Modal.Body>
           <div className="container">
             {/* Template Header */}
+
             <div className="row mb-4">
               <div className="col-12">
                 <h3 className="text-center mb-3">
@@ -398,9 +398,8 @@ function ExistingDetails() {
           >
             Edit a Draft
           </button>
-          <button className="btn btn-primary" onClick={publish}>
-            Publish
-          </button>
+
+          <button className="btn btn-primary" onClick={() => publish(selectedTemplate)}>Publish</button>
           <button className="btn btn-primary">Deactivate</button>
           <button className="btn btn-primary" onClick={handleClose}>
             Close
