@@ -7,9 +7,6 @@ import logo from "../Images/logo.png";
 
 function ExistingDetails() {
   const navigate = useNavigate();
-  const [showAnalytics, setShowAnalytics] = useState(false);
-  const handleCloseAnalytics = () => setShowAnalytics(false);
-  const handleShowAnalytics = () => setShowAnalytics(true);
   const [selectedFilter, setSelectedFilter] = useState("showAll");
   // State to store the templates
   const [templates, setTemplates] = useState([]);

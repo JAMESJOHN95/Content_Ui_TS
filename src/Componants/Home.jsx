@@ -8,7 +8,7 @@ ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarEle
 
 function Home() {
     const data = {
-        labels: ['Red', 'Blue', 'Yellow'], // Labels for segments
+        labels: ['Draft', 'Published', 'Deactivated'], // Labels for segments
         datasets: [
             {
                 data: [300, 50, 100], // Data for each segment
@@ -54,8 +54,8 @@ function Home() {
         responsive: true,
         plugins: {
             title: {
-                display: false,
-                text: 'Monthly Sales Report', // Title for the bar chart
+                display: true,
+                text: 'Total Impressions of content bock in each month', 
             },
             tooltip: {
                 callbacks: {
@@ -104,12 +104,6 @@ function Home() {
                 </div>
                 <div className='col-md-11 mt-4'>
                     <h3 className='ms-5 '>Welcome !</h3>
-                    <div className="row">
-                        <div>
-                            <button className='btn btn-light ms-1'>Any</button>
-                            <button className='btn btn-success ms-2'>Any</button>
-                        </div>
-                    </div>
                     <div className='row mt-2'>
                         <div className='col-md-3  rounded'>
                            <div className='border rounded' >
@@ -129,7 +123,7 @@ function Home() {
                         </div>
                         <div className='col-md-3 '>
                            <div className='border rounded'><h5 className='p-2 text-center'>
-                                Dummy</h5>
+                                Drafts</h5>
                                 <h5 className='p-2 text-center'>10</h5></div> 
                         </div>
                     </div>
@@ -149,30 +143,30 @@ function Home() {
                     <div className='row mt-1'>
                         <div className='col-md-3'>
                            <div className=' border rounded'>
-                           <h5 className='p-2 text-center'>Content blocks in draft</h5>
+                           <h5 className='p-2 text-center'>Impressions</h5>
                            <h5 className='p-2 text-center'>10</h5></div> 
                         </div>
                         <div className='col-md-3'>
                             <div className=' border rounded'>
-                            <h5 className='p-2 text-center'>Total Clicks</h5>
+                            <h5 className='p-2 text-center'>Opened</h5>
                             <h5 className='p-2 text-center'>65</h5>
                             </div>
                             
                         </div>
                         <div className='col-md-3'>
                            <div className='border rounded'>
-                           <h5 className='p-2 text-center'>Total Opens</h5>
+                           <h5 className='p-2 text-center'>Clicks</h5>
                            <h5 className='p-2 text-center'>64</h5>
                          </div>
                         </div>
                         <div className='col-md-3 '>
                            <div className='border rounded'>
                             <h5 className='p-2 text-center'>
-                                Dummy</h5>
+                                Total Sends</h5>
                            <h5 className='p-2 text-center'>10</h5></div> 
                         </div>
                     </div>
-                    <div className='row mt-1'>
+                   {/*  <div className='row mt-1'>
                         <div className='col-md-6 p-4'>
                             <div className=' border rounded'>
    
@@ -182,7 +176,7 @@ function Home() {
                             <div className=' border rounded'>   
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             </div>
