@@ -42,12 +42,21 @@
 
 /* Template Image Styling */
 .template-img{
-    width: 200px;
-    height: 150px;
+    width: 250px;
+    height:300px;
+}
+
+.template-img-top{
+    width: 500px;
+    height: 300px;
 }
 
 @media (min-width: 400px) and (max-width:768px){
     .template-img{
+        width: 500px;
+        height: 400px;
+    }
+    .template-img-top{
         width: 500px;
         height: 400px;
     }
@@ -71,4 +80,3 @@
         font-size: 7px;
     }
 }
-
