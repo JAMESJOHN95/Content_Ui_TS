@@ -51,14 +51,11 @@ function NewTemplate() {
   const [templateName, setTemplateName] = useState("");
   const [categoryName, setCategoryName] = useState("");
 
-  // useEffect(() => {
-  //   // Get the template from sessionStorage if it exists
-  //   const storedTemplate = sessionStorage.getItem("editTemplate");
-  //   if (storedTemplate) {
-  //     setTemplateData(JSON.parse(storedTemplate));
-  //     sessionStorage.removeItem("editTemplate"); // Clear after loading
-  //   }
-  // }, []);
+  //state for import template functionality
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importHTML, setImportHtml] = useState("");
+
+  //tiptap editor as input box for user to enter the text
   const editor = useEditor({
     extensions: [
       StarterKit, // Already includes History
@@ -480,6 +477,7 @@ function NewTemplate() {
       templateBody,
       columns,
       containerContent,
+      desc: "",
     };
 
     // Retrieve existing data from localStorage
@@ -522,72 +520,6 @@ function NewTemplate() {
     alert("Template Saved Successfully!!!");
     navigate("/existingContents", { replace: true });
   };
-
-  // const renderInputField = (block, columnId) => {
-  //   const isImagePlaceholder =
-  //     typeof block.content === "string" &&
-  //     block.content.includes("+ upload an image");
-
-  //   const displayContent = () => {
-  //     // For image objects
-  //     if (typeof block.content === "object" && block.content?.imageData) {
-  //       return (
-  //         <div className="d-flex align-items-center">
-  //           <img
-  //             src={block.content.imageData}
-  //             alt={block.content.fileName || "Image"}
-  //             style={{ maxHeight: "30px", width: "auto", marginRight: "8px" }}
-  //           />
-  //           <span>{block.content.fileName}</span>
-  //         </div>
-  //       );
-  //     }
-
-  //     // For string content
-  //     if (typeof block.content === "string") {
-  //       return block.content;
-  //     }
-
-  //     // Default empty state
-  //     return "";
-  //   };
-
-  //   return (
-  //     <div className="input-group">
-  //       <div
-  //         className="form-control d-flex align-items-center"
-  //         style={{ minHeight: "38px" }}
-  //         onDragOver={(e) => handleInputDragOver(e, columnId, block.id)}
-  //         onDragLeave={handleInputDragLeave}
-  //         onDrop={(e) => handleInputDrop(e, columnId, block.id)}
-  //       >
-  //         {displayContent()}
-  //       </div>
-
-  //       {isImagePlaceholder ? (
-  //         <button
-  //           className="btn btn-sm btn-outline-primary ms-2"
-  //           onClick={() =>
-  //             handleImagePlaceholderClick({
-  //               columnId,
-  //               blockId: block.id,
-  //             })
-  //           }
-  //         >
-  //           <FaPlus size={12} />
-  //         </button>
-  //       ) : (
-  //         <button
-  //           className="btn btn-outline-secondary"
-  //           type="button"
-  //           onClick={() => clearInputContent(columnId, block.id)}
-  //         >
-  //           <i className="fa-solid fa-times"></i>
-  //         </button>
-  //       )}
-  //     </div>
-  //   );
-  // };
 
   const renderInputField = (block, columnId) => {
     const isImagePlaceholder =
@@ -769,6 +701,42 @@ function NewTemplate() {
     );
   };
 
+  //function for importing template
+  const handleImportTemplate = () => {
+    if (!importHTML.trim()) {
+      alert("Please enter HTML content to import.");
+      return;
+    }
+    //data format to be passed to the table of existing content via localStorage
+    const newTemplate = {
+      id: uuidv4(),
+      templateName: `Imported Template ${new Date().toLocaleString()}`,
+      categoryName: categoryName || "SD", //default category name
+      status: "Yes",
+      templateBody: importHTML,
+      columns: [],
+      containerContent: [],
+      desc: "",
+    };
+
+    //Get existing templates
+    const existingData = JSON.parse(localStorage.getItem("templates")) || [];
+
+    //Add new template
+    existingData.push(newTemplate);
+
+    //Save to localStorage
+    localStorage.setItem("templates", JSON.stringify(existingData));
+
+    //Clear modal
+    setImportHtml("");
+    setShowImportModal(false);
+
+    //Navigate to existing contents
+    alert("Template imported successfully");
+    navigate("/existingcontents", { replace: true });
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -895,6 +863,20 @@ function NewTemplate() {
                 accept="image/*"
                 onChange={handleImageUpload}
               />
+            </div>
+
+            <div className="p-0 w-100">
+              <button
+                style={{
+                  cursor: "pointer",
+                  backgroundColor: "white",
+                  border: "1px solid #333",
+                }}
+                className="btn w-100 mb-3"
+                onClick={() => setShowImportModal(true)}
+              >
+                Import Template
+              </button>
             </div>
           </div>
         </div>
@@ -1232,6 +1214,50 @@ function NewTemplate() {
                       onClick={handleSaveCode}
                     >
                       Insert
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Add this modal component */}
+          {showImportModal && (
+            <div className="modal d-block" tabIndex="-1" role="dialog">
+              <div className="modal-dialog modal-lg" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title">Import HTML Template</h5>
+                    <button
+                      type="button"
+                      className="btn-close"
+                      onClick={() => setShowImportModal(false)}
+                    ></button>
+                  </div>
+                  <div className="modal-body">
+                    <textarea
+                      className="form-control"
+                      rows="15"
+                      value={importHTML}
+                      onChange={(e) => setImportHtml(e.target.value)}
+                      placeholder="Paste your HTML code here..."
+                      style={{ fontFamily: "monospace" }}
+                    ></textarea>
+                  </div>
+                  <div className="modal-footer">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={() => setShowImportModal(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={handleImportTemplate}
+                    >
+                      Import
                     </button>
                   </div>
                 </div>
