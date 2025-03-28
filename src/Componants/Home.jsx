@@ -23,13 +23,17 @@ function Home() {
         responsive: true,
         plugins: {
             legend: {
-                position: 'top', // Position of the legend
+                position: 'top', 
+                labels: {
+                    boxWidth: 10, // Adjusts the size of the color box
+                    padding: 10,
+                    usePointStyle: true,// Position of the legend
             },
             tooltip: {
                 callbacks: {
                     label: (tooltipItem) => {
                         return `${tooltipItem.label}: ${tooltipItem.raw}`;
-                    },
+                },},
                 },
             },
         },
@@ -129,9 +133,9 @@ function Home() {
                     </div>
                     <div className='row mt-1'>
                     <div className='col-md-6'>
-    <div className='border solid rounded d-flex justify-content-center align-items-center p-1'/*  style={{ height: "335px" }} */>
-        <div style={{ width: "60%" }}>
-            <Pie data={data} options={options} className='p-3'/>
+    <div className='border solid rounded d-flex justify-content-center align-items-center p-2'/*  style={{ height: "335px" }} */>
+        <div style={{ width: "50%" }}>
+            <Pie data={data} options={options} className='p-2'/>
         </div>
     </div>
 </div>
