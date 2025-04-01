@@ -25,7 +25,7 @@ export default function Sidebar() {
         style={{
           position: "fixed",
           height: "100vh",
-          backgroundColor: "rgba(174, 164, 164, 0.58)",
+          backgroundColor: "#D3D3D3",
           left: isOpen ? "0" : "-250px",
           transition: "left 0.3s ease",
           width: "80px",

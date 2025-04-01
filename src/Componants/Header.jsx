@@ -25,41 +25,50 @@ function Header() {
   return (
     <>
       <Navbar
-        style={{ backgroundColor: "#f2ebeb" }}
+        style={{
+          backgroundColor: "#D3D3D3",
+          padding: "12px 20px",
+          borderBottom: "1px solid black",
+        }}
         fixed="top"
         expand="lg"
-        className="mb-0"
+        className="shadow-sm"
       >
-        <Container>
-          <Row className="w-100">
-            <Col xs={6} md={3}>
-              <Navbar.Brand>
-                <img
-                  style={{ width: "40px", height: "30px" }}
-                  src={logo}
-                  alt="MartechBees Logo"
-                />
-                MartechBees
-              </Navbar.Brand>
-            </Col>
-            <Col xs={6} md={9} className="text-end">
-              <Navbar.Toggle aria-controls="navbar-nav" />
-            </Col>
-          </Row>
+        <Container fluid>
+          {/* Left - Brand Logo */}
+          <Navbar.Brand
+            href="/"
+            className="d-flex align-items-center text-black fw-bold"
+          >
+            <img
+              src={logo}
+              alt="MartechBees Logo"
+              style={{ width: "40px", height: "30px", marginRight: "10px" }}
+            />
+            MartechBees
+          </Navbar.Brand>
+
+          {/* Mobile Toggle */}
+          <Navbar.Toggle aria-controls="navbar-nav" className="border-0">
+            <span className="navbar-toggler-icon"></span>
+          </Navbar.Toggle>
+
+          {/* Right - Navigation */}
           <Navbar.Collapse id="navbar-nav">
-            <Nav className="ms-auto">
+            <Nav className="ms-auto d-flex align-items-center">
               <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
                 {" "}
-                <Nav.Link href="#home" className="me-3 bold">
+                <Nav.Link href="#home" className="text-black me-3 bold">
                   Settings
                 </Nav.Link>
               </Link>
               <Nav.Link
                 href="#features"
+                className="text-black fw-semibold"
                 style={{ cursor: "pointer" }}
                 onClick={handleShow}
               >
-                User
+                <i className="fa-solid fa-user-circle me-1"></i> User
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
