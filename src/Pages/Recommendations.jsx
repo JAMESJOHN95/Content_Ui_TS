@@ -12,31 +12,6 @@ const Recommendations = () => {
             <Layout />
           </div>
           <div className="col-md-11 p-0">
-            {/* <div className="dashboard">
-              <div className="mb-3 p-3 flex-column text-center fs-5 pt-5">
-                <h2 className="bold">Get AI-Powered Recommendations</h2>
-                <div>
-                  <p>
-                    Leverage AI to optimize your email campaigns effortlessly.
-                    <br /> Receive smart suggestions for subject lines, content,
-                    and design to maximize engagement.
-                  </p>
-                </div>
-              </div>
-              <div className="d-flex flex-column gap-4 p-3 border border-rounded mt-3 text-center">
-                <div>
-                  <FaBrain style={{ fontSize: "24px" }} />
-                </div>
-                <h4>AI Recommendations</h4>
-                <p className="fs-5 bold">
-                  Get AI-powered suggestions to enhance your template
-                </p>
-                <div className="d-flex gap-3 align-items-center justify-content-center">
-                  <button type="submit" style={{padding:"0.5rem 1rem",background:"none",outline:"none",border:"1px solid black"}}>Subject Recommendations</button>
-                  <button type="submit" style={{padding:"0.5rem 1rem",background:"none",outline:"none",border:"1px solid black"}}>Content Recommendations</button>
-                </div>
-              </div>
-            </div> */}
             <div className="dashboard">
               <div className="mb-3 p-3 flex-column text-center fs-5 pt-5">
                 <h2 className="bold">Get AI-Powered Recommendations</h2>
