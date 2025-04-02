@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 // Icons for Sidebar
 import { MdDashboard, MdNoteAdd } from "react-icons/md";
-import { FaFileUpload, FaFileAlt } from "react-icons/fa";
+import { FaFileUpload, FaFileAlt} from "react-icons/fa";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -155,6 +155,40 @@ export default function Sidebar() {
                 }}
               >
                 Publish Content
+              </p>
+            </Link>
+          </div>
+
+          <div className="d-flex flex-column align-items-center justify-content-center">
+            <Link
+              to="/recommendations"
+              style={{
+                textDecoration: "none",
+                color: "black",
+                marginBottom: "2px",
+              }}
+            >
+              <li className="mt-2 fw-bolder">
+                <img src="/ai icon.png" alt="AI icon"
+                  style={{ width: "100%", height: "90%", fontSize: "24px",padding:"0px 3px" }}
+                />
+              </li>
+            </Link>
+            <Link
+              to="/recommendations"
+              style={{
+                textDecoration: "none",
+                color: "black",
+              }}
+            >
+              <p
+                style={{
+                  textAlign: "center",
+                  fontSize: "11px",
+                  fontWeight: "bold",
+                }}
+              >
+                AI Insights
               </p>
             </Link>
           </div>
