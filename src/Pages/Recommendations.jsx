@@ -12,8 +12,8 @@ const Recommendations = () => {
             <Layout />
           </div>
           <div className="col-md-11 p-0">
-            <div className="dashboard">
-              <div className="mb-3 p-3 flex-column text-center fs-5 pt-5 pb-5">
+            {/* <div className="dashboard">
+              <div className="mb-3 p-3 flex-column text-center fs-5 pt-5">
                 <h2 className="bold">Get AI-Powered Recommendations</h2>
                 <div>
                   <p>
@@ -22,40 +22,81 @@ const Recommendations = () => {
                     and design to maximize engagement.
                   </p>
                 </div>
-                <div className="d-flex justify-content-around flex-wrap gap-4 mt-5">
-                  <div style={{ textDecoration: "none", color: "black" }}>
-                    <div className="selectTemplate text-center border rounded p-4">
-                      <div>
-                        <FaBrain  style={{ fontSize: "32px" }}/>
-                      </div>
-                      <h4 className="bold">AI Recommendations</h4>
-                      <p>Get AI powered suggestions to enhance your template</p>
-                      <div className="d-flex justify-content-around align-items-center mt-4 gap-2">
-                        <div
-                          className="border p-2"
-                          style={{ cursor: "pointer" }}
-                        >
-                          <h5
-                            className=" "
-                            style={{ fontSize: "12px", fontWeight: "bold" }}
-                          >
-                            Subject Recommendations
-                          </h5>
-                        </div>
-                        <div
-                          className="border p-2"
-                          style={{ cursor: "pointer" }}
-                        >
-                          <h5
-                            className=""
-                            style={{ fontSize: "12px", fontWeight: "bold" }}
-                          >
-                            Content Recommendations
-                          </h5>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+              <div className="d-flex flex-column gap-4 p-3 border border-rounded mt-3 text-center">
+                <div>
+                  <FaBrain style={{ fontSize: "24px" }} />
+                </div>
+                <h4>AI Recommendations</h4>
+                <p className="fs-5 bold">
+                  Get AI-powered suggestions to enhance your template
+                </p>
+                <div className="d-flex gap-3 align-items-center justify-content-center">
+                  <button type="submit" style={{padding:"0.5rem 1rem",background:"none",outline:"none",border:"1px solid black"}}>Subject Recommendations</button>
+                  <button type="submit" style={{padding:"0.5rem 1rem",background:"none",outline:"none",border:"1px solid black"}}>Content Recommendations</button>
+                </div>
+              </div>
+            </div> */}
+            <div className="dashboard">
+              <div className="mb-3 p-3 flex-column text-center fs-5 pt-5">
+                <h2 className="bold">Get AI-Powered Recommendations</h2>
+                <div>
+                  <p>
+                    Leverage AI to optimize your email campaigns effortlessly.
+                    <br /> Receive smart suggestions for subject lines, content,
+                    and design to maximize engagement.
+                  </p>
+                </div>
+              </div>
+              <div
+                className="d-flex flex-column border gap-3 p-4 me-4 mx-auto text-center"
+                style={{
+                  borderRadius: "12px",
+                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                  background: "#fff",
+                  flex:"1 1 0%",
+                }}
+              >
+                <div>
+                  <FaBrain style={{ fontSize: "32px", color: "#333" }} />
+                </div>
+                <h4 className="fw-bold">AI Recommendations</h4>
+                <p className="fs-5 fw-semibold">
+                  Get AI-powered suggestions to enhance your template
+                </p>
+                <div className="d-flex gap-3 align-items-center justify-content-center">
+                  <button
+                    type="submit"
+                    style={{
+                      padding: "0.6rem 1.2rem",
+                      background: "#f8f9fa",
+                      border: "1px solid #ccc",
+                      borderRadius: "8px",
+                      boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
+                      cursor: "pointer",
+                      transition: "0.3s",
+                    }}
+                    onMouseOver={(e) => (e.target.style.background = "#e9ecef")}
+                    onMouseOut={(e) => (e.target.style.background = "#f8f9fa")}
+                  >
+                    Subject Recommendations
+                  </button>
+                  <button
+                    type="submit"
+                    style={{
+                      padding: "0.6rem 1.2rem",
+                      background: "#f8f9fa",
+                      border: "1px solid #ccc",
+                      borderRadius: "8px",
+                      boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
+                      cursor: "pointer",
+                      transition: "0.3s",
+                    }}
+                    onMouseOver={(e) => (e.target.style.background = "#e9ecef")}
+                    onMouseOut={(e) => (e.target.style.background = "#f8f9fa")}
+                  >
+                    Content Recommendations
+                  </button>
                 </div>
               </div>
             </div>

@@ -26,9 +26,10 @@ function Header() {
     <>
       <Navbar
         style={{
-          backgroundColor: "#D3D3D3",
+          border:"none",
+          outline:"none",
+          backgroundColor:"rgba(211,211,211,1)",
           padding: "12px 20px",
-          borderBottom: "1px solid black",
         }}
         fixed="top"
         expand="lg"

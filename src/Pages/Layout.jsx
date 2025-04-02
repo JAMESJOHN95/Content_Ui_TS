@@ -23,9 +23,11 @@ export default function Sidebar() {
           isOpen ? "active" : ""
         } mt-0`}
         style={{
+          border:"none",
+          outline:"none",
           position: "fixed",
           height: "100vh",
-          backgroundColor: "#D3D3D3",
+          backgroundColor: "rgba(211,211,211,1)",
           left: isOpen ? "0" : "-250px",
           transition: "left 0.3s ease",
           width: "80px",
