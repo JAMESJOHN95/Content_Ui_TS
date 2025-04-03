@@ -6,6 +6,7 @@ import logo from "../Images/logo.png";
 import "../App.css";
 import { Modal, Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
 
 function Header() {
   const [show, setShow] = useState(false);
@@ -26,9 +27,9 @@ function Header() {
     <>
       <Navbar
         style={{
-          border:"none",
-          outline:"none",
-          backgroundColor:"rgba(211,211,211,1)",
+          border: "none",
+          outline: "none",
+          backgroundColor: "rgba(211,211,211,1)",
           padding: "12px 20px",
         }}
         fixed="top"
@@ -57,12 +58,16 @@ function Header() {
           {/* Right - Navigation */}
           <Navbar.Collapse id="navbar-nav">
             <Nav className="ms-auto d-flex align-items-center">
-              <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
+              <Link to={"/"}>
                 {" "}
-                <Nav.Link href="#home" className="text-black me-3 bold">
-                  Settings
-                </Nav.Link>
+                <FaHome
+                  style={{ color: "black", fontSize: "20px" }}
+                  className="mb-1 me-3"
+                />
               </Link>
+              <Nav.Link href="#home" className="text-black me-3 bold">
+                Settings
+              </Nav.Link>
               <Nav.Link
                 href="#features"
                 className="text-black fw-semibold"

@@ -236,6 +236,7 @@ function ExistingDetails() {
                                   (item) =>
                                     item.type === "image" &&
                                     item.content?.imageData
+                                    
                                 )
                                 .slice(0, 1) // Show only 1 image
                                 .map((item, idx) => (
