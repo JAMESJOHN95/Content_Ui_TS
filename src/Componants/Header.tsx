@@ -60,6 +60,29 @@ const Header: React.FC = () => {
           </Navbar.Toggle>
            
           {/* Right - Navigation */}
+          <Navbar.Collapse id="navbar-nav">
+            <Nav className="ms-auto d-flex ">
+              <Link to={"/"}>
+                {" "}
+                <FaHome
+                  style={{ color: "black", fontSize: "20px" }}
+                  className="mt-2 me-3"
+                />
+              </Link>
+              <Nav.Link href="#home" className="text-black me-3 bold">
+                Settings
+              </Nav.Link>
+              <Nav.Link
+                href="#features"
+                className="text-black fw-semibold"
+                style={{ cursor: "pointer" }}
+                onClick={handleShow}
+              >
+                User
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+
         </Container>
       </Navbar>
 

@@ -25,6 +25,7 @@ export const TokenProvider: React.FC<TokenProviderProps> = ({ children }) => {
       const response = await axios.post<{ token: string }>(`${ServerUrl}/generate-token`);
       
       if (response.data?.token) {
+        console.log(response.data.token);
         setToken(response.data.token);
       } else {
         console.error("No token received in response");
@@ -39,7 +40,7 @@ export const TokenProvider: React.FC<TokenProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <TokenContext.Provider value={{ token, setToken }}>
+    <TokenContext.Provider value={{ token,setToken}}>
       {children}
     </TokenContext.Provider>
   );
