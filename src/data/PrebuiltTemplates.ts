@@ -1,10 +1,33 @@
-import React, { useState } from "react";
 import one from "../Images/1on1.png";
-import two from "../Images/choose.webp";
+import two from"../Images/choose.webp";
 import { v4 as uuidv4 } from "uuid";
 
-//This is where the user can create their own custom template with data
-const PrebuiltTemplates = [
+// Define the structure for container content
+interface ImageContent {
+  imageData: string;
+  fileName: string;
+}
+
+interface ContainerContent {
+  type: "image";
+  content: ImageContent;
+}
+
+// Define the structure for the template
+interface Template {
+  id: string;
+  templateName: string;
+  categoryName: string;
+  status: "Yes" | "No"; // Assuming status is always "Yes" or "No"
+  templateBody: string;
+  columns: any[]; // You can define a more specific type if columns have a structure
+  containerContent: ContainerContent[];
+  desc: string;
+  emailList: string[];
+}
+
+// Array of prebuilt templates
+const PrebuiltTemplates: Template[] = [
   {
     id: uuidv4(),
     templateName: "One-on-One Template",
@@ -45,7 +68,7 @@ const PrebuiltTemplates = [
         },
       },
     ],
-    desc: "Buisness Templates from Stellar Template",
+    desc: "Business Templates from Stellar Template",
     emailList: [
       "SDI_OAA_FHSA_Submitted_Day6",
       "SDI_OAA_FHSA_Submitted_Day13",

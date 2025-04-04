@@ -6,16 +6,22 @@ import logo from "../Images/logo.png";
 import "../App.css";
 import { Modal, Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
+// Define a TypeScript interface for user data
+interface User {
+  name: string;
+  role: string;
+  image: string;
+}
 
-function Header() {
-  const [show, setShow] = useState(false);
+const Header: React.FC = () => {
+  const [show, setShow] = useState<boolean>(false);
 
-  const handleShow = () => setShow(true);
+  const handleShow = (): void => setShow(true);
+  const handleClose = (): void => setShow(false);
 
-  const handleClose = () => setShow(false);
-
-  //dummy data
-  const user = {
+  // Dummy user data
+  const user: User = {
     name: "Akshit Jain",
     role: "Admin",
     image:
@@ -52,26 +58,8 @@ function Header() {
           <Navbar.Toggle aria-controls="navbar-nav" className="border-0">
             <span className="navbar-toggler-icon"></span>
           </Navbar.Toggle>
-
+           
           {/* Right - Navigation */}
-          <Navbar.Collapse id="navbar-nav">
-            <Nav className="ms-auto d-flex align-items-center">
-              <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
-                {" "}
-                <Nav.Link href="#home" className="text-black me-3 bold">
-                  Settings
-                </Nav.Link>
-              </Link>
-              <Nav.Link
-                href="#features"
-                className="text-black fw-semibold"
-                style={{ cursor: "pointer" }}
-                onClick={handleShow}
-              >
-                <i className="fa-solid fa-user-circle me-1"></i> User
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
         </Container>
       </Navbar>
 
@@ -98,6 +86,6 @@ function Header() {
       </Modal>
     </>
   );
-}
+};
 
 export default Header;

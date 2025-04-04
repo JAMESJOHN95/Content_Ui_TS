@@ -1,13 +1,22 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import "../Styles/Aside.css";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "./Layout";
 
-function Dashboard() {
+const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  const handlePrebuildTemplate = () => {
+
+  const handlePrebuildTemplate = (): void => {
     navigate("/templates");
   };
+  const handleMouseOver = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.currentTarget.style.background = "#e9ecef";
+  };
+
+  const handleMouseOut = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.currentTarget.style.background = "#f8f9fa";
+  };
+
   return (
     <>
       <div className="container-fluid">
@@ -38,28 +47,23 @@ function Dashboard() {
                       <h4 className="bold">New Template</h4>
                       <p>Quick Start from Basic Template</p>
                       <div className="d-flex justify-content-around align-items-center mt-4 gap-2">
-                        <div
-                          className="border p-2"
-                          style={{ cursor: "pointer" }}
+                        
+                      <button
+                      type="button"
+                      style={buttonStyle}
+                      onMouseOver={handleMouseOver}
+                      onMouseOut={handleMouseOut}
                         >
-                          <h5
-                            className=" "
-                            style={{ fontSize: "12px", fontWeight: "bold" }}
-                          >
-                            New Content Block Template
-                          </h5>
-                        </div>
-                        <div
-                          className="border p-2"
-                          style={{ cursor: "pointer" }}
+                          New Content Block Template
+                        </button>
+                        <button
+                          type="button"
+                          style={buttonStyle}
+                          onMouseOver={handleMouseOver}
+                          onMouseOut={handleMouseOut}
                         >
-                          <h5
-                            className=""
-                            style={{ fontSize: "12px", fontWeight: "bold" }}
-                          >
-                            New Email Template
-                          </h5>
-                        </div>
+                          New Email Template
+                        </button>
                       </div>
                     </div>
                   </Link>
@@ -74,22 +78,19 @@ function Dashboard() {
                     <h4 className="bold">Pre-built Templates</h4>
                     <p>Edit and use right away any of the templates</p>
                     <div className="d-flex justify-content-around align-items-center mt-4 gap-2">
-                      <div className="border p-2" style={{ cursor: "pointer" }}>
-                        <h5
-                          className=" "
-                          style={{ fontSize: "12px", fontWeight: "bold" }}
-                        >
-                          Pre-built Content Block Template
-                        </h5>
-                      </div>
-                      <div className="border p-2" style={{ cursor: "pointer" }}>
-                        <h5
-                          className=""
-                          style={{ fontSize: "12px", fontWeight: "bold" }}
-                        >
-                          Pre-built Email Template
-                        </h5>
-                      </div>
+                    <button
+                        type="button"
+                        style={buttonStyle}
+                        onMouseOver={handleMouseOver}
+                        onMouseOut={handleMouseOut}>
+                        Pre-built Content Block Template
+                      </button>
+                      <button
+                      type="button"
+                      style={buttonStyle}
+                      onMouseOver={handleMouseOver}
+                      onMouseOut={handleMouseOut}
+                    > Pre-built Email Template</button>
                     </div>
                   </div>
                 </div>
@@ -100,6 +101,17 @@ function Dashboard() {
       </div>
     </>
   );
-}
+};
+  const buttonStyle: React.CSSProperties = {
+    fontSize: "12px",
+    padding: "0.5rem",
+    background: "#f8f9fa",
+    border: "1px solid #ccc",
+    borderRadius: "8px",
+    boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
+    cursor: "pointer",
+    transition: "0.3s",
+  };
+
 
 export default Dashboard;

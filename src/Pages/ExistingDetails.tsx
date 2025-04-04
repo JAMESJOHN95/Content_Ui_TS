@@ -1,28 +1,55 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
-import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from "../Images/logo.png";
-// dummy image as given in Templates
-import one from "../Images/1on1.png";
-import { useTemplateInitializer } from "../hooks/useTemplateInitializer";
-//info icon
 import { FaCircleInfo } from "react-icons/fa6";
+import { useTemplateInitializer } from "../hooks/useTemplateInitializer";
 
-function ExistingDetails() {
+interface Template {
+  id?: string;
+  templateName: string;
+  categoryName: string;
+  templateBody?: string;
+  containerContent?: Array<{
+    id?: string;
+    type: string;
+    content: {
+      fileName?: string;
+      imageData?: string;
+    } | string;
+  }>;
+  columns?: Array<{
+    id?: string;
+    type: string;
+    structure: Array<{ 
+      id?: string; 
+      content: any 
+    }>;
+  }>;
+  status?: string;
+  type?: string;
+}
+
+const ExistingDetails: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedFilter, setSelectedFilter] = useState("showAll");
-  // State to store the templates
-  const [templates, setTemplates] = useState([]);
-  //add state for selected template
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
-  //state to show the edit modal
-  const [showEditModal, setShowEditModal] = useState(false);
-  //state for email modal
-  const [showModal, setShowModal] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState<string>("showAll");
+  const [templates, setTemplates] = useState<Template[]>([]);
+  const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
+    null
+  );
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
-  const handleShow = (template) => {
+  useTemplateInitializer();
+
+  useEffect(() => {
+    const storedTemplates: Template[] =
+      JSON.parse(localStorage.getItem("templates") || "[]");
+    setTemplates(storedTemplates);
+  }, []);
+
+  const handleShow = (template: Template) => {
     setSelectedTemplate(template);
     setShowEditModal(true);
   };
@@ -44,34 +71,23 @@ function ExistingDetails() {
     navigate("/publish");
   };
 
-  // When sending a template to edit mode
-  const handleEditTemplate = (template) => {
-    // Make sure the template object includes the ID
+  const handleEditTemplate = (template: Template) => {
     sessionStorage.setItem("editTemplate", JSON.stringify(template));
     navigate("/newtemplate");
   };
 
-  //Custom hook to Initialize templates when the app loads
-  useTemplateInitializer();
-
-  useEffect(() => {
-    // Retrieve stored templates from localStorage
-    const storedTemplates = JSON.parse(localStorage.getItem("templates")) || [];
-    setTemplates(storedTemplates);
-  }, []);
-
-  const handleDelete = (index) => {
+  const handleDelete = (index: number) => {
     const updatedTemplates = [...templates];
     updatedTemplates.splice(index, 1);
     setTemplates(updatedTemplates);
     localStorage.setItem("templates", JSON.stringify(updatedTemplates));
   };
 
-  const handleFilterChange = (event) => {
+  const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFilter(event.target.value);
   };
 
-  const getFilteredTemplates = () => {
+  const getFilteredTemplates = (): Template[] => {
     switch (selectedFilter) {
       case "activeContent":
         return templates.filter((template) => template.status === "Yes");
@@ -88,16 +104,8 @@ function ExistingDetails() {
     }
   };
 
-  const defaultEmailList = [
-    "SDI_OAA_FHSA_Submitted_Day4",
-    "SDI_OAA_FHSA_Submitted_Day11",
-    "SDI_OAA_FHSA_PartialDocsRecvd_Day4",
-    "SDI_OAA_FHSA_PartialDocsRecvd_Day11",
-  ];
-
   return (
     <>
-      {/* <div className="container-fluid"> */}
       <div className="row">
         <div className="col-md-1 p-0">
           <Layout />
@@ -201,11 +209,6 @@ function ExistingDetails() {
             </div>
           </div>
 
-          {/*  <div className="col"></div> */}
-          {/*  <div className="col pe-4 text-end"> */}
-          {/* Other UI Elements */}
-          {/* </div> */}
-
           <div className="container">
             {getFilteredTemplates().map((template, index) => (
               <div key={template.id || index} className="row mt-4">
@@ -228,44 +231,48 @@ function ExistingDetails() {
                   <div className="rounded p-2 col-12 mb-3 mb-md-0">
                     <div className="row">
                       <div className="col-md-4">
-                        {template.containerContent?.length > 0 && (
+                        {template.containerContent?.length! > 0 && (
                           <div className="template-images">
                             <div className="d-flex flex-wrap gap-2">
-                              {template.containerContent
-                                .filter(
+                              {template.containerContent?.filter(
                                   (item) =>
                                     item.type === "image" &&
+                                    typeof item.content === "object" &&
                                     item.content?.imageData
                                 )
                                 .slice(0, 1) // Show only 1 image
-                                .map((item, idx) => (
-                                  <div
-                                    key={idx}
-                                    className="position-relative"
-                                    style={{ width: "100%" }}
-                                  >
-                                    <img
-                                      src={item.content.imageData}
-                                      alt={
-                                        item.content.fileName || "Content Image"
-                                      }
-                                      className="img-fluid rounded border"
-                                      style={{
-                                        maxHeight: "120px",
-                                        objectFit: "cover",
-                                        width: "100%",
-                                      }}
-                                    />
-                                    {item.content.fileName && (
-                                      <small
-                                        className="text-muted d-block text-truncate"
-                                        style={{ fontSize: "8px" }}
-                                      >
-                                        {item.content.fileName}
-                                      </small>
-                                    )}
-                                  </div>
-                                ))}
+                                .map((item, idx) => {
+                                  const content = item.content as { 
+                                    fileName?: string; 
+                                    imageData?: string 
+                                  };
+                                  return (
+                                    <div
+                                      key={idx}
+                                      className="position-relative"
+                                      style={{ width: "100%" }}
+                                    >
+                                      <img
+                                        src={content.imageData}
+                                        alt={content.fileName || "Content Image"}
+                                        className="img-fluid rounded border"
+                                        style={{
+                                          maxHeight: "120px",
+                                          objectFit: "cover",
+                                          width: "100%",
+                                        }}
+                                      />
+                                      {content.fileName && (
+                                        <small
+                                          className="text-muted d-block text-truncate"
+                                          style={{ fontSize: "8px" }}
+                                        >
+                                          {content.fileName}
+                                        </small>
+                                      )}
+                                    </div>
+                                  );
+                                })}
                             </div>
                           </div>
                         )}
@@ -341,13 +348,12 @@ function ExistingDetails() {
           </div>
         </div>
       </div>
-
       {/* Modal View of Email */}
       {showModal && (
         <div
           className="modal show"
           style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
-          tabIndex="-1"
+          tabIndex={-1}
           role="dialog"
         >
           <div className="modal-dialog modal-dialog-centered" role="document">
@@ -389,7 +395,6 @@ function ExistingDetails() {
           </div>
         </div>
       )}
-
       <Modal show={showEditModal} onHide={handleClose} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>
@@ -430,45 +435,46 @@ function ExistingDetails() {
             )}
 
             {/* Container Content */}
-            {selectedTemplate?.containerContent?.length > 0 && (
+            {selectedTemplate?.containerContent?.length! > 0 && (
               <div className="row mb-4">
                 <div className="col-12">
                   <div className="border p-3">
-                    {selectedTemplate.containerContent.map((item, index) => (
-                      <div key={item.id || index} className="mb-2">
-                        {item.type === "image" ? (
-                          <>
-                            {item.content?.fileName && (
-                              <div>{item.content.fileName}</div>
-                            )}
-                            {item.content?.imageData && (
+                    {selectedTemplate?.containerContent?.map((item, index) => {
+                      if (item.type === "image" && typeof item.content === "object") {
+                        const content = item.content as {
+                          fileName?: string;
+                          imageData?: string;
+                        };
+                        return (
+                          <div key={item.id || index} className="mb-2">
+                            {content.fileName && <div>{content.fileName}</div>}
+                            {content.imageData && (
                               <img
-                                src={item.content.imageData}
-                                alt={item.content.fileName || "Image"}
+                                src={content.imageData}
+                                alt={content.fileName || "Image"}
                                 style={{ maxWidth: "100px", height: "auto" }}
                               />
                             )}
-                          </>
-                        ) : (
-                          <div>
-                            {typeof item.content === "string"
-                              ? item.content
-                              : ""}
                           </div>
-                        )}
-                      </div>
-                    ))}
+                        );
+                      } else {
+                        return (
+                          <div key={item.id || index}>
+                            {typeof item.content === "string" ? item.content : ""}
+                          </div>
+                        );
+                      }
+                    })}
                   </div>
                 </div>
               </div>
             )}
 
             {/* Columns */}
-            {selectedTemplate?.columns?.length > 0 && (
+            {selectedTemplate?.columns?.length! > 0 && (
               <div className="row mb-4">
                 <div className="col-12">
-                  {selectedTemplate.columns
-                    .filter((column) =>
+                  {selectedTemplate?.columns?.filter((column) =>
                       [
                         "1:1 column",
                         "2:1 column",
@@ -481,29 +487,32 @@ function ExistingDetails() {
                       <div key={column.id || index} className="border p-3 mb-3">
                         <h6 className="mb-2">{column.type}</h6>
                         <div className="d-flex gap-2">
-                          {column.structure.map((block, blockIndex) => (
-                            <div
-                              key={block.id || blockIndex}
-                              className="flex-grow-1 border p-2"
-                              style={{
-                                width: `${100 / column.structure.length}%`,
-                              }}
-                            >
-                              {typeof block.content === "object" ? (
-                                block.content?.imageData ? (
-                                  <img
-                                    src={block.content.imageData}
-                                    alt={block.content.fileName || "Image"}
-                                    style={{ maxWidth: "100%", height: "auto" }}
-                                  />
+                          {column.structure.map((block, blockIndex) => {
+                            const flexWidth = `${100 / column.structure.length}%`;
+                            return (
+                              <div
+                                key={block.id || blockIndex}
+                                className="flex-grow-1 border p-2"
+                                style={{
+                                  width: flexWidth,
+                                }}
+                              >
+                                {typeof block.content === "object" ? (
+                                  block.content?.imageData ? (
+                                    <img
+                                      src={block.content.imageData}
+                                      alt={block.content.fileName || "Image"}
+                                      style={{ maxWidth: "100%", height: "auto" }}
+                                    />
+                                  ) : (
+                                    block.content?.fileName || "Empty"
+                                  )
                                 ) : (
-                                  block.content?.fileName || "Empty"
-                                )
-                              ) : (
-                                block.content || "Empty"
-                              )}
-                            </div>
-                          ))}
+                                  block.content || "Empty"
+                                )}
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                     ))}
@@ -515,7 +524,11 @@ function ExistingDetails() {
         <Modal.Footer>
           <button
             className="btn btn-primary"
-            onClick={() => handleEditTemplate(selectedTemplate)}
+            onClick={() => {
+              if (selectedTemplate) {
+                handleEditTemplate(selectedTemplate);
+              }
+            }}
           >
             Edit a Draft
           </button>
@@ -528,49 +541,8 @@ function ExistingDetails() {
           </button>
         </Modal.Footer>
       </Modal>
-
-      {/* <Modal show={showAnalytics} onHide={handleCloseAnalytics} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>
-            <span
-              style={{ color: "darkviolet", fontSize: "30px" }}
-              className="fw-Bold"
-            >
-              Analytics
-            </span>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="row">
-            <div className="row">
-              <div className="col-md-4"></div>
-              <div className="col-md-4 text-center">
-                <h3>Edited:48</h3>
-              </div>
-              <div className="col-md-4"></div>
-            </div>
-            <div className="col-md-4">
-              <h3 className="text-center">Open:42</h3>
-            </div>
-            <div className="col-md-4 text-center">
-              <h3>Impressions:9</h3>
-            </div>
-            <div className="col-md-4 text-center">
-              <h3>Saved:33</h3>
-            </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <button
-            className="btn btn-primary ms-2 me-2 p-3"
-            onClick={handleCloseAnalytics}
-          >
-            Close
-          </button>
-        </Modal.Footer>
-      </Modal> */}
     </>
   );
-}
+};
 
 export default ExistingDetails;
