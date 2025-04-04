@@ -42,6 +42,7 @@ const Sidebar: React.FC = () => {
           left: isOpen ? "0" : "-250px",
           transition: "left 0.3s ease",
           width: "80px",
+          zIndex:1,
         }}
       >
         <ul className="list-unstyled mt-2">
@@ -60,7 +61,6 @@ const Sidebar: React.FC = () => {
               </Link>
             </div>
           ))}
-
           {/* AI Insights Section */}
           <div className="d-flex flex-column align-items-center justify-content-center">
             <Link to="/recommendations" style={{ textDecoration: "none", color: "black", marginBottom: "2px" }}>
@@ -78,7 +78,6 @@ const Sidebar: React.FC = () => {
           </div>
         </ul>
       </div>
-
       {/* Overlay to close sidebar on small screens */}
       {isOpen && (
         <div
@@ -91,12 +90,11 @@ const Sidebar: React.FC = () => {
             width: "100%",
             height: "100%",
             backgroundColor: "rgba(0,0,0,0.5)",
-            zIndex: 998,
+            zIndex: 0,
           }}
         />
       )}
     </>
   );
 };
-
 export default Sidebar;
