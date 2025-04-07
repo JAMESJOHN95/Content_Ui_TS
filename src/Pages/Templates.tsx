@@ -136,11 +136,11 @@ const Templates: React.FC = () => {
             <h3>Category: ${previewContent.category || "Uncategorized"}</h3>
             <div>${previewContent.body || "<p>No Content</p>"}</div>`;
 
-        if (previewContent.image) {
-          htmlView += `<div><img src="[IMAGE_URL_PLACEHOLDER]" alt="Template Image" style="max-width:100%"/></div>`;
-        }
+    if (previewContent.image) {
+      htmlView += `<div><img src="[IMAGE_URL_PLACEHOLDER]" alt="Template Image" style="max-width:100%, height:"auto"/></div>`;
+    }
 
-        htmlView += `
+    htmlView += `
             <div>
                 <p>${previewContent.description || ""}</p>
             </div>
@@ -582,10 +582,10 @@ const Templates: React.FC = () => {
             {/* Template Header */}
             <div className="row mb-4">
               <div className="col-12">
-                <h3 className="text-center mb-3">
+                <h3 className="text-center mb-3" style={{fontSize:"24px"}}>
                   <b>{previewContent?.title}</b>
                 </h3>
-                <h4 className="text-left">
+                <h4 className="text-left" style={{fontSize:"15px"}}>
                   Category - <i>{previewContent?.category}</i>
                 </h4>
               </div>
@@ -605,14 +605,23 @@ const Templates: React.FC = () => {
             )}
 
             {/* Template Image */}
+            {/* Template Image */}
             {previewContent?.image && (
               <div className="row mb-4">
-                <div className="col-12 text-center">
-                  <img
-                    src={previewContent.image}
-                    alt="Template Preview"
-                    style={{ maxWidth: "100%", height: "auto" }}
-                  />
+                <div className="col-12 d-flex justify-content-center">
+                  <div style={{ width: "60%" }}>
+                    {" "}
+                    {/* Adjust this percentage as needed */}
+                    <img
+                      src={previewContent.image}
+                      alt="Template Preview"
+                      style={{
+                        width: "100%",
+                        maxHeight: "150px",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             )}
@@ -621,8 +630,8 @@ const Templates: React.FC = () => {
             {previewContent?.description && (
               <div className="row mb-4">
                 <div className="col-12">
-                  <h5>Description:</h5>
-                  <p>{previewContent.description}</p>
+                  <h5 style={{fontSize:"14px"}}>Description:</h5>
+                  <p style={{fontSize:"13px"}}>{previewContent.description}</p>
                 </div>
               </div>
             )}
