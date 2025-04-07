@@ -14,17 +14,19 @@ interface Template {
   containerContent?: Array<{
     id?: string;
     type: string;
-    content: {
-      fileName?: string;
-      imageData?: string;
-    } | string;
+    content:
+      | {
+          fileName?: string;
+          imageData?: string;
+        }
+      | string;
   }>;
   columns?: Array<{
     id?: string;
     type: string;
-    structure: Array<{ 
-      id?: string; 
-      content: any 
+    structure: Array<{
+      id?: string;
+      content: any;
     }>;
   }>;
   status?: string;
@@ -33,6 +35,10 @@ interface Template {
 
 const ExistingDetails: React.FC = () => {
   const navigate = useNavigate();
+  //modal for exporting HTML content
+  const [showExportModal, setShowExportModal] = useState<boolean>(false);
+  //to store the HTML content of the template
+  const [exportedHtml, setExportedHTML] = useState<string>("");
   const [selectedFilter, setSelectedFilter] = useState<string>("showAll");
   const [templates, setTemplates] = useState<Template[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
@@ -41,11 +47,16 @@ const ExistingDetails: React.FC = () => {
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 
+  const [showPublishModal, setShowPublishModal] = useState<boolean>(false);
+  //default selected platform is AJO
+  const [selectedPlatform, setSelectedPlatform] = useState<string>("ajo");
+
   useTemplateInitializer();
 
   useEffect(() => {
-    const storedTemplates: Template[] =
-      JSON.parse(localStorage.getItem("templates") || "[]");
+    const storedTemplates: Template[] = JSON.parse(
+      localStorage.getItem("templates") || "[]"
+    );
     setTemplates(storedTemplates);
   }, []);
 
@@ -65,10 +76,6 @@ const ExistingDetails: React.FC = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
-  };
-
-  const publish = () => {
-    navigate("/publish");
   };
 
   const handleEditTemplate = (template: Template) => {
@@ -102,6 +109,159 @@ const ExistingDetails: React.FC = () => {
       default:
         return templates;
     }
+  };
+
+  const exportTemplateAsHtml = () => {
+    //if the selected template is null then return
+    if (!selectedTemplate) return;
+
+    // Create HTML content
+    let htmlContent = `<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${selectedTemplate.templateName}</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+      .container { max-width: 800px; margin: 0 auto; }
+      .header { text-align: center; margin-bottom: 20px; }
+      img { max-width: 100%; height: auto; }
+      .column-container { display: flex; gap: 10px; margin-bottom: 15px; }
+      .column { border: 1px solid #ddd; padding: 10px; flex-grow: 1; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>${selectedTemplate.templateName}</h1>
+        <h3>Category: ${selectedTemplate.categoryName}</h3>
+      </div>`;
+
+    // Add template body if exists
+    if (selectedTemplate.templateBody) {
+      htmlContent += `
+      <div class="template-body">
+        ${selectedTemplate.templateBody}
+      </div>`;
+    }
+
+    // Add container content if exists
+    if (
+      selectedTemplate.containerContent &&
+      selectedTemplate.containerContent.length > 0
+    ) {
+      htmlContent += `
+      <div class="container-content">`;
+
+      selectedTemplate.containerContent.forEach((item) => {
+        if (item.type === "image" && typeof item.content === "object") {
+          const content = item.content as {
+            fileName?: string;
+            imageData?: string;
+          };
+          if (content.imageData) {
+            htmlContent += `
+        <div class="image-container">
+          ${content.fileName ? `<p>${content.fileName}</p>` : ""}
+          <img src="${content.imageData}" alt="${
+              content.fileName || "Template image"
+            }" />
+        </div>`;
+          }
+        } else if (typeof item.content === "string") {
+          htmlContent += `
+        <div class="text-content">
+          ${item.content}
+        </div>`;
+        }
+      });
+
+      htmlContent += `
+      </div>`;
+    }
+
+    // Add columns if exists
+    if (selectedTemplate.columns && selectedTemplate.columns.length > 0) {
+      htmlContent += `
+      <div class="columns-section">`;
+
+      selectedTemplate.columns
+        .filter((column) =>
+          [
+            "1:1 column",
+            "2:1 column",
+            "2:2 column",
+            "3:3 column",
+            "4:4 column",
+          ].includes(column.type)
+        )
+        .forEach((column) => {
+          htmlContent += `
+        <h4>${column.type}</h4>
+        <div class="column-container">`;
+
+          column.structure.forEach((block) => {
+            htmlContent += `
+          <div class="column">`;
+
+            if (typeof block.content === "object" && block.content?.imageData) {
+              htmlContent += `
+            <img src="${block.content.imageData}" alt="${
+                block.content.fileName || "Column image"
+              }" />`;
+            } else {
+              htmlContent += `
+            <div>${
+              typeof block.content === "string"
+                ? block.content
+                : "Empty content"
+            }</div>`;
+            }
+
+            htmlContent += `
+          </div>`;
+          });
+
+          htmlContent += `
+        </div>`;
+        });
+
+      htmlContent += `
+      </div>`;
+    }
+
+    htmlContent += `
+    </div>
+  </body>
+  </html>`;
+
+    // Set the HTML content in state
+    setExportedHTML(htmlContent);
+
+    // Show the export modal
+    setShowExportModal(true);
+  };
+
+  const handleCloseExportModal = () => {
+    setShowExportModal(false);
+  };
+
+  const handlePublishShow = () => {
+    setShowPublishModal(true);
+  };
+
+  const handlePublishClose = () => {
+    setShowPublishModal(false);
+  };
+
+  const handlePlatformChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedPlatform(e.target.value);
+  };
+
+  const handlePublishContent = () => {
+    alert("Content published successfully");
+    handlePublishClose();
   };
 
   return (
@@ -234,7 +394,8 @@ const ExistingDetails: React.FC = () => {
                         {template.containerContent?.length! > 0 && (
                           <div className="template-images">
                             <div className="d-flex flex-wrap gap-2">
-                              {template.containerContent?.filter(
+                              {template.containerContent
+                                ?.filter(
                                   (item) =>
                                     item.type === "image" &&
                                     typeof item.content === "object" &&
@@ -242,9 +403,9 @@ const ExistingDetails: React.FC = () => {
                                 )
                                 .slice(0, 1) // Show only 1 image
                                 .map((item, idx) => {
-                                  const content = item.content as { 
-                                    fileName?: string; 
-                                    imageData?: string 
+                                  const content = item.content as {
+                                    fileName?: string;
+                                    imageData?: string;
                                   };
                                   return (
                                     <div
@@ -254,7 +415,9 @@ const ExistingDetails: React.FC = () => {
                                     >
                                       <img
                                         src={content.imageData}
-                                        alt={content.fileName || "Content Image"}
+                                        alt={
+                                          content.fileName || "Content Image"
+                                        }
                                         className="img-fluid rounded border"
                                         style={{
                                           maxHeight: "120px",
@@ -440,7 +603,10 @@ const ExistingDetails: React.FC = () => {
                 <div className="col-12">
                   <div className="border p-3">
                     {selectedTemplate?.containerContent?.map((item, index) => {
-                      if (item.type === "image" && typeof item.content === "object") {
+                      if (
+                        item.type === "image" &&
+                        typeof item.content === "object"
+                      ) {
                         const content = item.content as {
                           fileName?: string;
                           imageData?: string;
@@ -460,7 +626,9 @@ const ExistingDetails: React.FC = () => {
                       } else {
                         return (
                           <div key={item.id || index}>
-                            {typeof item.content === "string" ? item.content : ""}
+                            {typeof item.content === "string"
+                              ? item.content
+                              : ""}
                           </div>
                         );
                       }
@@ -474,7 +642,8 @@ const ExistingDetails: React.FC = () => {
             {selectedTemplate?.columns?.length! > 0 && (
               <div className="row mb-4">
                 <div className="col-12">
-                  {selectedTemplate?.columns?.filter((column) =>
+                  {selectedTemplate?.columns
+                    ?.filter((column) =>
                       [
                         "1:1 column",
                         "2:1 column",
@@ -488,7 +657,9 @@ const ExistingDetails: React.FC = () => {
                         <h6 className="mb-2">{column.type}</h6>
                         <div className="d-flex gap-2">
                           {column.structure.map((block, blockIndex) => {
-                            const flexWidth = `${100 / column.structure.length}%`;
+                            const flexWidth = `${
+                              100 / column.structure.length
+                            }%`;
                             return (
                               <div
                                 key={block.id || blockIndex}
@@ -502,7 +673,10 @@ const ExistingDetails: React.FC = () => {
                                     <img
                                       src={block.content.imageData}
                                       alt={block.content.fileName || "Image"}
-                                      style={{ maxWidth: "100%", height: "auto" }}
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }}
                                     />
                                   ) : (
                                     block.content?.fileName || "Empty"
@@ -532,12 +706,160 @@ const ExistingDetails: React.FC = () => {
           >
             Edit a Draft
           </button>
-          <button className="btn btn-primary" onClick={publish}>
+          <button onClick={exportTemplateAsHtml} className="btn btn-primary">
+            Export
+          </button>
+          <button onClick={handlePublishShow} className="btn btn-primary">
             Publish
           </button>
           <button className="btn btn-primary">Deactivate</button>
           <button className="btn btn-primary" onClick={handleClose}>
             Close
+          </button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal for Export HTML content */}
+      <Modal show={showExportModal} onHide={handleCloseExportModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>
+            HTML Export - {selectedTemplate?.templateName}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="form-group">
+            <label htmlFor="htmlCode">HTML Code:</label>
+            <textarea
+              id="htmlCode"
+              className="form-control"
+              rows={20}
+              value={exportedHtml}
+              readOnly
+              style={{
+                fontFamily: "monospace",
+                fontSize: "0.9rem",
+                whiteSpace: "pre",
+                overflowX: "auto",
+              }}
+            />
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button
+            className="btn btn-secondary"
+            onClick={handleCloseExportModal}
+          >
+            Close
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              // Create a Blob with the HTML content
+              const blob = new Blob([exportedHtml], { type: "text/html" });
+
+              // Create a URL for the Blob
+              const url = URL.createObjectURL(blob);
+
+              // Create a temporary link element
+              const link = document.createElement("a");
+              link.href = url;
+              link.download = `${selectedTemplate?.templateName.replace(
+                /\s+/g,
+                "_"
+              )}_export.html`;
+
+              // Append to the document, click it, and remove it
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+
+              // Release the URL object
+              URL.revokeObjectURL(url);
+            }}
+          >
+            Download HTML
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              navigator.clipboard
+                .writeText(exportedHtml)
+                .then(() => {
+                  alert("HTML code copied to clipboard!");
+                })
+                .catch((err) => {
+                  console.error("Failed to copy HTML: ", err);
+                  alert("Failed to copy HTML to clipboard");
+                });
+            }}
+          >
+            Copy to Clipboard
+          </button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal for Publish Options */}
+      <Modal show={showPublishModal} onHide={handlePublishClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Publish to</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="form-group">
+            <div className="mb-3">
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="publishPlatform"
+                  id="platformAJO"
+                  value="ajo"
+                  checked={selectedPlatform === "ajo"}
+                  onChange={handlePlatformChange}
+                />
+                <label className="form-check-label" htmlFor="platformAJO">
+                  AJO
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="publishPlatform"
+                  id="platformSalesforce"
+                  value="salesforce"
+                  checked={selectedPlatform === "salesforce"}
+                  onChange={handlePlatformChange}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="platformSalesforce"
+                >
+                  Salesforce Cloud
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="publishPlatform"
+                  id="platformAWS"
+                  value="aws"
+                  checked={selectedPlatform === "aws"}
+                  onChange={handlePlatformChange}
+                />
+                <label className="form-check-label" htmlFor="platformAWS">
+                  AWS Pinpoint
+                </label>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-secondary" onClick={handlePublishClose}>
+            Cancel
+          </button>
+          <button className="btn btn-primary" onClick={handlePublishContent}>
+            Publish
           </button>
         </Modal.Footer>
       </Modal>
