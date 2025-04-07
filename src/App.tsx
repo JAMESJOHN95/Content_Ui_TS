@@ -11,6 +11,7 @@ import { TokenProvider } from './Componants/TokenContext';
 import Publish from './Pages/Publish';
 import Recommendations from './Pages/Recommendations';
 import Home from './Componants/Home';
+import Integration from './Pages/Integration';
 
 const App: FC = () => {
   return (
@@ -26,6 +27,7 @@ const App: FC = () => {
           <Route path="/templateEditing" element={<TemplateEditing />} />
           <Route path="/Publish" element={<Publish />} />
           <Route path="/recommendations" element={<Recommendations />} />
+          <Route path="/integration" element={<Integration />} />
         </Routes>
       </TokenProvider>
     </>

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 // Icons for Sidebar
 import { MdDashboard, MdNoteAdd } from "react-icons/md";
 import { FaFileUpload, FaFileAlt } from "react-icons/fa";
+import {MdIntegrationInstructions } from "react-icons/md";
+import { AiFillCodepenSquare } from "react-icons/ai";
 
 // Type definition for Sidebar icons
 type SidebarItem = {
@@ -11,17 +13,16 @@ type SidebarItem = {
   path: string;
   icon: React.ElementType; // Type for React components like icons
 };
-
 const sidebarItems: SidebarItem[] = [
   { label: "Dashboard", path: "/", icon: MdDashboard },
   { label: "New Content", path: "/dashboard", icon: MdNoteAdd },
   { label: "Existing Contents", path: "/existingcontents", icon: FaFileAlt },
   { label: "Publish Content", path: "/", icon: FaFileUpload },
+  {label:"AI Insights",path:"/recommendations",icon:AiFillCodepenSquare},
+  {label:"Integration", path:"/integration", icon:MdIntegrationInstructions}
 ];
-
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
   return (
     <>
       {/* Toggler Button */}
@@ -31,7 +32,6 @@ const Sidebar: React.FC = () => {
       >
         <i className={`fa-solid ${isOpen ? "fa-xmark" : "fa-bars"}`}></i>
       </button>
-
       {/* Sidebar */}
       <div
         className={`side-bar p-3 d-flex flex-column ${isOpen ? "active" : ""} mt-0`}
@@ -52,8 +52,8 @@ const Sidebar: React.FC = () => {
                 to={path}
                 style={{ textDecoration: "none", color: "black", marginBottom: "2px" }}
               >
-                <li className="mt-2 fw-bolder">
-                  <Icon style={{ width: "100%", height: "100%", fontSize: "24px" }} />
+                <li className="mt-2 fw-bolder ">
+                  <Icon style={{ width: "100%", height: "100%", fontSize: "27px"}} />
                 </li>
               </Link>
               <Link to={path} style={{ textDecoration: "none", color: "black" }}>
@@ -62,7 +62,7 @@ const Sidebar: React.FC = () => {
             </div>
           ))}
           {/* AI Insights Section */}
-          <div className="d-flex flex-column align-items-center justify-content-center">
+       {/*    <div className="d-flex flex-column align-items-center justify-content-center">
             <Link to="/recommendations" style={{ textDecoration: "none", color: "black", marginBottom: "2px" }}>
               <li className="mt-2 fw-bolder">
                 <img
@@ -75,7 +75,7 @@ const Sidebar: React.FC = () => {
             <Link to="/recommendations" style={{ textDecoration: "none", color: "black" }}>
               <p style={{ textAlign: "center", fontSize: "11px", fontWeight: "bold" }}>AI Insights</p>
             </Link>
-          </div>
+          </div> */}
         </ul>
       </div>
       {/* Overlay to close sidebar on small screens */}
