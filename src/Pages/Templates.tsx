@@ -44,6 +44,29 @@ const Templates: React.FC = () => {
     setTemplates(storedTemplates);
   }, []);
 
+  //default selected platform is AJO
+  const [selectedPlatform, setSelectedPlatform] = useState<string>("ajo");
+
+  const handlePlatformChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedPlatform(e.target.value);
+  };
+
+  //publish modal
+  const [showPublishModal, setShowPublishModal] = useState<boolean>(false);
+
+  const handlePublishShow = () => {
+    setShowPublishModal(true);
+  };
+
+  const handlePublishClose = () => {
+    setShowPublishModal(false);
+  };
+
+  const handlePublishContent = () => {
+    alert("Content published successfully!");
+    handlePublishClose();
+  };
+
   const handleShow = () => setExportModal(true);
   const handleClose = () => setExportModal(false);
 
@@ -582,10 +605,10 @@ const Templates: React.FC = () => {
             {/* Template Header */}
             <div className="row mb-4">
               <div className="col-12">
-                <h3 className="text-center mb-3" style={{fontSize:"24px"}}>
+                <h3 className="text-center mb-3" style={{ fontSize: "24px" }}>
                   <b>{previewContent?.title}</b>
                 </h3>
-                <h4 className="text-left" style={{fontSize:"15px"}}>
+                <h4 className="text-left" style={{ fontSize: "15px" }}>
                   Category - <i>{previewContent?.category}</i>
                 </h4>
               </div>
@@ -630,14 +653,19 @@ const Templates: React.FC = () => {
             {previewContent?.description && (
               <div className="row mb-4">
                 <div className="col-12">
-                  <h5 style={{fontSize:"14px"}}>Description:</h5>
-                  <p style={{fontSize:"13px"}}>{previewContent.description}</p>
+                  <h5 style={{ fontSize: "14px" }}>Description:</h5>
+                  <p style={{ fontSize: "13px" }}>
+                    {previewContent.description}
+                  </p>
                 </div>
               </div>
             )}
           </div>
         </Modal.Body>
         <Modal.Footer>
+          <button onClick={handlePublishShow} className="btn btn-primary">
+            Publish
+          </button>
           <button onClick={exportTemplateAsHtml} className="btn btn-primary">
             Export
           </button>
@@ -720,6 +748,72 @@ const Templates: React.FC = () => {
             }}
           >
             Copy to Clipboard
+          </button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal for Publish Options */}
+      <Modal show={showPublishModal} onHide={handlePublishClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Publish to</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="form-group">
+            <div className="mb-3">
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="publishPlatform"
+                  id="platformAJO"
+                  value="ajo"
+                  checked={selectedPlatform === "ajo"}
+                  onChange={handlePlatformChange}
+                />
+                <label className="form-check-label" htmlFor="platformAJO">
+                  AJO
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="publishPlatform"
+                  id="platformSalesforce"
+                  value="salesforce"
+                  checked={selectedPlatform === "salesforce"}
+                  onChange={handlePlatformChange}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="platformSalesforce"
+                >
+                  Salesforce Cloud
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="publishPlatform"
+                  id="platformAWS"
+                  value="aws"
+                  checked={selectedPlatform === "aws"}
+                  onChange={handlePlatformChange}
+                />
+                <label className="form-check-label" htmlFor="platformAWS">
+                  AWS Pinpoint
+                </label>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-secondary" onClick={handlePublishClose}>
+            Cancel
+          </button>
+          <button className="btn btn-primary" onClick={handlePublishContent}>
+            Publish
           </button>
         </Modal.Footer>
       </Modal>
