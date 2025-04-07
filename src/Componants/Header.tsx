@@ -70,7 +70,7 @@ const Header: React.FC = () => {
                 />
               </Link>
               <Nav.Link href="#home" className="text-black me-3 bold">
-                Settings
+               <b> Settings</b>
               </Nav.Link>
               <Nav.Link
                 href="#features"
