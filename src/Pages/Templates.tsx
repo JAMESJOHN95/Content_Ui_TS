@@ -207,9 +207,7 @@ const Templates: React.FC = () => {
                   </div>
                   <div className="col-12 col-md-6 d-flex flex-column p-2">
                     <h4 className="preTemplateName">Template Name</h4>
-                    <p className="preCategoryName" style={{ fontSize: "13px" }}>
-                      Category Name
-                    </p>
+                    <p className="preCategoryName" style={{ fontSize: "13px" }}>Category Name</p>
                     <p>Description</p>
                     <p
                       className="preTemplateDescription"
