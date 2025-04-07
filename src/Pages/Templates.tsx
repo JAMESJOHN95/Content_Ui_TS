@@ -54,6 +54,8 @@ const Templates: React.FC = () => {
   //publish modal
   const [showPublishModal, setShowPublishModal] = useState<boolean>(false);
 
+  // handlePublishShow and handlePublishClose functions
+
   const handlePublishShow = () => {
     setShowPublishModal(true);
   };
