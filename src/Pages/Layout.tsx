@@ -34,7 +34,7 @@ const Sidebar: React.FC = () => {
       </button>
       {/* Sidebar */}
       <div
-        className={`side-bar p-3 d-flex flex-column ${isOpen ? "active" : ""} mt-0`}
+        className={`side-bar p-3 d-flex flex-column ${isOpen ? "active" : ""} mt-0 `}
         style={{
           position: "fixed",
           height: "100vh",
@@ -57,7 +57,7 @@ const Sidebar: React.FC = () => {
                 </li>
               </Link>
               <Link to={path} style={{ textDecoration: "none", color: "black" }}>
-                <p style={{ fontSize: "11px", fontWeight: "bold", textAlign: "center" }}>{label}</p>
+                <p style={{ fontSize: "11px", fontWeight: "bold", textAlign: "center" }} className="mb-2">{label}</p>
               </Link>
             </div>
           ))}
