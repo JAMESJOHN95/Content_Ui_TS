@@ -5,7 +5,7 @@ function Integration() {
 <div className='row'>
     <div className='col-md-1'><Layout/></div>
         <div className='col-md-11 container'>
-         <div className='text-center mt-2 container'> 
+         <div className='mt-5 container'> 
             <h3>External Integration</h3>
             <hr/>
          </div>
