@@ -19,6 +19,7 @@ import { replace } from "react-router-dom";
 import { Dispatch, SetStateAction } from "react";
 import { DragEvent } from "react";
 import { TextAlign } from "@tiptap/extension-text-align";
+import { parse } from "path";
 function NewTemplate() {
 interface DropTarget {
   columnId?: string;
@@ -114,6 +115,7 @@ interface Template {
   const [templateData, setTemplateData] = useState<TemplateData | null>(null);
   const [templateName, setTemplateName] = useState<string>("");
   const [categoryName, setCategoryName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const navigate = useNavigate();
 
   const editor = useEditor({
@@ -137,6 +139,7 @@ interface Template {
         setTemplateBody(parsedTemplate.templateBody);
         editor.commands.setContent(parsedTemplate.templateBody);
       }
+      if(parsedTemplate.desc) setDescription(parsedTemplate.desc);
       sessionStorage.removeItem("editTemplate");
     }
   }, [editor]);
@@ -523,7 +526,7 @@ const handleSaveButtonClick = (
     templateBody,
     columns,
     containerContent,
-    desc: "",
+    desc: description,
   };
 
   // Retrieve existing data from localStorage
@@ -1316,6 +1319,8 @@ const handleSaveButtonClick = (
                     <textarea
                       className="form-control"
                       rows={3}
+                      value={description}
+                      onChange={(e)=>setDescription(e.target.value)}
                       placeholder="Enter description"
                     ></textarea>
                   </div>

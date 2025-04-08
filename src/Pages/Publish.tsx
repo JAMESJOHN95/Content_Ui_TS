@@ -73,6 +73,7 @@ const Publish: React.FC = () => {
           <body>
               <h1>${selectedTemplate?.templateName || "No Title"}</h1>
               <h3>Category: ${selectedTemplate?.categoryName || "Uncategorized"}</h3>
+              <p><strong>Description:</strong>${selectedTemplate.desc || "No description provided"}</p>
               <div>${selectedTemplate?.templateBody || "<p>No Content</p>"}</div>`;
 
       // Handle container content dynamically
@@ -89,6 +90,7 @@ const Publish: React.FC = () => {
         });
         htmlView += `</div>`;
       }
+
 
       // Handle columns dynamically
       if (selectedTemplate?.columns?.length) {

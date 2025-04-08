@@ -10,6 +10,7 @@ interface Template {
   id?: string;
   templateName: string;
   categoryName: string;
+  desc: string;
   templateBody?: string;
   containerContent?: Array<{
     id?: string;
@@ -392,85 +393,91 @@ const ExistingDetails: React.FC = () => {
                     <div className="row d-flex align-items-stretch ">
                       <div className="col-md-8 mb-3 mb-md-0">
                         <div className="border rounded shadow-sm p-2 row h-100">
-                        <div className="col-md-6">
-                        {template.containerContent?.length! > 0 && (
-                          <div className="template-images">
-                            <div className="d-flex flex-wrap gap-2 ">
-                              {template.containerContent
-                                ?.filter(
-                                  (item) =>
-                                    item.type === "image" &&
-                                    typeof item.content === "object" &&
-                                    item.content?.imageData
-                                )
-                                .slice(0, 1) // Show only 1 image
-                                .map((item, idx) => {
-                                  const content = item.content as {
-                                    fileName?: string;
-                                    imageData?: string;
-                                  };
-                                  return (
-                                    <div
-                                      key={idx}
-                                      className="position-relative"
-                                      style={{ width: "100%" }}
-                                    >
-                                      <img
-                                        src={content.imageData}
-                                        alt={
-                                          content.fileName || "Content Image"
-                                        }
-                                        className="img-fluid rounded border"
-                                        style={{
-                                          maxHeight: "120px",
-                                          objectFit: "cover",
-                                          width: "100%",
-                                        }}
-                                      />
-                                      {content.fileName && (
-                                        <small
-                                          className="text-muted d-block text-truncate"
-                                          style={{ fontSize: "8px" }}
+                          <div className="col-md-6">
+                            {template.containerContent?.length! > 0 && (
+                              <div className="template-images">
+                                <div className="d-flex flex-wrap gap-2 ">
+                                  {template.containerContent
+                                    ?.filter(
+                                      (item) =>
+                                        item.type === "image" &&
+                                        typeof item.content === "object" &&
+                                        item.content?.imageData
+                                    )
+                                    .slice(0, 1) // Show only 1 image
+                                    .map((item, idx) => {
+                                      const content = item.content as {
+                                        fileName?: string;
+                                        imageData?: string;
+                                      };
+                                      return (
+                                        <div
+                                          key={idx}
+                                          className="position-relative"
+                                          style={{ width: "100%" }}
                                         >
-                                          {content.fileName}
-                                        </small>
-                                      )}
-                                    </div>
-                                  );
-                                })}
+                                          <img
+                                            src={content.imageData}
+                                            alt={
+                                              content.fileName ||
+                                              "Content Image"
+                                            }
+                                            className="img-fluid rounded border"
+                                            style={{
+                                              maxHeight: "120px",
+                                              objectFit: "cover",
+                                              width: "100%",
+                                            }}
+                                          />
+                                          {content.fileName && (
+                                            <small
+                                              className="text-muted d-block text-truncate"
+                                              style={{ fontSize: "8px" }}
+                                            >
+                                              {content.fileName}
+                                            </small>
+                                          )}
+                                        </div>
+                                      );
+                                    })}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          <div className="col-md-6">
+                            <p style={{ fontSize: "15px", fontWeight: "bold" }}>
+                              {template.templateName}
+                            </p>
+                            <p style={{ fontSize: "12px" }}>
+                              Category: {template.categoryName}
+                            </p>
+
+                            <p style={{ fontSize: "11px" }}>
+                              Description:{" "}
+                              {template.desc || "No description provided"}
+                            </p>
+
+                            {/* Template Actions */}
+                            <div className="d-flex justify-content-between align-items-center mt-3">
+                              <button
+                                className="btn btn-sm btn-outline-primary"
+                                onClick={() => handleShow(template)}
+                                style={{ fontSize: "10px" }}
+                              >
+                                Preview
+                              </button>
+                              <button
+                                className="btn btn-sm btn-outline-danger"
+                                onClick={() => handleDelete(index)}
+                              >
+                                <i
+                                  className="fa-solid fa-trash"
+                                  style={{ fontSize: "11px" }}
+                                ></i>
+                              </button>
                             </div>
                           </div>
-                        )}
                         </div>
-                        <div className="col-md-6">
-                          <p style={{ fontSize: "15px", fontWeight: "bold" }}>
-                            {template.templateName}
-                          </p>
-                          <p style={{ fontSize: "12px" }}>
-                            Category: {template.categoryName}
-                          </p>
-
-                          {/* Template Actions */}
-                          <div className="d-flex justify-content-between align-items-center mt-3">
-                            <button
-                              className="btn btn-sm btn-outline-primary"
-                              onClick={() => handleShow(template)}
-                              style={{ fontSize: "10px" }}
-                            >
-                              Preview
-                            </button>
-                            <button
-                              className="btn btn-sm btn-outline-danger"
-                              onClick={() => handleDelete(index)}
-                            >
-                              <i
-                                className="fa-solid fa-trash"
-                                style={{ fontSize: "11px" }}
-                              ></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
                       </div>
                       {/* Analytics */}
                       <div className="col-md-4">
@@ -582,6 +589,10 @@ const ExistingDetails: React.FC = () => {
                 <h4 className="text-left">
                   Category - <i>{selectedTemplate?.categoryName}</i>
                 </h4>
+                <p className="text-left mt-3">
+                  Description:{" "}
+                  {selectedTemplate?.desc || "No description provided"}
+                </p>
               </div>
             </div>
 
