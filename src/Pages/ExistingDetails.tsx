@@ -389,11 +389,13 @@ const ExistingDetails: React.FC = () => {
                   </div>
                   {/* Template Info */}
                   <div className="rounded p-2 col-12 mb-3 mb-md-0">
-                    <div className="row">
-                      <div className="col-md-4">
+                    <div className="row d-flex align-items-stretch ">
+                      <div className="col-md-8 mb-3 mb-md-0">
+                        <div className="border rounded shadow-sm p-2 row h-100">
+                        <div className="col-md-6">
                         {template.containerContent?.length! > 0 && (
                           <div className="template-images">
-                            <div className="d-flex flex-wrap gap-2">
+                            <div className="d-flex flex-wrap gap-2 ">
                               {template.containerContent
                                 ?.filter(
                                   (item) =>
@@ -439,9 +441,8 @@ const ExistingDetails: React.FC = () => {
                             </div>
                           </div>
                         )}
-                      </div>
-                      <div className="col-md-4">
-                        <div className="border rounded shadow-sm p-2">
+                        </div>
+                        <div className="col-md-6">
                           <p style={{ fontSize: "15px", fontWeight: "bold" }}>
                             {template.templateName}
                           </p>
@@ -470,9 +471,10 @@ const ExistingDetails: React.FC = () => {
                           </div>
                         </div>
                       </div>
+                      </div>
                       {/* Analytics */}
                       <div className="col-md-4">
-                        <div className="border rounded shadow-sm p-2 ">
+                        <div className="border rounded shadow-sm p-2 h-100">
                           <h6
                             className="text-center"
                             style={{ fontWeight: "bold", fontSize: "11px" }}
