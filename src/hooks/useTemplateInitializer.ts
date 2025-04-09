@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+  import { useEffect } from "react";
 import preBuiltTemplates from "../data/PrebuiltTemplates";
 
 // Define the expected structure of a template
