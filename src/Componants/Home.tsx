@@ -61,7 +61,7 @@ const Home: React.FC = () => {
             {
                 label: '',
                 data: [1200, 1900, 1500, 2200, 2800, 3000],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                backgroundColor: 'rgba(75, 192, 192, 0.3)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
             },
