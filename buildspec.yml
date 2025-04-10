@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - ./scripts/pre-build.sh
+  build:
+    commands:
+      - ./scripts/build.sh
+  post_build:
+    commands:
+      - ./scripts/post-build.sh
+
+cache:
+  paths:
+    - node_modules
