@@ -12,6 +12,7 @@ import Publish from './Pages/Publish';
 import Recommendations from './Pages/Recommendations';
 import Home from './Componants/Home';
 import Integration from './Pages/Integration';
+import PreEmailTemplate  from './Pages/PreEmailTemplate';
 
 const App: FC = () => {
   return (
@@ -22,6 +23,7 @@ const App: FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/templates" element={<Templates />} />
+          <Route path='/preEmailTemplate' element={<PreEmailTemplate/>}/>
           <Route path="/existingcontents" element={<ExistingDetails />} />
           <Route path="/newtemplate" element={<NewTemplate />} />
           <Route path="/templateEditing" element={<TemplateEditing />} />
