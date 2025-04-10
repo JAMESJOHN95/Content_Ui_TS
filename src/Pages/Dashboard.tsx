@@ -44,7 +44,7 @@ const Dashboard: React.FC = () => {
                       <p>Quick Start from Basic Template</p>
                       <div className="d-flex justify-content-around align-items-center mt-4 gap-2">
                         
-                      <Link to="/newtemplate">
+                    <Link to={'/newtemplate'}>
                         <button
                         type="button"
                         style={buttonStyle}
@@ -53,15 +53,17 @@ const Dashboard: React.FC = () => {
                           >
                             New Content Block Template
                           </button>
-                      </Link>
-                        <button
-                          type="button"
-                          style={buttonStyle}
-                          onMouseOver={handleMouseOver}
-                          onMouseOut={handleMouseOut}
-                        >
-                          New Email Template
-                        </button>
+                    </Link>
+                      <Link to={'/emailtemplate'}>
+                          <button
+                            type="button"
+                            style={buttonStyle}
+                            onMouseOver={handleMouseOver}
+                            onMouseOut={handleMouseOut}
+                          >
+                            New Email Template
+                          </button>
+                      </Link >
                       </div>
                     </div>
                   </div>

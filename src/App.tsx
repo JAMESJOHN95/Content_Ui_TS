@@ -13,6 +13,7 @@ import Recommendations from './Pages/Recommendations';
 import Home from './Componants/Home';
 import Integration from './Pages/Integration';
 import PreEmailTemplate  from './Pages/PreEmailTemplate';
+import EmailTemplate from './Pages/EmailTemplates';
 
 const App: FC = () => {
   return (
@@ -30,6 +31,7 @@ const App: FC = () => {
           <Route path="/Publish" element={<Publish />} />
           <Route path="/recommendations" element={<Recommendations />} />
           <Route path="/integration" element={<Integration />} />
+          <Route path="/emailtemplate" element={<EmailTemplate />} />
         </Routes>
       </TokenProvider>
     </>
