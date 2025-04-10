@@ -19,8 +19,7 @@ import { replace } from "react-router-dom";
 import { Dispatch, SetStateAction } from "react";
 import { DragEvent } from "react";
 import { TextAlign } from "@tiptap/extension-text-align";
-
-function NewTemplate() {
+function EmailTemplate() {
     interface DropTarget {
         columnId?: string;
         blockId?: string;
@@ -528,7 +527,7 @@ function NewTemplate() {
           columns,
           containerContent,
           desc: description,
-          type:"block"
+          type:"email"
         };
       
         // Retrieve existing data from localStorage
@@ -929,7 +928,7 @@ function NewTemplate() {
           
                   {/* Form Section */}
                   <div className="col-md-10 mt-4">
-                    <h2 className="fw-bold mb-4">Create Content Block Template</h2>
+                    <h2 className="fw-bold mb-4">Create Email Template</h2>
           
                     <div className="row">
                       {/* Left Side (Category, Subject) */}
@@ -1331,7 +1330,7 @@ function NewTemplate() {
                   </div>
                 </div>
               </div>
-          )
+            );
 }
 
-export default NewTemplate
+export default EmailTemplate

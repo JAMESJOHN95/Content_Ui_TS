@@ -40,7 +40,7 @@ const ExistingDetails: React.FC = () => {
   const [showExportModal, setShowExportModal] = useState<boolean>(false);
   //to store the HTML content of the template
   const [exportedHtml, setExportedHTML] = useState<string>("");
-  const [selectedFilter, setSelectedFilter] = useState<string>("showAll");
+  const [selectedFilter, setSelectedFilter] = useState<string>("blockContent");
   const [templates, setTemplates] = useState<Template[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
     null
@@ -106,12 +106,11 @@ const ExistingDetails: React.FC = () => {
           (template) => template.type === "email" || !template.type
         );
       case "blockContent":
-        return templates.filter((template) => template.type === "block");
+        return templates.filter((template) => template.type ==="block");
       default:
         return templates;
     }
   };
-
   const exportTemplateAsHtml = () => {
     //if the selected template is null then return
     if (!selectedTemplate) return;
@@ -164,7 +163,7 @@ const ExistingDetails: React.FC = () => {
           if (content.imageData) {
             htmlContent += `
         <div class="image-container">
-          ${content.fileName ? `<p>${content.fileName}</p>` : ""}
+          ${content.fileName ? <p>${content.fileName}</p> : ""}
           <img src="${content.imageData}" alt="${
               content.fileName || "Template image"
             }" />
@@ -391,12 +390,12 @@ const ExistingDetails: React.FC = () => {
                   {/* Template Info */}
                   <div className="rounded p-2 col-12 mb-3 mb-md-0">
                     <div className="row d-flex align-items-stretch ">
-                      <div className="col-md-8 mb-3 mb-md-0">
+                      <div className="col-md-6 mb-3 mb-md-0">
                         <div className="border rounded shadow-sm p-2 row h-100">
                           <div className="col-md-6">
                             {template.containerContent?.length! > 0 && (
-                              <div className="template-images">
-                                <div className="d-flex flex-wrap gap-2 ">
+                              <div className="template-images mt-2">
+                                <div className="d-flex flex-wrap gap-2" >
                                   {template.containerContent
                                     ?.filter(
                                       (item) =>
@@ -424,7 +423,7 @@ const ExistingDetails: React.FC = () => {
                                             }
                                             className="img-fluid rounded border"
                                             style={{
-                                              maxHeight: "120px",
+                                              height: "100%",
                                               objectFit: "cover",
                                               width: "100%",
                                             }}
@@ -445,16 +444,33 @@ const ExistingDetails: React.FC = () => {
                             )}
                           </div>
                           <div className="col-md-6">
-                            <p style={{ fontSize: "15px", fontWeight: "bold" }}>
+                          <h6
+                            className="text-center mt-1"
+                            style={{ fontWeight: "bold", fontSize: "15px" }}
+                          >
+                             {template.templateName}
+                          </h6>
+                          {/* <hr /> */}
+                         <p className="mt-4">{template.desc}</p>
+                         <a href=""style={{fontSize:'12px'}}>Get More info</a>
+
+                          </div>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="col-md-3">
+                        <div className="border rounded shadow-sm p-2 h-100">
+                        <p style={{ fontSize: "15px", fontWeight: "bold" }}>
                               {template.templateName}
                             </p>
+                            <hr/>
                             <p style={{ fontSize: "12px" }}>
                               Category: {template.categoryName}
                             </p>
 
                             <p style={{ fontSize: "11px" }}>
-                              Description:{" "}
-                              {template.desc || "No description provided"}
+                              
+                            {template.desc || "No description provided"}
                             </p>
 
                             {/* Template Actions */}
@@ -476,15 +492,14 @@ const ExistingDetails: React.FC = () => {
                                 ></i>
                               </button>
                             </div>
-                          </div>
                         </div>
                       </div>
                       {/* Analytics */}
-                      <div className="col-md-4">
+                      <div className="col-md-3">
                         <div className="border rounded shadow-sm p-2 h-100">
                           <h6
                             className="text-center"
-                            style={{ fontWeight: "bold", fontSize: "11px" }}
+                            style={{ fontWeight: "bold", fontSize: "15px" }}
                           >
                             Analytics Overview
                           </h6>
