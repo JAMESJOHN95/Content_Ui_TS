@@ -62,6 +62,7 @@ interface Editor {
     columns: Column[];
     containerContent: ContainerContent[];
     desc: string;
+    type: string,
   };
   
 interface ContentItem {
@@ -92,6 +93,7 @@ interface Template {
   columns: any[]; // Replace 'any[]' with actual type
   containerContent: any[]; // Replace 'any[]' with actual type
   desc: string;
+  type:string;
 }
   type SetState<T> = Dispatch<SetStateAction<T>>;
   const [showImportModal, setShowImportModal] = useState<boolean>(false);
@@ -527,6 +529,7 @@ const handleSaveButtonClick = (
     columns,
     containerContent,
     desc: description,
+    type:"block",
   };
 
   // Retrieve existing data from localStorage

@@ -44,14 +44,16 @@ const Dashboard: React.FC = () => {
                       <p>Quick Start from Basic Template</p>
                       <div className="d-flex justify-content-around align-items-center mt-4 gap-2">
                         
-                      <button
-                      type="button"
-                      style={buttonStyle}
-                      onMouseOver={handleMouseOver}
-                      onMouseOut={handleMouseOut}
-                        >
-                          New Content Block Template
-                        </button>
+                      <Link to="/newtemplate">
+                        <button
+                        type="button"
+                        style={buttonStyle}
+                        onMouseOver={handleMouseOver}
+                        onMouseOut={handleMouseOut}
+                          >
+                            New Content Block Template
+                          </button>
+                      </Link>
                         <button
                           type="button"
                           style={buttonStyle}
