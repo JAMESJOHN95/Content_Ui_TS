@@ -61,6 +61,7 @@ interface Editor {
     columns: Column[];
     containerContent: ContainerContent[];
     desc: string;
+    type:string;
   };
   
 interface ContentItem {
@@ -91,6 +92,7 @@ interface Template {
   columns: any[]; // Replace 'any[]' with actual type
   containerContent: any[]; // Replace 'any[]' with actual type
   desc: string;
+  type:string;
 }
   type SetState<T> = Dispatch<SetStateAction<T>>;
   const [showImportModal, setShowImportModal] = useState<boolean>(false);
@@ -114,6 +116,7 @@ interface Template {
   const [templateData, setTemplateData] = useState<TemplateData | null>(null);
   const [templateName, setTemplateName] = useState<string>("");
   const [categoryName, setCategoryName] = useState<string>("");
+  const[description,setDescription]=useState<string>("")
   const navigate = useNavigate();
 
   const editor = useEditor({
@@ -136,6 +139,10 @@ interface Template {
       if (parsedTemplate.templateBody && editor) {
         setTemplateBody(parsedTemplate.templateBody);
         editor.commands.setContent(parsedTemplate.templateBody);
+      }
+      if(parsedTemplate.desc)
+      {
+        setDescription(parsedTemplate.desc)
       }
       sessionStorage.removeItem("editTemplate");
     }
@@ -523,7 +530,8 @@ const handleSaveButtonClick = (
     templateBody,
     columns,
     containerContent,
-    desc: "",
+    desc:description,
+    type:'block',
   };
 
   // Retrieve existing data from localStorage
@@ -924,7 +932,7 @@ const handleSaveButtonClick = (
     
             {/* Form Section */}
             <div className="col-md-10 mt-4">
-              <h2 className="fw-bold mb-4">Create Template</h2>
+              <h2 className="fw-bold mb-4">Create Content block Template</h2>
     
               <div className="row">
                 {/* Left Side (Category, Subject) */}
@@ -1317,6 +1325,8 @@ const handleSaveButtonClick = (
                       className="form-control"
                       rows={3}
                       placeholder="Enter description"
+                      value={description}
+                      onChange={(e)=>setDescription(e.target.value)}
                     ></textarea>
                   </div>
                 </div>

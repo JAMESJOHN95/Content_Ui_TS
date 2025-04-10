@@ -36,10 +36,8 @@ const Dashboard: React.FC = () => {
                   </p>
                 </div>
                 <div className="d-flex justify-content-around flex-wrap gap-4 mt-5">
-                  <Link
-                    to={"/newtemplate"}
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
+              
+                
                     <div className="selectTemplate text-center border rounded p-4">
                       <div>
                         <i className="fa-regular fa-bookmark"></i>
@@ -48,25 +46,29 @@ const Dashboard: React.FC = () => {
                       <p>Quick Start from Basic Template</p>
                       <div className="d-flex justify-content-around align-items-center mt-4 gap-2">
                         
-                      <button
-                      type="button"
-                      style={buttonStyle}
-                      onMouseOver={handleMouseOver}
-                      onMouseOut={handleMouseOut}
-                        >
-                          New Content Block Template
-                        </button>
+                     <Link to={'/newTemplate'}>
                         <button
-                          type="button"
-                          style={buttonStyle}
-                          onMouseOver={handleMouseOver}
-                          onMouseOut={handleMouseOut}
-                        >
-                          New Email Template
-                        </button>
+                        type="button"
+                        style={buttonStyle}
+                        onMouseOver={handleMouseOver}
+                        onMouseOut={handleMouseOut}
+                          >
+                            New Content Block Template
+                          </button>
+                     </Link>
+                   <Link to={'/emailTemplate'}>
+                          <button
+                            type="button"
+                            style={buttonStyle}
+                            onMouseOver={handleMouseOver}
+                            onMouseOut={handleMouseOut}
+                          >
+                            New Email Template
+                          </button>
+                   </Link>
                       </div>
                     </div>
-                  </Link>
+             
                   <div
                     onClick={handlePrebuildTemplate}
                     style={{ cursor: "pointer" }}

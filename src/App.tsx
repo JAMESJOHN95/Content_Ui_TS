@@ -12,6 +12,7 @@ import Publish from './Pages/Publish';
 import Recommendations from './Pages/Recommendations';
 import Home from './Componants/Home';
 import Integration from './Pages/Integration';
+import EmailTemplate from './Pages/EmailTemplate';
 
 const App: FC = () => {
   return (
@@ -23,11 +24,13 @@ const App: FC = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/templates" element={<Templates />} />
           <Route path="/existingcontents" element={<ExistingDetails />} />
-          <Route path="/newtemplate" element={<NewTemplate />} />
+          <Route path="/newtemplate" element={<NewTemplate/>} />
           <Route path="/templateEditing" element={<TemplateEditing />} />
           <Route path="/Publish" element={<Publish />} />
           <Route path="/recommendations" element={<Recommendations />} />
           <Route path="/integration" element={<Integration />} />
+          <Route path="/emailTemplate" element={<EmailTemplate/>} />
+
         </Routes>
       </TokenProvider>
     </>

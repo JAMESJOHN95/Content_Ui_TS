@@ -10,6 +10,7 @@ interface Template {
   id?: string;
   templateName: string;
   categoryName: string;
+  desc: string;
   templateBody?: string;
   containerContent?: Array<{
     id?: string;
@@ -39,7 +40,7 @@ const ExistingDetails: React.FC = () => {
   const [showExportModal, setShowExportModal] = useState<boolean>(false);
   //to store the HTML content of the template
   const [exportedHtml, setExportedHTML] = useState<string>("");
-  const [selectedFilter, setSelectedFilter] = useState<string>("showAll");
+  const [selectedFilter, setSelectedFilter] = useState<string>("blockContent");
   const [templates, setTemplates] = useState<Template[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
     null
@@ -105,7 +106,7 @@ const ExistingDetails: React.FC = () => {
           (template) => template.type === "email" || !template.type
         );
       case "blockContent":
-        return templates.filter((template) => template.type === "block");
+        return templates.filter((template) => template.type ==="block");
       default:
         return templates;
     }
@@ -163,7 +164,7 @@ const ExistingDetails: React.FC = () => {
           if (content.imageData) {
             htmlContent += `
         <div class="image-container">
-          ${content.fileName ? `<p>${content.fileName}</p>` : ""}
+          ${content.fileName ? <p>${content.fileName}</p> : ""}
           <img src="${content.imageData}" alt="${
               content.fileName || "Template image"
             }" />
@@ -263,7 +264,7 @@ const ExistingDetails: React.FC = () => {
     alert("Content published successfully");
     handlePublishClose();
   };
-
+console.log(templates)
   return (
     <>
       <div className="row">
@@ -390,94 +391,116 @@ const ExistingDetails: React.FC = () => {
                   {/* Template Info */}
                   <div className="rounded p-2 col-12 mb-3 mb-md-0">
                     <div className="row d-flex align-items-stretch ">
-                      <div className="col-md-8 mb-3 mb-md-0">
+                      <div className="col-md-6 mb-3 mb-md-0">
                         <div className="border rounded shadow-sm p-2 row h-100">
-                        <div className="col-md-6">
-                        {template.containerContent?.length! > 0 && (
-                          <div className="template-images">
-                            <div className="d-flex flex-wrap gap-2 ">
-                              {template.containerContent
-                                ?.filter(
-                                  (item) =>
-                                    item.type === "image" &&
-                                    typeof item.content === "object" &&
-                                    item.content?.imageData
-                                )
-                                .slice(0, 1) // Show only 1 image
-                                .map((item, idx) => {
-                                  const content = item.content as {
-                                    fileName?: string;
-                                    imageData?: string;
-                                  };
-                                  return (
-                                    <div
-                                      key={idx}
-                                      className="position-relative"
-                                      style={{ width: "100%" }}
-                                    >
-                                      <img
-                                        src={content.imageData}
-                                        alt={
-                                          content.fileName || "Content Image"
-                                        }
-                                        className="img-fluid rounded border"
-                                        style={{
-                                          maxHeight: "120px",
-                                          objectFit: "cover",
-                                          width: "100%",
-                                        }}
-                                      />
-                                      {content.fileName && (
-                                        <small
-                                          className="text-muted d-block text-truncate"
-                                          style={{ fontSize: "8px" }}
+                          <div className="col-md-6">
+                            {template.containerContent?.length! > 0 && (
+                              <div className="template-images mt-2">
+                                <div className="d-flex flex-wrap gap-2" >
+                                  {template.containerContent
+                                    ?.filter(
+                                      (item) =>
+                                        item.type === "image" &&
+                                        typeof item.content === "object" &&
+                                        item.content?.imageData
+                                    )
+                                    .slice(0, 1) // Show only 1 image
+                                    .map((item, idx) => {
+                                      const content = item.content as {
+                                        fileName?: string;
+                                        imageData?: string;
+                                      };
+                                      return (
+                                        <div
+                                          key={idx}
+                                          className="position-relative"
+                                          style={{ width: "100%" }}
                                         >
-                                          {content.fileName}
-                                        </small>
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                            </div>
+                                          <img
+                                            src={content.imageData}
+                                            alt={
+                                              content.fileName ||
+                                              "Content Image"
+                                            }
+                                            className="img-fluid rounded border"
+                                            style={{
+                                              height: "100%",
+                                              objectFit: "cover",
+                                              width: "100%",
+                                            }}
+                                          />
+                                          {content.fileName && (
+                                            <small
+                                              className="text-muted d-block text-truncate"
+                                              style={{ fontSize: "8px" }}
+                                            >
+                                              {content.fileName}
+                                            </small>
+                                          )}
+                                        </div>
+                                      );
+                                    })}
+                                </div>
+                              </div>
+                            )}
                           </div>
-                        )}
-                        </div>
-                        <div className="col-md-6">
-                          <p style={{ fontSize: "15px", fontWeight: "bold" }}>
-                            {template.templateName}
-                          </p>
-                          <p style={{ fontSize: "12px" }}>
-                            Category: {template.categoryName}
-                          </p>
+                          <div className="col-md-6">
+                          <h6
+                            className="text-center mt-1"
+                            style={{ fontWeight: "bold", fontSize: "15px" }}
+                          >
+                             {template.templateName}
+                          </h6>
+                          {/* <hr /> */}
+                         <p className="mt-4">{template.desc}</p>
+                         <a href=""style={{fontSize:'12px'}}>Get More info</a>
 
-                          {/* Template Actions */}
-                          <div className="d-flex justify-content-between align-items-center mt-3">
-                            <button
-                              className="btn btn-sm btn-outline-primary"
-                              onClick={() => handleShow(template)}
-                              style={{ fontSize: "10px" }}
-                            >
-                              Preview
-                            </button>
-                            <button
-                              className="btn btn-sm btn-outline-danger"
-                              onClick={() => handleDelete(index)}
-                            >
-                              <i
-                                className="fa-solid fa-trash"
-                                style={{ fontSize: "11px" }}
-                              ></i>
-                            </button>
                           </div>
                         </div>
                       </div>
+                      {/*  */}
+                      <div className="col-md-3">
+                        <div className="border rounded shadow-sm p-2 h-100">
+                        <p style={{ fontSize: "15px", fontWeight: "bold" }}>
+                              {template.templateName}
+                            </p>
+                            <hr/>
+                            <p style={{ fontSize: "12px" }}>
+                              Category: {template.categoryName}
+                            </p>
+
+                            <p style={{ fontSize: "11px" }}>
+                              
+                            {template.desc || "No description provided"}
+                            </p>
+
+                            {/* Template Actions */}
+                            <div className="d-flex justify-content-between align-items-center mt-3">
+                              <button
+                                className="btn btn-sm btn-outline-primary"
+                                onClick={() => handleShow(template)}
+                                style={{ fontSize: "10px" }}
+                              >
+                                Preview
+                              </button>
+                              <button
+                                className="btn btn-sm btn-outline-danger"
+                                onClick={() => handleDelete(index)}
+                              >
+                                <i
+                                  className="fa-solid fa-trash"
+                                  style={{ fontSize: "11px" }}
+                                ></i>
+                              </button>
+                            </div>
+                        </div>
                       </div>
                       {/* Analytics */}
-                      <div className="col-md-4">
+                      <div className="col-md-3">
                         <div className="border rounded shadow-sm p-2 h-100">
                           <h6
                             className="text-center"
-                            style={{ fontWeight: "bold", fontSize: "11px" }}
+                            style={{ fontWeight: "bold", fontSize: "15px" }}
                           >
                             Analytics Overview
                           </h6>
@@ -582,6 +605,10 @@ const ExistingDetails: React.FC = () => {
                 <h4 className="text-left">
                   Category - <i>{selectedTemplate?.categoryName}</i>
                 </h4>
+                <p className="text-left mt-3">
+                  Description:{" "}
+                  {selectedTemplate?.desc || "No description provided"}
+                </p>
               </div>
             </div>
 
@@ -869,4 +896,4 @@ const ExistingDetails: React.FC = () => {
   );
 };
 
-export default ExistingDetails;
+export default ExistingDetails; 
