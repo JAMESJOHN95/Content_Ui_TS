@@ -185,7 +185,7 @@ const handleInfoClose = () => setShowModal(false);
         </div>
         <div className="col-md-11 mt-0 p-4">
           <div className="row mt-1">
-            <h2 className="fw-bold mb-4">Prebuilt Content Block Template</h2>
+            <h2 className="fw-bold mb-4">Prebuilt Email Template</h2>
             <div className="d-flex align-items-center justify-content-center mb-4 border row">
               <div className="text-end">
                 <span
