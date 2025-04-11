@@ -26,7 +26,6 @@ interface Template {
   type: string;
   emailList: string[];
 }
-
 // Array of prebuilt templates
 const PrebuiltTemplates: Template[] = [
   {

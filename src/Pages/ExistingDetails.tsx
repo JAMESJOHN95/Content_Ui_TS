@@ -41,7 +41,8 @@ const ExistingDetails: React.FC = () => {
   const [showExportModal, setShowExportModal] = useState<boolean>(false);
   //to store the HTML content of the template
   const [exportedHtml, setExportedHTML] = useState<string>("");
-  const [selectedFilter, setSelectedFilter] = useState<string>("blockContent");
+  const [selectedFilter, setSelectedFilter] = useState<string>("showAll");
+  const [selectedFilter2, setSelectedFilter2] = useState<string>("blockContent");
   const [templates, setTemplates] = useState<Template[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
     null
@@ -108,12 +109,15 @@ const ExistingDetails: React.FC = () => {
     }
   };
 
+  const handleFilterChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedFilter2(event.target.value);
+  };
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFilter(event.target.value);
   };
 
   const getFilteredTemplates = (): Template[] => {
-    switch (selectedFilter) {
+    switch (selectedFilter2) {
       case "activeContent":
         return templates.filter((template) => template.status === "Yes");
       case "expiredContent":
@@ -353,10 +357,10 @@ const ExistingDetails: React.FC = () => {
                   type="radio"
                   className="me-2"
                   value="emailContent"
-                  name="contentFilter"
+                  name="contentFilter2"
                   id="emailContent"
-                  checked={selectedFilter === "emailContent"}
-                  onChange={handleFilterChange}
+                  checked={selectedFilter2 === "emailContent"}
+                  onChange={handleFilterChange2}
                 />
                 <label
                   htmlFor="emailContent"
@@ -369,10 +373,10 @@ const ExistingDetails: React.FC = () => {
                   type="radio"
                   className="me-2"
                   value="blockContent"
-                  name="contentFilter"
+                  name="contentFilter2"
                   id="blockContent"
-                  checked={selectedFilter === "blockContent"}
-                  onChange={handleFilterChange}
+                  checked={selectedFilter2 === "blockContent"}
+                  onChange={handleFilterChange2}
                 />
                 <label
                   htmlFor="blockContent"
