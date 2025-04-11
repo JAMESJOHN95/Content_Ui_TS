@@ -30,10 +30,10 @@ interface Template {
 const PrebuiltTemplates: Template[] = [
   {
     id: uuidv4(),
-    templateName: "One-on-One Template",
+    templateName: "One-on-One Content Template",
     categoryName: "SD",
     status: "Yes",
-    templateBody: "<p>This is a One-on-One Template</p>",
+    templateBody: "<p>This is a One-on-One Content Template</p>",
     columns: [],
     containerContent: [
       {
@@ -44,7 +44,7 @@ const PrebuiltTemplates: Template[] = [
         },
       },
     ],
-    desc: "Marketing Templates from One-on-One Template",
+    desc: "Marketing Templates from One-on-One Content Template",
     type:"block",
     emailList: [
       "SDI_OAA_FHSA_Submitted_Day4",
@@ -55,10 +55,10 @@ const PrebuiltTemplates: Template[] = [
   },
   {
     id: uuidv4(),
-    templateName: "Stellar Template",
+    templateName: "Stellar Email Template",
     categoryName: "QWP",
     status: "Yes",
-    templateBody: "<p>This is a Stellar Template</p>",
+    templateBody: "<p>This is a Stellar Email Template</p>",
     columns: [],
     containerContent: [
       {
@@ -69,7 +69,7 @@ const PrebuiltTemplates: Template[] = [
         },
       },
     ],
-    desc: "Business Templates from Stellar Template",
+    desc: "Buisness Templates from Stellar Email Template",
     type:"email",
     emailList: [
       "SDI_OAA_FHSA_Submitted_Day6",
