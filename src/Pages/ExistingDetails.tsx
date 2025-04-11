@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import logo from "../Images/logo.png";
 import { FaCircleInfo } from "react-icons/fa6";
-import { useTemplateInitializer } from "../hooks/useTemplateInitializer";
+import preBuiltTemplates from "../data/PrebuiltTemplates";
 
 interface Template {
   id?: string;
@@ -35,6 +35,7 @@ interface Template {
 }
 
 const ExistingDetails: React.FC = () => {
+  
   const navigate = useNavigate();
   //modal for exporting HTML content
   const [showExportModal, setShowExportModal] = useState<boolean>(false);
@@ -52,21 +53,18 @@ const ExistingDetails: React.FC = () => {
   //default selected platform is AJO
   const [selectedPlatform, setSelectedPlatform] = useState<string>("ajo");
 
-  useTemplateInitializer();
-
   useEffect(() => {
     const storedTemplates: Template[] = JSON.parse(
       localStorage.getItem("templates") || "[]"
     );
-  
-    // More detailed debugging
-    console.log("Raw stored templates:", storedTemplates);
-    console.log("Template types", storedTemplates.map(t => ({
-      name: t.templateName, 
-      type: t.type,
-    })));
-    
-    setTemplates(storedTemplates);
+   
+    if(storedTemplates.length > 0){
+      console.log("Using templates from local storage:", storedTemplates);
+      setTemplates(storedTemplates);
+    }else{
+      console.log("Using prebuilt templates:", preBuiltTemplates);
+      setTemplates(preBuiltTemplates);
+    }
   }, []);
   
   const handleShow = (template: Template) => {
@@ -96,7 +94,11 @@ const ExistingDetails: React.FC = () => {
     const updatedTemplates = [...templates];
     updatedTemplates.splice(index, 1);
     setTemplates(updatedTemplates);
-    localStorage.setItem("templates", JSON.stringify(updatedTemplates));
+    // Only update localStorage if it originally had templates
+    const storedTemplates = JSON.parse(localStorage.getItem("templates") || "[]");
+    if (storedTemplates.length > 0) {
+      localStorage.setItem("templates", JSON.stringify(updatedTemplates));
+    }
   };
 
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
