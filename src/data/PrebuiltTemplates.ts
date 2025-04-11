@@ -23,6 +23,7 @@ interface Template {
   columns: any[]; // You can define a more specific type if columns have a structure
   containerContent: ContainerContent[];
   desc: string;
+  type: string;
   emailList: string[];
 }
 
@@ -45,6 +46,7 @@ const PrebuiltTemplates: Template[] = [
       },
     ],
     desc: "Marketing Templates from One-on-One Template",
+    type:"block",
     emailList: [
       "SDI_OAA_FHSA_Submitted_Day4",
       "SDI_OAA_FHSA_Submitted_Day11",
@@ -69,6 +71,7 @@ const PrebuiltTemplates: Template[] = [
       },
     ],
     desc: "Business Templates from Stellar Template",
+    type:"email",
     emailList: [
       "SDI_OAA_FHSA_Submitted_Day6",
       "SDI_OAA_FHSA_Submitted_Day13",

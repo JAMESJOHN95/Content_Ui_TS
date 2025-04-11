@@ -17,6 +17,7 @@ interface Template {
     };
   }[];
   desc: string;
+  type: string;
   emailList: string[];
 }
 
@@ -27,7 +28,9 @@ export const useTemplateInitializer = () => {
 
     // Check if no templates exist, then add pre-built templates
     if (existingTemplates.length === 0) {
+      console.log("Initializing with prebuilt templates:", preBuiltTemplates);
       localStorage.setItem("templates", JSON.stringify(preBuiltTemplates));
     }
   }, []);
 };
+

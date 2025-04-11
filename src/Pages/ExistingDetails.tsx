@@ -11,6 +11,7 @@ interface Template {
   templateName: string;
   categoryName: string;
   desc: string;
+  type: string;
   templateBody?: string;
   containerContent?: Array<{
     id?: string;
@@ -31,7 +32,6 @@ interface Template {
     }>;
   }>;
   status?: string;
-  type?: string;
 }
 
 const ExistingDetails: React.FC = () => {
@@ -58,9 +58,17 @@ const ExistingDetails: React.FC = () => {
     const storedTemplates: Template[] = JSON.parse(
       localStorage.getItem("templates") || "[]"
     );
+  
+    // More detailed debugging
+    console.log("Raw stored templates:", storedTemplates);
+    console.log("Template types", storedTemplates.map(t => ({
+      name: t.templateName, 
+      type: t.type,
+    })));
+    
     setTemplates(storedTemplates);
   }, []);
-
+  
   const handleShow = (template: Template) => {
     setSelectedTemplate(template);
     setShowEditModal(true);
@@ -103,10 +111,9 @@ const ExistingDetails: React.FC = () => {
         return templates.filter((template) => template.status === "No");
       case "emailContent":
         return templates.filter(
-          (template) => template.type === "email" || !template.type
-        );
+          (template) => template.type && template.type.toLowerCase() === "email");
       case "blockContent":
-        return templates.filter((template) => template.type ==="block");
+        return templates.filter((template) => template.type && template.type.toLowerCase() === "block");
       default:
         return templates;
     }
