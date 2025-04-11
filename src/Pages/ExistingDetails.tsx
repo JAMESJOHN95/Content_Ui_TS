@@ -52,14 +52,6 @@ const ExistingDetails: React.FC = () => {
   const [showPublishModal, setShowPublishModal] = useState<boolean>(false);
   //default selected platform is AJO
   const [selectedPlatform, setSelectedPlatform] = useState<string>("ajo");
-  const [emailtemp, setEmailtemp] = useState(false);
-
-  const handleEmailclose = () => setEmailtemp(false);
-  const handleEmailshow = (type:string) =>
-    {
-      if(type=="email")
-      setEmailtemp(true);
-    } 
 
   useEffect(() => {
     const storedTemplates: Template[] = JSON.parse(
@@ -460,7 +452,7 @@ const ExistingDetails: React.FC = () => {
                               </div>
                             )}
                           </div>
-                          <div className="col-md-6" onClick={() => handleEmailshow(template.type as string)}>
+                          <div className="col-md-6">
                           <h6
                             className="text-center mt-1"
                             style={{ fontWeight: "bold", fontSize: "15px" }}
@@ -906,33 +898,6 @@ const ExistingDetails: React.FC = () => {
           <button className="btn btn-primary" onClick={handlePublishContent}>
             Publish
           </button>
-        </Modal.Footer>
-      </Modal>
-      <Modal show={emailtemp} onHide={handleEmailclose}>
-        <Modal.Header closeButton>
-          <Modal.Title>New Message</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="d-flex align-item-center justify-content-center">
-            <div className="d-flex">
-              <p className="me-1">To</p>
-              <input type="text" style={{ border: 'none', outline: 'none' }}  />
-            </div>
-            <div className="ms-auto d-flex">
-              <p className="me-3">Cc</p>
-              <p>Bcc</p>
-            </div>
-          </div>
-          <hr />
-          <div className="d-flex row">
-              <input type="text" style={{ border: 'none', outline: 'none' }} placeholder="Subject"/>
-            </div>
-          <hr />
-        </Modal.Body>
-        <Modal.Footer>
-         <button className="btn btn-primary" onClick={handleEmailclose}>Send</button>
-         <button className="btn btn-primary" onClick={handleEmailclose}>Close</button>
-         <button className="btn btn-outline-primary" onClick={handleEmailclose}><i className="fa-solid fa-trash"style={{ fontSize: "11px" }} ></i></button>
         </Modal.Footer>
       </Modal>
     </>
