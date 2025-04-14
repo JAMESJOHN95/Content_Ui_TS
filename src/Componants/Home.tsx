@@ -93,14 +93,14 @@ const Home: React.FC = () => {
     return (
         <div className='container-fluid'>
             <div className='row'>
-                <div className='col-md-1 p-0'>
+                <div className='col-md-1 col-2 p-0'>
                     <Layout />
                 </div>
-                <div className='col-md-11 mt-4'>
-                    <h3 className='ms-5 '>Welcome!</h3>
+                <div className='col-md-11 col-10 mt-4'>
+                    <h3 className='ms-5 fw-bold fs-1'>Welcome!</h3>
                     <div className='row mt-2'>
                         {['Total Content Blocks', 'Content Block Published', 'Content Block Deactivated', 'Drafts'].map((title, index) => (
-                            <div className='col-md-3' key={index}>
+                            <div className='col-md-3 mb-3 mb-md-0' key={index}>
                                 <div className='border rounded'>
                                     <h5 className='p-2 text-center'>{title}</h5>
                                     <h5 className='p-2 text-center'>{dataValues[index]}</h5>
@@ -109,14 +109,14 @@ const Home: React.FC = () => {
                         ))}
                     </div>
                     <div className='row mt-1'>
-                        <div className='col-md-6'>
+                        <div className='col-md-6 mb-3 mb-md-0'>
                             <div className='border solid rounded d-flex justify-content-center align-items-center p-2'>
                                 <div style={{ width: '50%' }}>
                                     <Pie data={data} options={options} className='p-2' />
                                 </div>
                             </div>
                         </div>
-                        <div className='col-md-6'>
+                        <div className='col-md-6 mb-3 mb-md-0'>
                             <div className='border solid rounded p-2'>
                                 <Bar data={databar} options={optionsbar} />
                             </div>
@@ -124,7 +124,7 @@ const Home: React.FC = () => {
                     </div>
                     <div className='row mt-1 mb-4'>
                         {['Impressions', 'Opened', 'Clicks', 'Total Sends'].map((title, index) => (
-                            <div className='col-md-3' key={index}>
+                            <div className='col-md-3 mb-3 mb-md-0' key={index}>
                                 <div className='border rounded'>
                                     <h5 className='p-2 text-center'>{title}</h5>
                                     <h5 className='p-2 text-center'>{[10, 65, 64, 129][index]}</h5>
