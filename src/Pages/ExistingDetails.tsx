@@ -478,7 +478,7 @@ const ExistingDetails: React.FC = () => {
                         </div>
                       </div>
                       {/*  */}
-                      <div className="col-md-3">
+                      <div className="col-md-3 mb-3 mb-md-0">
                         <div className="border rounded shadow-sm p-2 h-100">
                         <p style={{ fontSize: "15px", fontWeight: "bold" }}>
                               {template.templateName}

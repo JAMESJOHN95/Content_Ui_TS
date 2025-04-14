@@ -12,13 +12,13 @@ function Integration() {
           <hr />
         </div>
         <div className="row border m-3 container">
-          <div className="border border-solid p-2 m-2 mt-3 p-2">
+          <div className="border border-solid p-2 m-2 mt-3 p-2" style={{cursor:"pointer"}}>
             <h5>Adobe Journey Optimizer</h5>
           </div>
-          <div className="border border-solid p-2 m-2">
+          <div className="border border-solid p-2 m-2" style={{cursor:"pointer"}}>
             <h5>Salesforce Content Builder</h5>
           </div>
-          <div className="border border-solid p-2 m-2 mb-3">
+          <div className="border border-solid p-2 m-2 mb-3" style={{cursor:"pointer"}}>
             <h5>AWS Pinpoint</h5>
           </div>
         </div>
