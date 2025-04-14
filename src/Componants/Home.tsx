@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState} from 'react';
 import Layout from '../Pages/Layout';
 import { Pie, Bar } from 'react-chartjs-2';
 import { TooltipItem } from 'chart.js';
@@ -17,6 +17,22 @@ import {
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title);
 
 const Home: React.FC = () => {
+    //chart re-render state
+    const [chartKey, setChartKey] = useState<number>(0);
+    const pieChartRef = useRef<any>(null);
+    const barChartRef = useRef<any>(null);
+
+    //Add resize event listener to re-render charts when the window is resized
+    useEffect(()=>{
+        const handleResize = () => {
+            setChartKey(prev => prev + 1);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    })
+
     const dataValues: number[] = [10, 80, 5,10]; // Data for each segment
     const total: number = dataValues.reduce((acc, value) => acc + value, 0);
 
@@ -93,12 +109,12 @@ const Home: React.FC = () => {
     return (
         <div className='container-fluid'>
             <div className='row'>
-                <div className='col-md-1 col-2 p-0'>
+                <div className='col-md-1 p-0'>
                     <Layout />
                 </div>
-                <div className='col-md-11 col-10 mt-4'>
-                    <h3 className='ms-5 fw-bold fs-1'>Welcome!</h3>
-                    <div className='row mt-2'>
+                <div className='col-md-11 mt-4'>
+                    <h3 className='ms-3 fw-bold'>Welcome!</h3>
+                    <div className='row mt-2 mx-1 mx-md-0'>
                         {['Total Content Blocks', 'Content Block Published', 'Content Block Deactivated', 'Drafts'].map((title, index) => (
                             <div className='col-md-3 mb-3 mb-md-0' key={index}>
                                 <div className='border rounded'>
@@ -108,21 +124,21 @@ const Home: React.FC = () => {
                             </div>
                         ))}
                     </div>
-                    <div className='row mt-1'>
+                    <div className='row mt-1 mx-1 mx-md-0'>
                         <div className='col-md-6 mb-3 mb-md-0'>
                             <div className='border solid rounded d-flex justify-content-center align-items-center p-2'>
                                 <div style={{ width: '50%' }}>
-                                    <Pie data={data} options={options} className='p-2' />
+                                    <Pie key={`pie-${chartKey}`} ref={pieChartRef} data={data} options={options} className='p-2' />
                                 </div>
                             </div>
                         </div>
                         <div className='col-md-6 mb-3 mb-md-0'>
                             <div className='border solid rounded p-2'>
-                                <Bar data={databar} options={optionsbar} />
+                                <Bar key={`bar-${chartKey}`} ref={barChartRef} data={databar} options={optionsbar} />
                             </div>
                         </div>
                     </div>
-                    <div className='row mt-1 mb-4'>
+                    <div className='row mt-1 mb-4 mx-1 mx-md-0'>
                         {['Impressions', 'Opened', 'Clicks', 'Total Sends'].map((title, index) => (
                             <div className='col-md-3 mb-3 mb-md-0' key={index}>
                                 <div className='border rounded'>
