@@ -1,25 +1,32 @@
 import React from "react";
 import Layout from "./Layout";
+
 function Integration() {
   return (
-    <div className="row ">
+    <div className="row">
       <div className="col-md-1">
         <Layout />
       </div>
       <div className="col-md-11 container" style={{marginTop:'.5rem'}}>
-        <div className="mt-4 container ms-4">
-          <h3>External Integration</h3>
+        <div className="mt-4 container ms-md-4 ms-2">
+          <h3 className="fs-3 fs-md-3">External Integration</h3>
           <hr />
         </div>
-        <div className="row border m-3 container">
-          <div className="border border-solid p-2 m-2 mt-3 p-2" style={{cursor:"pointer"}}>
-            <h5>Adobe Journey Optimizer</h5>
+        <div className="row mx-1 mx-md-3 ms-md-4 ms-2 border border-solid">
+          <div className="col-12">
+            <div className="border border-solid p-2 my-2" style={{cursor:"pointer"}}>
+              <h5 className="fs-6 fs-md-5 text-center text-md-start">Adobe Journey Optimizer</h5>
+            </div>
           </div>
-          <div className="border border-solid p-2 m-2" style={{cursor:"pointer"}}>
-            <h5>Salesforce Content Builder</h5>
+          <div className="col-12">
+            <div className="border border-solid p-2 my-2" style={{cursor:"pointer"}}>
+              <h5 className="fs-6 fs-md-5 text-center text-md-start">Salesforce Content Builder</h5>
+            </div>
           </div>
-          <div className="border border-solid p-2 m-2 mb-3" style={{cursor:"pointer"}}>
-            <h5>AWS Pinpoint</h5>
+          <div className="col-12">
+            <div className="border border-solid p-2 my-2" style={{cursor:"pointer"}}>
+              <h5 className="fs-6 fs-md-5 text-center text-md-start">AWS Pinpoint</h5>
+            </div>
           </div>
         </div>
       </div>
