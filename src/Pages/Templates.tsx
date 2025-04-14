@@ -69,8 +69,8 @@ const Templates: React.FC = () => {
     handlePublishClose();
   };
 
-  const handleShow = () => setExportModal(true);
-  const handleClose = () => setExportModal(false);
+  const handleShow = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
 
   const handleExportShow = () => setExportModal(true);
   const handleExportClose = () => setExportModal(false);
